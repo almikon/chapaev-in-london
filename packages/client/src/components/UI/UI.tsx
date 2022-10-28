@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./UI.module.sass"
-import { Input } from "../UI-elements/Input/Input";
-import { Button } from "../UI-elements/Button/Button";
+import { Input } from "../elements/Input/Input";
+import { Button } from "../elements/Button/Button";
 
 export function UI() {
 
