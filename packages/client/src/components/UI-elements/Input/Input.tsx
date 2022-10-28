@@ -3,10 +3,10 @@ import styles from "./Input.module.sass"
 
 interface IInputInterface {
   type: 'text' | 'email' | 'password';
+  name: string;
+  placeholder: string;
   label?: string | undefined;
-  placeholder: string | undefined;
   value?: string;
-  name: string | undefined;
   handleChange?: ChangeEventHandler<HTMLInputElement> | undefined;
   maxLength?: number | undefined;
   minLength?: number | undefined;
