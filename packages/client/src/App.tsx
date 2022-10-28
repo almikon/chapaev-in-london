@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import './App.sass'
+import styles from './App.module.sass'
 import { UI } from "./components/UI/UI";
 
 
@@ -15,7 +15,7 @@ function App() {
     fetchServerData()
   }, [])
   return (
-    <div className="App">Вот тут будет жить ваше приложение :)
+    <div className={styles.App}>Вот тут будет жить ваше приложение :)
       <div>
         <UI></UI>
       </div>
