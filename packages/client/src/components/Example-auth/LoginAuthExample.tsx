@@ -4,6 +4,7 @@ import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
 import Auth from '../../api/Auth'
 import { apiPath } from '../../config'
+import { User } from '../../types/dto'
 
 export function LoginAuthExample() {
   const [login, setLogin] = useState('anton71')
@@ -12,6 +13,7 @@ export function LoginAuthExample() {
   const [secondName, setSecondName] = useState('Anton')
   const [email, setEmail] = useState('anton@ya.ru')
   const [phone, setPhone] = useState('+79852322253')
+  const [user, setUser] = useState<User>({} as User)
 
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -44,7 +46,7 @@ export function LoginAuthExample() {
     const authApi = new Auth(apiPath)
     const signIn = await authApi.signin({
       login,
-      password,
+      password
     })
 
     console.log('signIn', signIn)
@@ -57,7 +59,9 @@ export function LoginAuthExample() {
     const authApi = new Auth(apiPath)
 
     const user = await authApi.getUser()
-    console.log('user', user)
+    if (user.data) {
+      setUser(user?.data)
+    }
   }
 
   const handleLogOut = async (e: SyntheticEvent) => {
@@ -82,10 +86,10 @@ export function LoginAuthExample() {
       first_name: firstName,
       second_name: secondName,
       email,
-      phone,
+      phone
     })
 
-    console.log('signUp', signUp)
+    console.log('signUp', signUp?.data?.id)
   }
 
   return (
@@ -133,7 +137,7 @@ export function LoginAuthExample() {
           placeholder={'Enter password'}
           name={'password'}
           label={'Password'}
-          value={login}
+          value={password}
           handleChange={handleChangePassword}></Input>
         <Button
           type={'primary'}
@@ -160,6 +164,10 @@ export function LoginAuthExample() {
           value={'SIGN UP'}
           name={'button'}
           onClick={handleSubmitSignUp}></Button>
+
+        <div>
+          {JSON.stringify(user)}
+        </div>
       </div>
     </div>
   )

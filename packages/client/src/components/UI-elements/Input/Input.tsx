@@ -2,8 +2,9 @@ import React, { ChangeEventHandler } from 'react'
 import styles from './Input.module.sass'
 
 interface IInputInterface {
-  type: 'text' | 'email' | 'password' | 'phone'
+  type: 'text' | 'email' | 'password' | 'file' | 'tel'
   name: string
+  id?: string
   placeholder: string
   label?: string | undefined
   value?: string
@@ -21,6 +22,7 @@ export function Input(props: IInputInterface) {
       <input
         className={`${styles.input}`}
         type={props.type}
+        id={props.id}
         name={props.name}
         placeholder={props.placeholder}
         maxLength={props.maxLength}

@@ -1,10 +1,8 @@
 import Api from './Api'
 import { AuthPaths } from '../types/api-paths'
-import { AuthResponse } from '../types/api'
+import { ApiResponse } from '../types/api'
 import { Options } from '../types/httpTranspport'
-import { SigninDto, SignUpDto } from '../types/dto'
-import { AxiosError, AxiosResponse } from 'axios'
-import HTTPTransport from '../services/HTTPTransport'
+import { Id, SigninDto, CreateUserDto, User } from '../types/dto'
 
 class Auth extends Api {
   private readonly authPath: string = AuthPaths.AUTH
@@ -13,71 +11,48 @@ class Auth extends Api {
     super(url)
   }
 
-  public async signin(data: SigninDto): Promise<AuthResponse> {
+  public async signin(data: SigninDto): Promise<ApiResponse<string>> {
     const url = this.getPathAuth(AuthPaths.SIGN_IN)
 
     const options: Options = {
       ...this.options,
-      data,
+      data
     }
 
-    return this.requestAuth(url, options, 'post')
+    return this.requestProcessing<string>(url, options, 'post')
   }
 
-  public async signup(data: SignUpDto): Promise<AuthResponse> {
+  public async signup(data: CreateUserDto): Promise<ApiResponse<Id>> {
     const url = this.getPathAuth(AuthPaths.SIGN_UP)
 
     const options: Options = {
       ...this.options,
-      data,
+      data
     }
 
-    return this.requestAuth(url, options, 'post')
+    return this.requestProcessing<Id>(url, options, 'post')
   }
 
-  public async logout(): Promise<AuthResponse> {
+  public async logout(): Promise<ApiResponse<string>> {
     const url = this.getPathAuth(AuthPaths.LOGOUT)
 
     const options: Options = {
-      ...this.options,
+      ...this.options
     }
 
-    return this.requestAuth(url, options, 'post')
+    return this.requestProcessing<string>(url, options, 'post')
   }
 
-  public async getUser(): Promise<AuthResponse> {
+  public async getUser(): Promise<ApiResponse<User>> {
     const url = this.getPathAuth(AuthPaths.USER)
 
     const options: Options = {
-      ...this.options,
+      ...this.options
     }
 
-    return this.requestAuth(url, options, 'get')
+    return this.requestProcessing<User>(url, options, 'get')
   }
 
-  private async requestAuth(
-    url: string,
-    options: Options,
-    method: keyof HTTPTransport
-  ): Promise<AuthResponse> {
-    const authResponse: AuthResponse = {} as AuthResponse
-
-    try {
-      const response: AxiosResponse = await this[method](url, options)
-
-      authResponse.statusCode = response.status
-      authResponse.data = response.data
-    } catch (e: unknown) {
-      if (e instanceof AxiosError) {
-        if (e.response) {
-          authResponse.statusCode = e.response.status
-          authResponse.message = e.response.data?.reason || e.response.data
-        }
-      }
-    }
-
-    return authResponse
-  }
 
   private getPathAuth(endPath: string) {
     return `${this.url}/${this.authPath}/${endPath}`

@@ -41,6 +41,7 @@ class HTTPTransport {
     requestOptions: RequestOptions
   ): Promise<AxiosResponse> {
     const { method, options } = requestOptions
+
     return axios({ url, method, ...options })
   }
 }
