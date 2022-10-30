@@ -1,8 +1,10 @@
 import React, { SyntheticEvent } from "react";
 import styles from "./Button.module.sass"
 
-export interface IButtonInterface {
-  type: 'secondary' | 'primary' | 'accent' | 'inactive';
+type ButtonProps = {
+  type: 'button' | 'submit' | 'reset';
+  variant: 'primary' | 'secondary' | 'accent' | 'inactive';
+  customModifier?: string;
   size: 'small' | 'medium' | 'large';
   value: string | number;
   onClick?: (() => void) | ((e: SyntheticEvent) => void);
@@ -11,19 +13,15 @@ export interface IButtonInterface {
   id?: string;
 }
 
-export function Button(props: IButtonInterface) {
+export function Button(props: ButtonProps) {
   return (
     <button
       onClick={props.onClick}
       id={props.id}
       className={`${styles.button} 
-        ${props.type === 'primary' && styles.button_primary}
-        ${props.type === 'secondary' && styles.button_secondary}
-        ${props.type === 'inactive' && styles.button_inactive}
-        ${props.type === 'accent' && styles.button_accent}
-        ${props.size === 'small' && styles.button_small}
-        ${props.size === 'medium' && styles.button_medium}
-        ${props.size === 'large' && styles.button_large}
+        ${styles[`button_${props.variant}`]}
+        ${styles[`button_${props.size}`]}
+        ${styles[`${props.customModifier}`]}
       `}
       name={props.name}
       disabled={props.disabled}
