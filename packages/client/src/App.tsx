@@ -2,6 +2,7 @@ import styles from './App.module.sass'
 import { UI } from './components/UI/UI'
 import { LoginAuthExample } from './components/Example-auth/LoginAuthExample'
 import { UsersEl } from './components/Example-users/UsersEl'
+import { ChatsExample } from './components/Example-chats/ChatsExample'
 
 function App() {
   // useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
         <UI></UI>
         <LoginAuthExample />
         <UsersEl/>
+        <ChatsExample/>
       </div>
     </div>
   )

@@ -4,7 +4,7 @@ import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
 import Auth from '../../api/Auth'
 import { apiPath } from '../../config'
-import { User } from '../../types/dto'
+import { User } from '../../types/dto/user.dto'
 
 export function LoginAuthExample() {
   const [login, setLogin] = useState('anton71')

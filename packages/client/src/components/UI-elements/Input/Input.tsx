@@ -2,12 +2,12 @@ import React, { ChangeEventHandler } from 'react'
 import styles from './Input.module.sass'
 
 interface IInputInterface {
-  type: 'text' | 'email' | 'password' | 'file' | 'tel'
+  type: 'text' | 'email' | 'password' | 'file' | 'tel' | 'number'
   name: string
   id?: string
   placeholder: string
   label?: string | undefined
-  value?: string
+  value?: string | number
   handleChange?: ChangeEventHandler<HTMLInputElement> | undefined
   maxLength?: number | undefined
   minLength?: number | undefined

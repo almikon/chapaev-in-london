@@ -14,5 +14,23 @@ export enum UsersPaths {
   SEARCH = 'search',
 }
 
+export enum LeaderBoardPaths {
+  LEADERBOARD = 'leaderboard',
+  ALL = 'all',
+}
+
+
+export enum ChatsPaths {
+  CHATS = 'chats',
+  FILES = 'files',
+  ARCHIVE = 'archive',
+  UN_ARCHIVE = 'unarchive',
+  COMMON = 'common',
+  USERS = 'users',
+  TOKEN = 'token',
+  AVATAR = 'avatar',
+  NEW = 'new',
+}
+
 
 

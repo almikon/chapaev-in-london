@@ -1,10 +1,4 @@
-export type Id = {
-  id: number
-}
-
-export type Avatar = {
-  avatar: string
-}
+import { Avatar, Id } from './commom.dto'
 
 export type Login = {
   login: string

@@ -8,7 +8,6 @@ class Api extends HTTPTransport {
 
   private headers: Headers = {
     'Content-Type': 'application/json'
-    // ' Content-Type': 'multipart/form-data'
   }
 
   protected options: OptionsWithoutMethod = {

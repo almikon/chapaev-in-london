@@ -1,6 +1,6 @@
 import Api from './Api'
 import { UsersPaths } from '../types/api-paths'
-import { User, UpdateUserDto, ChangePasswordsDto, Login } from '../types/dto'
+import { User, UpdateUserDto, ChangePasswordsDto, Login } from '../types/dto/user.dto'
 import { ApiResponse } from '../types/api'
 import { Options } from '../types/httpTranspport'
 
