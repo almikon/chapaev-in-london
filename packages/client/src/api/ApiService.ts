@@ -1,8 +1,10 @@
 import Auth from './Auth'
 import { apiPath } from '../config'
 
-export class ApiService {
+class ApiService {
   public getAuthApi() {
     return new Auth(apiPath)
   }
 }
+
+export const apiService = new ApiService()

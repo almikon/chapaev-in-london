@@ -2,7 +2,7 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Auth.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
-import { ApiService } from '../../api/ApiService'
+import { apiService } from '../../api/ApiService'
 
 export function LoginAuthExample() {
   const [login, setLogin] = useState('anton71')
@@ -12,7 +12,6 @@ export function LoginAuthExample() {
   const [email, setEmail] = useState('anton@ya.ru')
   const [phone, setPhone] = useState('+79852322253')
 
-  const apiService = new ApiService()
   const authApi = apiService.getAuthApi()
 
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
