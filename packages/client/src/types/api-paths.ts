@@ -19,7 +19,6 @@ export enum LeaderBoardPaths {
   ALL = 'all',
 }
 
-
 export enum ChatsPaths {
   CHATS = 'chats',
   FILES = 'files',
@@ -31,6 +30,3 @@ export enum ChatsPaths {
   AVATAR = 'avatar',
   NEW = 'new',
 }
-
-
-

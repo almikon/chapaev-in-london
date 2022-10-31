@@ -1,6 +1,11 @@
 import Api from './Api'
 import { UsersPaths } from '../types/api-paths'
-import { User, UpdateUserDto, ChangePasswordsDto, Login } from '../types/dto/user.dto'
+import {
+  User,
+  UpdateUserDto,
+  ChangePasswordsDto,
+  Login,
+} from '../types/dto/user.dto'
 import { ApiResponse } from '../types/api'
 import { Options } from '../types/httpTranspport'
 
@@ -16,7 +21,7 @@ class Users extends Api {
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<User>(url, options, 'put')
@@ -25,26 +30,28 @@ class Users extends Api {
   public async changeAvatar(file: File): Promise<ApiResponse<User>> {
     const url = this.getPathAuth(UsersPaths.PROFILE_AVATAR)
 
-    const data = new FormData();
-    data.append('avatar', file);
+    const data = new FormData()
+    data.append('avatar', file)
 
     const options: Options = {
       ...this.options,
       headers: {
-       ' Content-Type': 'multipart/form-data'
+        ' Content-Type': 'multipart/form-data',
       },
-      data
+      data,
     }
 
     return this.requestProcessing<User>(url, options, 'put')
   }
 
-  public async changePasswords(data: ChangePasswordsDto): Promise<ApiResponse<User>> {
+  public async changePasswords(
+    data: ChangePasswordsDto
+  ): Promise<ApiResponse<User>> {
     const url = this.getPathAuth(UsersPaths.PASSWORD)
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<User>(url, options, 'put')
@@ -65,7 +72,7 @@ class Users extends Api {
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<User[]>(url, options, 'post')

@@ -7,8 +7,10 @@ import {
   CreateChatDto,
   DeleteChatDto,
   GetChatDto,
-  GetChatUsersDto, ResponseChatUsers,
-  ResponseDeleteChat, ResponseTokenChat
+  GetChatUsersDto,
+  ResponseChatUsers,
+  ResponseDeleteChat,
+  ResponseTokenChat,
 } from '../types/dto/chats.dto'
 
 class Chats extends Api {
@@ -23,59 +25,66 @@ class Chats extends Api {
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<string>(url, options, 'post')
   }
 
-  public async deleteChat(data: DeleteChatDto): Promise<ApiResponse<ResponseDeleteChat>> {
+  public async deleteChat(
+    data: DeleteChatDto
+  ): Promise<ApiResponse<ResponseDeleteChat>> {
     const url = this.getPathAuth('')
-
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<ResponseDeleteChat>(url, options, 'delete')
   }
 
-  public async getChat(data: Partial<GetChatDto>): Promise<ApiResponse<Chat[]>> {
+  public async getChat(
+    data: Partial<GetChatDto>
+  ): Promise<ApiResponse<Chat[]>> {
     const query = this.getQuery<Partial<GetChatDto>>(data)
 
-    const url = query.length === 0
-      ? this.getPathAuth('')
-      : `${this.url}/${this.chatsPath}${query}`
+    const url =
+      query.length === 0
+        ? this.getPathAuth('')
+        : `${this.url}/${this.chatsPath}${query}`
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<Chat[]>(url, options, 'get')
   }
 
-  public async getChatUsers(id: number, data: Partial<GetChatUsersDto>): Promise<ApiResponse<ResponseChatUsers[]>> {
+  public async getChatUsers(
+    id: number,
+    data: Partial<GetChatUsersDto>
+  ): Promise<ApiResponse<ResponseChatUsers[]>> {
     const query = this.getQuery<Partial<GetChatUsersDto>>(data)
-
     let url = this.getPathAuth(`${id}/${ChatsPaths.USERS}`)
 
-    if(query.length !== 0) {
+    if (query.length !== 0) {
       url += query
     }
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<ResponseChatUsers[]>(url, options, 'get')
   }
 
-  public async getToken(chatId: string): Promise<ApiResponse<ResponseTokenChat>> {
+  public async getToken(
+    chatId: string
+  ): Promise<ApiResponse<ResponseTokenChat>> {
     const url = this.getPathAuth(`${ChatsPaths.TOKEN}/${chatId}`)
 
-    console.log('ur', url)
     const options: Options = {
       ...this.options,
     }
@@ -108,8 +117,6 @@ class Chats extends Api {
 
     return query
   }
-
-
 }
 
 export default Chats

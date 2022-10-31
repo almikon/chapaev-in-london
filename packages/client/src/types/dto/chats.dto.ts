@@ -43,8 +43,8 @@ export type UnreadCount = {
 
 export type LastMessage = {
   last_message: {
-    user: User,
-    time: string,
+    user: User
+    time: string
     content: string
   }
 }
@@ -57,9 +57,9 @@ export type ResponseChatUsers = User & Role
 export type ResponseTokenChat = {
   token: string
 }
-export type Chat = Id
-  & CreateChatDto
-  & Avatar
-  & CreatedBy
-  & UnreadCount
-  & LastMessage
+export type Chat = Id &
+  CreateChatDto &
+  Avatar &
+  CreatedBy &
+  UnreadCount &
+  LastMessage

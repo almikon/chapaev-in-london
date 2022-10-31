@@ -63,7 +63,7 @@ export function UsersEl() {
       first_name: firstName,
       second_name: secondName,
       email,
-      display_name: displayName
+      display_name: displayName,
     })
 
     console.log('changeProfile', changeProfile)
@@ -82,7 +82,6 @@ export function UsersEl() {
 
       console.log('changeProfile', changeAvatar)
     }
-
   }
 
   const handleChangePasswords = async (e: SyntheticEvent) => {
@@ -92,7 +91,7 @@ export function UsersEl() {
     const usersApi = new Users(apiPath)
     const changePasswords = await usersApi.changePasswords({
       oldPassword,
-      newPassword
+      newPassword,
     })
 
     console.log('changePasswords', changePasswords)
@@ -114,12 +113,11 @@ export function UsersEl() {
     // Просто пример
     const usersApi = new Users(apiPath)
     const searchByLogin = await usersApi.search({
-      login
+      login,
     })
 
     console.log('searchByLogin', searchByLogin)
   }
-
 
   return (
     <div className={styles.ui}>
@@ -229,7 +227,6 @@ export function UsersEl() {
           value={'Search by login'}
           name={'button'}
           onClick={handleSearchByLogin}></Button>
-
       </div>
     </div>
   )

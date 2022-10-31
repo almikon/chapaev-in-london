@@ -16,7 +16,7 @@ class Auth extends Api {
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<string>(url, options, 'post')
@@ -27,7 +27,7 @@ class Auth extends Api {
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<Id>(url, options, 'post')
@@ -37,7 +37,7 @@ class Auth extends Api {
     const url = this.getPathAuth(AuthPaths.LOGOUT)
 
     const options: Options = {
-      ...this.options
+      ...this.options,
     }
 
     return this.requestProcessing<string>(url, options, 'post')
@@ -47,12 +47,11 @@ class Auth extends Api {
     const url = this.getPathAuth(AuthPaths.USER)
 
     const options: Options = {
-      ...this.options
+      ...this.options,
     }
 
     return this.requestProcessing<User>(url, options, 'get')
   }
-
 
   private getPathAuth(endPath: string) {
     return `${this.url}/${this.authPath}/${endPath}`

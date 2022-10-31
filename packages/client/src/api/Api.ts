@@ -7,12 +7,12 @@ class Api extends HTTPTransport {
   protected readonly url: string
 
   private headers: Headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 
   protected options: OptionsWithoutMethod = {
     headers: this.headers,
-    withCredentials: true
+    withCredentials: true,
   }
 
   constructor(url: string) {

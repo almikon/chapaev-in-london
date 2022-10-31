@@ -1,5 +1,5 @@
 export type AddLeaderboardDto = {
-   data : {},
-   ratingFieldName :  string ,
-   teamName :  string
+  data: object
+  ratingFieldName: string
+  teamName: string
 }

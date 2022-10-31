@@ -22,14 +22,13 @@ export function ChatsExample() {
     setChatId(Number(e.currentTarget.value))
   }
 
-
   const handleCreateChat = async (e: SyntheticEvent) => {
     e.preventDefault()
 
     // Просто пример
     const chatsApi = new Chats(apiPath)
     const createChat = await chatsApi.createChat({
-      title
+      title,
     })
     console.log('createChat', createChat)
   }
@@ -41,7 +40,7 @@ export function ChatsExample() {
     const chatsApi = new Chats(apiPath)
     const searchChat = await chatsApi.getChat({
       title: title.slice(0, 10),
-      limit: '22'
+      limit: '22',
     })
     console.log('searchChat', searchChat)
   }
@@ -51,10 +50,9 @@ export function ChatsExample() {
 
     // Просто пример
     const chatsApi = new Chats(apiPath)
-    const getChatUsers = await chatsApi.getChatUsers(
-      chatId, {
-        name: 'a'
-      })
+    const getChatUsers = await chatsApi.getChatUsers(chatId, {
+      name: 'a',
+    })
     console.log('getChatUsers', getChatUsers)
   }
 
@@ -64,7 +62,7 @@ export function ChatsExample() {
     // Просто пример
     const chatsApi = new Chats(apiPath)
     const deleteChat = await chatsApi.deleteChat({
-      chatId
+      chatId,
     })
 
     console.log('deleteChat', deleteChat)
@@ -80,6 +78,7 @@ export function ChatsExample() {
     console.log('getToken', getToken)
   }
 
+  // TODO add/delete user to chat
   return (
     <div className={styles.ui}>
       <div className={styles.form__background}>

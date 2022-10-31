@@ -16,13 +16,11 @@ class Leaderboard extends Api {
 
     const options: Options = {
       ...this.options,
-      data
+      data,
     }
 
     return this.requestProcessing<string>(url, options, 'post')
   }
-
-
 
   private getPathAuth(endPath: string) {
     return `${this.url}/${this.leaderboardPath}/${endPath}`

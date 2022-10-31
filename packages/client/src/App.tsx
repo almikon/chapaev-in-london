@@ -18,11 +18,11 @@ function App() {
   return (
     <div className={styles.App}>
       Вот тут будет жить ваше приложение :)
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <UI></UI>
         <LoginAuthExample />
-        <UsersEl/>
-        <ChatsExample/>
+        <UsersEl />
+        <ChatsExample />
       </div>
     </div>
   )

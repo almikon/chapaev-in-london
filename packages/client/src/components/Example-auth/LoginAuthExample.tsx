@@ -46,7 +46,7 @@ export function LoginAuthExample() {
     const authApi = new Auth(apiPath)
     const signIn = await authApi.signin({
       login,
-      password
+      password,
     })
 
     console.log('signIn', signIn)
@@ -86,7 +86,7 @@ export function LoginAuthExample() {
       first_name: firstName,
       second_name: secondName,
       email,
-      phone
+      phone,
     })
 
     console.log('signUp', signUp?.data?.id)
@@ -165,9 +165,7 @@ export function LoginAuthExample() {
           name={'button'}
           onClick={handleSubmitSignUp}></Button>
 
-        <div>
-          {JSON.stringify(user)}
-        </div>
+        <div>{JSON.stringify(user)}</div>
       </div>
     </div>
   )
