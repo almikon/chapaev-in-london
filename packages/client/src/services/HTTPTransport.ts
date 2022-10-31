@@ -1,4 +1,4 @@
-import { Method, Options, RequestOptions } from '../types/httpTranspport'
+import { Method, Options, RequestOptions } from '../types/httpTransport'
 import axios, { AxiosResponse } from 'axios'
 
 class HTTPTransport {

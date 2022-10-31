@@ -1,5 +1,5 @@
-export interface AuthResponse {
+export type ApiResponse<Data> = {
   statusCode: number
   message?: string
-  data?: any
+  data?: Data
 }
