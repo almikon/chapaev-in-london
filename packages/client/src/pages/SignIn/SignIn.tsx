@@ -12,16 +12,18 @@ export function SignIn() {
       <Form
         title={'Sign in'}
         handlers={[
-          <Button
-            type={'button'}
-            variant={'primary'}
-            size={'medium'}
-            value={'Sign in'}
-            name={'button'}></Button>,
+          <div key={Math.random()} className={styles.handlers_box}>
+            <Button
+              type={'button'}
+              variant={'primary'}
+              size={'medium'}
+              value={'Sign in'}
+              name={'button'}></Button>
 
-          <p>
-            <a href="#">Create an account</a>
-          </p>,
+            <p>
+              <a href="#">Create an account</a>
+            </p>
+          </div>,
         ]}
         onSubmit={e => {
           e?.preventDefault()
