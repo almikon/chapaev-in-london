@@ -1,16 +1,16 @@
-import React, { SyntheticEvent } from "react";
-import styles from "./Button.module.sass"
+import React, { SyntheticEvent } from 'react'
+import styles from './Button.module.sass'
 
 type ButtonProps = {
-  type: 'button' | 'submit' | 'reset';
-  variant: 'primary' | 'secondary' | 'accent' | 'inactive';
-  customModifier?: string;
-  size: 'small' | 'medium' | 'large';
-  value: string | number;
-  onClick?: (() => void) | ((e: SyntheticEvent) => void);
-  name?: string;
-  disabled?: boolean;
-  id?: string;
+  type: 'button' | 'submit' | 'reset'
+  variant: 'primary' | 'secondary' | 'accent' | 'inactive'
+  customModifier?: string
+  size: 'small' | 'medium' | 'large'
+  value: string | number
+  onClick?: (() => void) | ((e: SyntheticEvent) => void)
+  name?: string
+  disabled?: boolean
+  id?: string
 }
 
 export function Button(props: ButtonProps) {
@@ -24,8 +24,7 @@ export function Button(props: ButtonProps) {
         ${styles[`${props.customModifier}`]}
       `}
       name={props.name}
-      disabled={props.disabled}
-    >
+      disabled={props.disabled}>
       {props.value}
     </button>
   )
