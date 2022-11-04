@@ -12,10 +12,10 @@ export function Form(props: FormProps) {
   return (
     <form onSubmit={props.onSubmit}>
       <div className={styles.form}>
-        <p className={styles.form_title}>{props.title}</p>
+        <p className={styles.form__title}>{props.title}</p>
         <div className={styles.childrenAndHandlers}>
-          <div className={styles.form_children}>{props.children}</div>
-          <div className={styles.form_handlers}>{props.handlers}</div>
+          <div className={styles.form__children}>{props.children}</div>
+          <div className={styles.form__handlers}>{props.handlers}</div>
         </div>
       </div>
     </form>

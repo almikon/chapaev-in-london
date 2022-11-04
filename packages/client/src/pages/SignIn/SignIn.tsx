@@ -12,7 +12,7 @@ export function SignIn() {
       <Form
         title={'Sign in'}
         handlers={[
-          <div key={Math.random()} className={styles.handlers_box}>
+          <div className={styles.handlers_box}>
             <Button
               type={'button'}
               variant={'primary'}

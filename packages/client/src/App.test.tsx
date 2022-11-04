@@ -1,14 +1,12 @@
-import App from './App'
 import { render, screen } from '@testing-library/react'
-
-const appContent = 'CHAPAEV'
+import { SignIn } from './pages/SignIn/SignIn'
 
 // @ts-ignore
 global.fetch = jest.fn(() =>
   Promise.resolve({ json: () => Promise.resolve('hey') })
 )
 
-test('Example test', async () => {
-  render(<App />)
-  expect(screen.getByText(appContent)).toBeDefined()
+test('form should be rendered in Sign in component', async () => {
+  const {container} = render(<SignIn />)
+  expect(container.querySelector('form')).toBeTruthy()
 })
