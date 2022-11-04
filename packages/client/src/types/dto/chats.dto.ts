@@ -1,4 +1,4 @@
-import { Avatar, Id, Role } from './commom.dto'
+import { Avatar, Id, Limit, Role } from './commom.dto'
 import { User } from './user.dto'
 
 export type CreateChatDto = {
@@ -15,10 +15,6 @@ export type Result = {
 
 export type DeleteChatDto = {
   chatId: number
-}
-
-export type Limit = {
-  limit: string
 }
 
 export type Offset = {
@@ -57,6 +53,12 @@ export type ResponseChatUsers = User & Role
 export type ResponseTokenChat = {
   token: string
 }
+
+export type AddDeleteUserChatDto = {
+  users: number[],
+  chatId: number
+}
+
 export type Chat = Id &
   CreateChatDto &
   Avatar &

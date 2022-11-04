@@ -5,6 +5,7 @@ import { Button } from '../UI-elements/Button/Button'
 import Auth from '../../api/Auth'
 import { apiPath } from '../../config'
 import { User } from '../../types/dto/user.dto'
+import { apiService } from '../../api/ApiService'
 
 export function LoginAuthExample() {
   const [login, setLogin] = useState('anton71')
@@ -14,6 +15,8 @@ export function LoginAuthExample() {
   const [email, setEmail] = useState('anton@ya.ru')
   const [phone, setPhone] = useState('+79852322253')
   const [user, setUser] = useState<User>({} as User)
+
+  const authApi = apiService.getAuthApi()
 
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -43,7 +46,6 @@ export function LoginAuthExample() {
     e.preventDefault()
 
     // Просто пример
-    const authApi = new Auth(apiPath)
     const signIn = await authApi.signin({
       login,
       password,
@@ -56,8 +58,6 @@ export function LoginAuthExample() {
     e.preventDefault()
 
     // Просто пример
-    const authApi = new Auth(apiPath)
-
     const user = await authApi.getUser()
     if (user.data) {
       setUser(user?.data)
@@ -68,8 +68,6 @@ export function LoginAuthExample() {
     e.preventDefault()
 
     // Просто пример
-    const authApi = new Auth(apiPath)
-
     const logout = await authApi.logout()
 
     console.log('logout', logout)
@@ -79,7 +77,6 @@ export function LoginAuthExample() {
     e.preventDefault()
 
     // Просто пример
-    const authApi = new Auth(apiPath)
     const signUp = await authApi.signup({
       login,
       password,
@@ -119,7 +116,7 @@ export function LoginAuthExample() {
           value={email}
           handleChange={handleChangeEmail}></Input>
         <Input
-          type={'phone'}
+          type={'tel'}
           placeholder={'Enter your phone'}
           name={'phone'}
           label={'Phone'}

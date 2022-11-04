@@ -4,6 +4,7 @@ import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
 import { apiPath } from '../../config'
 import Users from '../../api/Users'
+import { apiService } from '../../api/ApiService'
 
 export function UsersEl() {
   const [login, setLogin] = useState('anton71')
@@ -15,6 +16,8 @@ export function UsersEl() {
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('anton@ya.ru')
   const [phone, setPhone] = useState('+79852322253')
+
+  const usersApi = apiService.getUsersApi()
 
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -56,7 +59,6 @@ export function UsersEl() {
     e.preventDefault()
 
     // Просто пример
-    const usersApi = new Users(apiPath)
     const changeProfile = await usersApi.changeProfile({
       login,
       phone,
@@ -76,8 +78,8 @@ export function UsersEl() {
 
     if (inputFile && inputFile.files && inputFile.files.length) {
       const file: File | undefined = inputFile.files[0]
+
       // Просто пример
-      const usersApi = new Users(apiPath)
       const changeAvatar = await usersApi.changeAvatar(file)
 
       console.log('changeProfile', changeAvatar)
@@ -88,7 +90,6 @@ export function UsersEl() {
     e.preventDefault()
 
     // Просто пример
-    const usersApi = new Users(apiPath)
     const changePasswords = await usersApi.changePasswords({
       oldPassword,
       newPassword,
@@ -101,7 +102,6 @@ export function UsersEl() {
     e.preventDefault()
 
     // Просто пример
-    const usersApi = new Users(apiPath)
     const getUserById = await usersApi.getUserById(userId)
 
     console.log('getUserById', getUserById)
@@ -111,7 +111,6 @@ export function UsersEl() {
     e.preventDefault()
 
     // Просто пример
-    const usersApi = new Users(apiPath)
     const searchByLogin = await usersApi.search({
       login,
     })

@@ -9,3 +9,11 @@ export type Avatar = {
 export type Role = {
   role: string
 }
+
+export type Limit = {
+  limit: number
+}
+
+export type Cursor = {
+  cursor: number
+}
