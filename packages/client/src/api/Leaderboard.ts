@@ -5,7 +5,8 @@ import { LeaderBoardPaths } from '../types/api-paths'
 import {
   AddLeaderboardDto,
   GetAllLeaderboardDto,
-  GetTeamLeaderboardDto, LeaderboardResponse
+  GetTeamLeaderboardDto,
+  LeaderboardResponse,
 } from '../types/dto/leaderboard.dto'
 
 class Leaderboard extends Api {
@@ -26,8 +27,9 @@ class Leaderboard extends Api {
     return this.requestProcessing<string>(url, options, 'post')
   }
 
-
-  public async getAllLeaderboard(data: GetAllLeaderboardDto): Promise<ApiResponse<LeaderboardResponse>> {
+  public async getAllLeaderboard(
+    data: GetAllLeaderboardDto
+  ): Promise<ApiResponse<LeaderboardResponse>> {
     const url = this.getPathAuth(LeaderBoardPaths.ALL)
 
     const options: Options = {
@@ -38,7 +40,10 @@ class Leaderboard extends Api {
     return this.requestProcessing<LeaderboardResponse>(url, options, 'post')
   }
 
-  public async getTeamLeaderboard(data: GetTeamLeaderboardDto, GetTeamLeaderboardDto: string): Promise<ApiResponse<LeaderboardResponse>> {
+  public async getTeamLeaderboard(
+    data: GetTeamLeaderboardDto,
+    GetTeamLeaderboardDto: string
+  ): Promise<ApiResponse<LeaderboardResponse>> {
     const url = this.getPathAuth(GetTeamLeaderboardDto)
 
     const options: Options = {

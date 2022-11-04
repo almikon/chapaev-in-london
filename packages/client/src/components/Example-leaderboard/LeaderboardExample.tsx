@@ -2,11 +2,12 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './leaderboard.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
-import Chats from '../../api/Chats'
-import { apiPath } from '../../config'
 import { apiService } from '../../api/ApiService'
-import { AddDeleteUserChatDto } from '../../types/dto/chats.dto'
-import { AddLeaderboardDto, GetAllLeaderboardDto, GetTeamLeaderboardDto } from '../../types/dto/leaderboard.dto'
+import {
+  AddLeaderboardDto,
+  GetAllLeaderboardDto,
+  GetTeamLeaderboardDto,
+} from '../../types/dto/leaderboard.dto'
 
 export function LeaderboardExample() {
   const [title, setTitle] = useState('Как играть в эту ХХХХХ игру?')
@@ -44,10 +45,10 @@ export function LeaderboardExample() {
     const data: AddLeaderboardDto = {
       data: {
         id: userId,
-        win: 7
+        win: 7,
       },
       ratingFieldName,
-      teamName
+      teamName,
     }
 
     // Просто пример
@@ -62,7 +63,7 @@ export function LeaderboardExample() {
     const data: GetAllLeaderboardDto = {
       limit: 100,
       ratingFieldName,
-      cursor: 0
+      cursor: 0,
     }
 
     // Просто пример
@@ -77,11 +78,14 @@ export function LeaderboardExample() {
     const data: GetTeamLeaderboardDto = {
       limit: 10,
       ratingFieldName,
-      cursor: 0
+      cursor: 0,
     }
 
     // Просто пример
-    const getTeamLeaderboard = await leaderboardApi.getTeamLeaderboard(data, teamName)
+    const getTeamLeaderboard = await leaderboardApi.getTeamLeaderboard(
+      data,
+      teamName
+    )
 
     console.log('getTeamLeaderboard', getTeamLeaderboard)
   }

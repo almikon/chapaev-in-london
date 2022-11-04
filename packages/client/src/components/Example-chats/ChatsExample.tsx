@@ -2,8 +2,6 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Chats.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
-import Chats from '../../api/Chats'
-import { apiPath } from '../../config'
 import { apiService } from '../../api/ApiService'
 import { AddDeleteUserChatDto } from '../../types/dto/chats.dto'
 
@@ -36,7 +34,7 @@ export function ChatsExample() {
 
     // Просто пример
     const createChat = await chatsApi.createChat({
-      title
+      title,
     })
     console.log('createChat', createChat)
   }
@@ -47,7 +45,7 @@ export function ChatsExample() {
     // Просто пример
     const searchChat = await chatsApi.getChat({
       title: title.slice(0, 10),
-      limit: '22'
+      limit: 22,
     })
     console.log('searchChat', searchChat)
   }
@@ -57,7 +55,7 @@ export function ChatsExample() {
 
     // Просто пример
     const getChatUsers = await chatsApi.getChatUsers(chatId, {
-      name: 'a'
+      name: 'a',
     })
     console.log('getChatUsers', getChatUsers)
   }
@@ -67,7 +65,7 @@ export function ChatsExample() {
 
     // Просто пример
     const deleteChat = await chatsApi.deleteChat({
-      chatId
+      chatId,
     })
 
     console.log('deleteChat', deleteChat)
@@ -85,9 +83,9 @@ export function ChatsExample() {
   const handleAddChatUser = async (e: SyntheticEvent) => {
     e.preventDefault()
 
-    const data:AddDeleteUserChatDto = {
+    const data: AddDeleteUserChatDto = {
       chatId,
-      users: [userId]
+      users: [userId],
     }
 
     // Просто пример
@@ -99,9 +97,9 @@ export function ChatsExample() {
   const handleDeleteChatUser = async (e: SyntheticEvent) => {
     e.preventDefault()
 
-    const data:AddDeleteUserChatDto = {
+    const data: AddDeleteUserChatDto = {
       chatId,
-      users: [userId]
+      users: [userId],
     }
 
     // Просто пример
@@ -109,7 +107,6 @@ export function ChatsExample() {
 
     console.log('addUser', addUser)
   }
-
 
   // TODO add/delete user to chat
   return (

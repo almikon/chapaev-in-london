@@ -55,7 +55,7 @@ export type ResponseTokenChat = {
 }
 
 export type AddDeleteUserChatDto = {
-  users: number[],
+  users: number[]
   chatId: number
 }
 

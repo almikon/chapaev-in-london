@@ -24,7 +24,7 @@ function App() {
         <LoginAuthExample />
         <UsersEl />
         <ChatsExample />
-        <LeaderboardExample/>
+        <LeaderboardExample />
       </div>
     </div>
   )

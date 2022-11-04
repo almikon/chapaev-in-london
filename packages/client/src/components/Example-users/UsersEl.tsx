@@ -2,8 +2,6 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './users.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
-import { apiPath } from '../../config'
-import Users from '../../api/Users'
 import { apiService } from '../../api/ApiService'
 
 export function UsersEl() {

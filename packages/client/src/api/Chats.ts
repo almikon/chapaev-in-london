@@ -11,7 +11,7 @@ import {
   GetChatUsersDto,
   ResponseChatUsers,
   ResponseDeleteChat,
-  ResponseTokenChat
+  ResponseTokenChat,
 } from '../types/dto/chats.dto'
 
 class Chats extends Api {
@@ -93,7 +93,9 @@ class Chats extends Api {
     return this.requestProcessing<ResponseTokenChat>(url, options, 'post')
   }
 
-  public async addUserChat(data: AddDeleteUserChatDto): Promise<ApiResponse<string>> {
+  public async addUserChat(
+    data: AddDeleteUserChatDto
+  ): Promise<ApiResponse<string>> {
     const url = this.getPathAuth(ChatsPaths.USERS)
 
     const options: Options = {
@@ -104,7 +106,9 @@ class Chats extends Api {
     return this.requestProcessing<string>(url, options, 'put')
   }
 
-  public async deleteUserChat(data: AddDeleteUserChatDto): Promise<ApiResponse<string>> {
+  public async deleteUserChat(
+    data: AddDeleteUserChatDto
+  ): Promise<ApiResponse<string>> {
     const url = this.getPathAuth(ChatsPaths.USERS)
 
     const options: Options = {

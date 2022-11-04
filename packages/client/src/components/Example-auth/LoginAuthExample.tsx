@@ -2,8 +2,6 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Auth.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
-import Auth from '../../api/Auth'
-import { apiPath } from '../../config'
 import { User } from '../../types/dto/user.dto'
 import { apiService } from '../../api/ApiService'
 
