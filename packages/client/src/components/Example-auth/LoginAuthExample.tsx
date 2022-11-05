@@ -95,7 +95,7 @@ export function LoginAuthExample() {
         <Input
           type={'text'}
           variant={'primary'}
-          placeholder={'Enter your first name'}
+          placeholder={'Enter your first named'}
           name={'first_name'}
           label={'First name'}
           value={firstName}
