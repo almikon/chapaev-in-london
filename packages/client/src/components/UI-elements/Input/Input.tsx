@@ -1,9 +1,10 @@
-import React, { ChangeEventHandler } from "react";
-import styles from "./Input.module.sass"
+import React, { ChangeEventHandler } from 'react'
+import styles from './Input.module.sass'
 
 type InputProps = {
-  type: 'text' | 'email' | 'password';
+  type: 'text' | 'email' | 'password' | 'file' | 'button' | 'checkbox' | 'hidden' | 'image' | 'radio' | 'reset' | 'submit' | 'tel'
   variant: 'primary' | 'secondary' | 'accent' | 'inactive';
+  id?: string;
   name: string;
   customModifier?: string;
   placeholder: string;

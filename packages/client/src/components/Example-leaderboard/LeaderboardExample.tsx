@@ -98,56 +98,64 @@ export function LeaderboardExample() {
           type={'text'}
           placeholder={'Enter login'}
           name={'login'}
+          variant={'primary'}
           label={'Login'}
           value={login}
-          handleChange={handleChangeLogin}></Input>
+          onChange={handleChangeLogin}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'first_name'}
           label={'First name'}
           value={title}
-          handleChange={handleChangeTitle}></Input>
+          onChange={handleChangeTitle}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'userID'}
           label={'User ID'}
-          value={userId}
-          handleChange={handleChangeUserId}></Input>
+          value={userId.toString()}
+          onChange={handleChangeUserId}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'ratingFieldName'}
           label={'ratingFieldName'}
           value={ratingFieldName}
-          handleChange={handleRatingFieldName}></Input>
+          onChange={handleRatingFieldName}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'teamName'}
           label={'teamName'}
           value={teamName}
-          handleChange={handleTeamName}></Input>
+          onChange={handleTeamName}/>
 
         <Button
-          type={'primary'}
+          type={'button'}
           size={'medium'}
+          variant={'primary'}
           value={'ADD USER to leaderboard'}
           name={'button'}
-          onClick={handleAddUserLeaderboard}></Button>
+          onClick={handleAddUserLeaderboard}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'GET ALL USER IN LEADERBOARD'}
           name={'button'}
-          onClick={handleGetAllLeaderboard}></Button>
+          onClick={handleGetAllLeaderboard}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'GET team LEADERBOARD'}
           name={'button'}
-          onClick={handleGetTeamLeaderboard}></Button>
+          onClick={handleGetTeamLeaderboard}/>
       </div>
     </div>
   )

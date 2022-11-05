@@ -123,107 +123,122 @@ export function UsersEl() {
       <div className={styles.form__background}>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'userID'}
           label={'User ID'}
           value={userId}
-          handleChange={handleChangeUserId}></Input>
+          onChange={handleChangeUserId}/>
 
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'first_name'}
           label={'First name'}
           value={firstName}
-          handleChange={handleChangeFirstName}></Input>
+          onChange={handleChangeFirstName}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'second_name'}
           label={'Second name'}
           value={secondName}
-          handleChange={handleChangeSecondName}></Input>
+          onChange={handleChangeSecondName}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'second_name'}
           label={'Display name'}
           value={displayName}
-          handleChange={handleChangeDisplayName}></Input>
+          onChange={handleChangeDisplayName}/>
         <Input
           type={'email'}
+          variant={'primary'}
           placeholder={'Enter your email'}
           name={'email'}
           label={'Email'}
           value={email}
-          handleChange={handleChangeEmail}></Input>
+          onChange={handleChangeEmail}/>
         <Input
           type={'tel'}
+          variant={'primary'}
           placeholder={'Enter your phone'}
           name={'phone'}
           label={'Phone'}
           value={phone}
-          handleChange={handleChangePhone}></Input>
+          onChange={handleChangePhone}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter login'}
           name={'login'}
           label={'Login'}
           value={login}
-          handleChange={handleChangeLogin}></Input>
+          onChange={handleChangeLogin}/>
         <Input
           type={'password'}
+          variant={'primary'}
           placeholder={'Enter oldPassword'}
           name={'password old'}
           label={'Password old'}
           value={oldPassword}
-          handleChange={handleChangePasswordOld}></Input>
+          onChange={handleChangePasswordOld}/>
         <Input
           type={'password'}
+          variant={'primary'}
           placeholder={'Enter oldPassword'}
           name={'password new'}
           label={'Password new'}
           value={newPassword}
-          handleChange={handleChangePasswordNew}></Input>
+          onChange={handleChangePasswordNew}/>
 
         <Input
           type={'file'}
+          variant={'primary'}
           placeholder={'Enter oldPassword'}
           name={'file'}
           label={'File'}
           id={'file'}
-          handleChange={handleChangePasswordOld}></Input>
+          onChange={handleChangePasswordOld}/>
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'CHANGE'}
           name={'button'}
-          onClick={handleSubmitChange}></Button>
+          onClick={handleSubmitChange}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'change avatar'}
           name={'button'}
-          onClick={handleChangeAvatar}></Button>
+          onClick={handleChangeAvatar}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'change passwords'}
           name={'button'}
-          onClick={handleChangePasswords}></Button>
+          onClick={handleChangePasswords}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'Get user by id'}
           name={'button'}
-          onClick={handleGetUserById}></Button>
+          onClick={handleGetUserById}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'Search by login'}
           name={'button'}
-          onClick={handleSearchByLogin}></Button>
+          onClick={handleSearchByLogin}/>
       </div>
     </div>
   )

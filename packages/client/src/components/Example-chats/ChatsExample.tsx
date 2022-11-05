@@ -114,79 +114,90 @@ export function ChatsExample() {
       <div className={styles.form__background}>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'first_name'}
           label={'First name'}
           value={title}
-          handleChange={handleChangeTitle}></Input>
+          onChange={handleChangeTitle}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'second_name'}
           label={'Искать по названию'}
           value={titleSearch}
-          handleChange={handleChangeTitleSearch}></Input>
+          onChange={handleChangeTitleSearch}/>
         <Input
-          type={'number'}
+          type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'chatId'}
           label={'chat id'}
-          value={chatId}
-          handleChange={handleChangeChatId}></Input>
+          value={chatId.toString()}
+          onChange={handleChangeChatId}/>
 
         <Input
-          type={'number'}
+          type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'user ID'}
           label={'user id'}
-          value={userId}
-          handleChange={handleChangeUserId}></Input>
+          value={userId.toString()}
+          onChange={handleChangeUserId}/>
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'CREATE CHAT'}
           name={'button'}
-          onClick={handleCreateChat}></Button>
+          onClick={handleCreateChat}/>
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'SEARCH CHAT'}
           name={'button'}
-          onClick={handleSearchByTitle}></Button>
+          onClick={handleSearchByTitle}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'DELETE CHAT'}
           name={'button'}
-          onClick={handleDeleteChat}></Button>
+          onClick={handleDeleteChat}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'CET CHAT USERS'}
           name={'button'}
-          onClick={handleGetChatUsers}></Button>
+          onClick={handleGetChatUsers}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'CET TOKEN CHAT'}
           name={'button'}
-          onClick={handleGetTokenChat}></Button>
+          onClick={handleGetTokenChat}/>
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'ADD USER IN CHAT'}
           name={'button'}
-          onClick={handleAddChatUser}></Button>
+          onClick={handleAddChatUser}/>
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'DELETE USER IN CHAT'}
           name={'button'}
-          onClick={handleDeleteChatUser}></Button>
+          onClick={handleDeleteChatUser}/>
       </div>
     </div>
   )

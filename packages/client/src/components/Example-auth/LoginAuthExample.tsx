@@ -46,7 +46,7 @@ export function LoginAuthExample() {
     // Просто пример
     const signIn = await authApi.signin({
       login,
-      password,
+      password
     })
 
     console.log('signIn', signIn)
@@ -81,7 +81,7 @@ export function LoginAuthExample() {
       first_name: firstName,
       second_name: secondName,
       email,
-      phone,
+      phone
     })
 
     console.log('signUp', signUp?.data?.id)
@@ -94,71 +94,81 @@ export function LoginAuthExample() {
       <div className={styles.form__background}>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'first_name'}
           label={'First name'}
           value={firstName}
-          handleChange={handleChangeFirstName}></Input>
+          onChange={handleChangeFirstName}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'second_name'}
           label={'Second name'}
           value={secondName}
-          handleChange={handleChangeSecondName}></Input>
+          onChange={handleChangeSecondName}/>
         <Input
           type={'email'}
+          variant={'primary'}
           placeholder={'Enter your email'}
           name={'email'}
           label={'Email'}
           value={email}
-          handleChange={handleChangeEmail}></Input>
+          onChange={handleChangeEmail}/>
         <Input
-          type={'tel'}
+          type={'text'}
+          variant={'primary'}
           placeholder={'Enter your phone'}
           name={'phone'}
           label={'Phone'}
           value={phone}
-          handleChange={handleChangePhone}></Input>
+          onChange={handleChangePhone}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter login'}
           name={'login'}
           label={'Login'}
           value={login}
-          handleChange={handleChangeLogin}></Input>
+          onChange={handleChangeLogin}/>
         <Input
           type={'password'}
+          variant={'primary'}
           placeholder={'Enter password'}
           name={'password'}
           label={'Password'}
           value={password}
-          handleChange={handleChangePassword}></Input>
+          onChange={handleChangePassword}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'SIGN IN'}
           name={'button'}
-          onClick={handleSubmitSignIn}></Button>
+          onClick={handleSubmitSignIn} />
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'GET USER'}
           name={'button'}
-          onClick={handleChangeGetUser}></Button>
+          onClick={handleChangeGetUser} />
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'GET OUT'}
           name={'button'}
-          onClick={handleLogOut}></Button>
+          onClick={handleLogOut} />
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'SIGN UP'}
           name={'button'}
-          onClick={handleSubmitSignUp}></Button>
+          onClick={handleSubmitSignUp}/>
 
         <div>{JSON.stringify(user)}</div>
       </div>
