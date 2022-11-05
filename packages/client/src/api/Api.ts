@@ -1,7 +1,7 @@
 import HTTPTransport from '../services/HTTPTransport'
-import { Headers, Options, OptionsWithoutMethod } from '../types/httpTranspport'
 import { ApiResponse } from '../types/api'
 import { AxiosError, AxiosResponse } from 'axios'
+import { OptionsWithoutMethod,Options, Headers } from '../types/httpTransport'
 
 class Api extends HTTPTransport {
   protected readonly url: string
