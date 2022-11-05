@@ -2,7 +2,8 @@ import Api from './Api'
 import { AuthPaths } from '../types/api-paths'
 import { ApiResponse } from '../types/api'
 import { Options } from '../types/httpTranspport'
-import { Id, SigninDto, CreateUserDto, User } from '../types/dto/user.dto'
+import { SigninDto, CreateUserDto, User } from '../types/dto/user.dto'
+import { Id } from '../types/dto/commom.dto'
 
 class Auth extends Api {
   private readonly authPath: string = AuthPaths.AUTH

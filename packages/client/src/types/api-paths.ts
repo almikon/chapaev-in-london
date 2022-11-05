@@ -22,9 +22,6 @@ export enum LeaderBoardPaths {
 export enum ChatsPaths {
   CHATS = 'chats',
   FILES = 'files',
-  ARCHIVE = 'archive',
-  UN_ARCHIVE = 'unarchive',
-  COMMON = 'common',
   USERS = 'users',
   TOKEN = 'token',
   AVATAR = 'avatar',

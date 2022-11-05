@@ -19,7 +19,6 @@ type InputProps = {
 }
 
 export function Input(props: InputProps) {
-
   return (
     <div className={styles.input__block}>
       <label className={styles.input__label}>{props.label}</label>
