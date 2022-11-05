@@ -2,6 +2,7 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Auth.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
+import { User } from '../../types/dto/user.dto'
 import { apiService } from '../../api/ApiService'
 
 export function LoginAuthExample() {
@@ -11,6 +12,7 @@ export function LoginAuthExample() {
   const [secondName, setSecondName] = useState('Anton')
   const [email, setEmail] = useState('anton@ya.ru')
   const [phone, setPhone] = useState('+79852322253')
+  const [user, setUser] = useState<User>({} as User)
 
   const authApi = apiService.getAuthApi()
 
@@ -44,7 +46,7 @@ export function LoginAuthExample() {
     // Просто пример
     const signIn = await authApi.signin({
       login,
-      password,
+      password
     })
 
     console.log('signIn', signIn)
@@ -54,9 +56,10 @@ export function LoginAuthExample() {
     e.preventDefault()
 
     // Просто пример
-    const getUser = await authApi.getUser()
-
-    console.log('getUser', getUser)
+    const user = await authApi.getUser()
+    if (user.data) {
+      setUser(user?.data)
+    }
   }
 
   const handleLogOut = async (e: SyntheticEvent) => {
@@ -78,10 +81,10 @@ export function LoginAuthExample() {
       first_name: firstName,
       second_name: secondName,
       email,
-      phone,
+      phone
     })
 
-    console.log('signUp', signUp)
+    console.log('signUp', signUp?.data?.id)
   }
 
   return (
@@ -91,71 +94,83 @@ export function LoginAuthExample() {
       <div className={styles.form__background}>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your first name'}
           name={'first_name'}
           label={'First name'}
           value={firstName}
-          handleChange={handleChangeFirstName}></Input>
+          onChange={handleChangeFirstName}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter your second name'}
           name={'second_name'}
           label={'Second name'}
           value={secondName}
-          handleChange={handleChangeSecondName}></Input>
+          onChange={handleChangeSecondName}/>
         <Input
           type={'email'}
+          variant={'primary'}
           placeholder={'Enter your email'}
           name={'email'}
           label={'Email'}
           value={email}
-          handleChange={handleChangeEmail}></Input>
+          onChange={handleChangeEmail}/>
         <Input
-          type={'phone'}
+          type={'text'}
+          variant={'primary'}
           placeholder={'Enter your phone'}
           name={'phone'}
           label={'Phone'}
           value={phone}
-          handleChange={handleChangePhone}></Input>
+          onChange={handleChangePhone}/>
         <Input
           type={'text'}
+          variant={'primary'}
           placeholder={'Enter login'}
           name={'login'}
           label={'Login'}
           value={login}
-          handleChange={handleChangeLogin}></Input>
+          onChange={handleChangeLogin}/>
         <Input
           type={'password'}
+          variant={'primary'}
           placeholder={'Enter password'}
           name={'password'}
           label={'Password'}
-          value={login}
-          handleChange={handleChangePassword}></Input>
+          value={password}
+          onChange={handleChangePassword}/>
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'SIGN IN'}
           name={'button'}
-          onClick={handleSubmitSignIn}></Button>
+          onClick={handleSubmitSignIn} />
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'GET USER'}
           name={'button'}
-          onClick={handleChangeGetUser}></Button>
+          onClick={handleChangeGetUser} />
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'GET OUT'}
           name={'button'}
-          onClick={handleLogOut}></Button>
+          onClick={handleLogOut} />
 
         <Button
-          type={'primary'}
+          type={'button'}
+          variant={'primary'}
           size={'medium'}
           value={'SIGN UP'}
           name={'button'}
-          onClick={handleSubmitSignUp}></Button>
+          onClick={handleSubmitSignUp}/>
+
+        <div>{JSON.stringify(user)}</div>
       </div>
     </div>
   )

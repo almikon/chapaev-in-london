@@ -1,6 +1,9 @@
 import styles from './App.module.sass'
 import { UI } from './components/UI/UI'
 import { LoginAuthExample } from './components/Example-auth/LoginAuthExample'
+import { UsersEl } from './components/Example-users/UsersEl'
+import { ChatsExample } from './components/Example-chats/ChatsExample'
+import { LeaderboardExample } from './components/Example-leaderboard/LeaderboardExample'
 
 function App() {
   // useEffect(() => {
@@ -16,9 +19,12 @@ function App() {
   return (
     <div className={styles.App}>
       Вот тут будет жить ваше приложение :)
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <UI></UI>
         <LoginAuthExample />
+        <UsersEl />
+        <ChatsExample />
+        <LeaderboardExample />
       </div>
     </div>
   )

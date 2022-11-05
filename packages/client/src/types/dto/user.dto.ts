@@ -1,4 +1,4 @@
-import { Avatar, Id } from './common.dto'
+import { Avatar, Id } from './commom.dto'
 
 export type Login = {
   login: string
