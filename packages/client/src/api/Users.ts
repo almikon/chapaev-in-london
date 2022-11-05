@@ -1,5 +1,5 @@
 import Api from './Api'
-import { UsersPaths } from '../types/api-paths'
+import { UsersPaths } from '../types/apiPaths'
 import {
   User,
   UpdateUserDto,
@@ -7,7 +7,7 @@ import {
   Login,
 } from '../types/dto/user.dto'
 import { ApiResponse } from '../types/api'
-import { Options } from '../types/httpTranspport'
+import { Options } from '../types/httpTransport'
 
 class Users extends Api {
   private readonly usersPath: string = UsersPaths.USER

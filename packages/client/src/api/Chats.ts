@@ -1,7 +1,7 @@
 import Api from './Api'
 import { ApiResponse } from '../types/api'
-import { Options } from '../types/httpTranspport'
-import { ChatsPaths } from '../types/api-paths'
+import { Options } from '../types/httpTransport'
+import { ChatsPaths } from '../types/apiPaths'
 import {
   AddDeleteUserChatDto,
   Chat,

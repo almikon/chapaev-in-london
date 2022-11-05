@@ -1,7 +1,7 @@
 import Api from './Api'
-import { AuthPaths } from '../types/api-paths'
+import { AuthPaths } from '../types/apiPaths'
 import { ApiResponse } from '../types/api'
-import { Options } from '../types/httpTranspport'
+import { Options } from '../types/httpTransport'
 import { SigninDto, CreateUserDto, User } from '../types/dto/user.dto'
 import { Id } from '../types/dto/commom.dto'
 

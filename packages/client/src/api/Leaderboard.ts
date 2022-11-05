@@ -1,7 +1,7 @@
 import Api from './Api'
 import { ApiResponse } from '../types/api'
-import { Options } from '../types/httpTranspport'
-import { LeaderBoardPaths } from '../types/api-paths'
+import { Options } from '../types/httpTransport'
+import { LeaderBoardPaths } from '../types/apiPaths'
 import {
   AddLeaderboardDto,
   GetAllLeaderboardDto,
