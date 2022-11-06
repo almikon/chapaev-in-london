@@ -2,8 +2,10 @@ import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Auth.module.sass'
 import { Input } from '../UI-elements/Input/Input'
 import { Button } from '../UI-elements/Button/Button'
-import { User } from '../../types/dto/user.dto'
+import { CreateUserDto, SigninDto, User } from '../../types/dto/user.dto'
 import { apiService } from '../../api/ApiService'
+import stores from '../../store'
+import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 export function LoginAuthExample() {
   const [login, setLogin] = useState('anton71')
@@ -13,6 +15,8 @@ export function LoginAuthExample() {
   const [email, setEmail] = useState('anton@ya.ru')
   const [phone, setPhone] = useState('+79852322253')
   const [user, setUser] = useState<User>({} as User)
+
+  const navigate: NavigateFunction = useNavigate()
 
   const authApi = apiService.getAuthApi()
 
@@ -43,13 +47,13 @@ export function LoginAuthExample() {
   const handleSubmitSignIn = async (e: SyntheticEvent) => {
     e.preventDefault()
 
-    // Просто пример
-    const signIn = await authApi.signin({
+    const data: SigninDto = {
       login,
       password
-    })
+    }
 
-    console.log('signIn', signIn)
+    stores.authorization.signIn(data, navigate)
+
   }
 
   const handleChangeGetUser = async (e: SyntheticEvent) => {
@@ -62,29 +66,26 @@ export function LoginAuthExample() {
     }
   }
 
-  const handleLogOut = async (e: SyntheticEvent) => {
+  const handleLogOut = (e: SyntheticEvent) => {
     e.preventDefault()
 
     // Просто пример
-    const logout = await authApi.logout()
-
-    console.log('logout', logout)
+    stores.authorization.logout(navigate)
   }
 
   const handleSubmitSignUp = async (e: SyntheticEvent) => {
     e.preventDefault()
 
     // Просто пример
-    const signUp = await authApi.signup({
+    const data:CreateUserDto  = {
       login,
       password,
       first_name: firstName,
       second_name: secondName,
       email,
       phone
-    })
-
-    console.log('signUp', signUp?.data?.id)
+    }
+    stores.authorization.signUp(data,navigate)
   }
 
   return (
@@ -99,7 +100,7 @@ export function LoginAuthExample() {
           name={'first_name'}
           label={'First name'}
           value={firstName}
-          onChange={handleChangeFirstName}/>
+          onChange={handleChangeFirstName} />
         <Input
           type={'text'}
           variant={'primary'}
@@ -107,7 +108,7 @@ export function LoginAuthExample() {
           name={'second_name'}
           label={'Second name'}
           value={secondName}
-          onChange={handleChangeSecondName}/>
+          onChange={handleChangeSecondName} />
         <Input
           type={'email'}
           variant={'primary'}
@@ -115,7 +116,7 @@ export function LoginAuthExample() {
           name={'email'}
           label={'Email'}
           value={email}
-          onChange={handleChangeEmail}/>
+          onChange={handleChangeEmail} />
         <Input
           type={'text'}
           variant={'primary'}
@@ -123,7 +124,7 @@ export function LoginAuthExample() {
           name={'phone'}
           label={'Phone'}
           value={phone}
-          onChange={handleChangePhone}/>
+          onChange={handleChangePhone} />
         <Input
           type={'text'}
           variant={'primary'}
@@ -131,7 +132,7 @@ export function LoginAuthExample() {
           name={'login'}
           label={'Login'}
           value={login}
-          onChange={handleChangeLogin}/>
+          onChange={handleChangeLogin} />
         <Input
           type={'password'}
           variant={'primary'}
@@ -139,7 +140,7 @@ export function LoginAuthExample() {
           name={'password'}
           label={'Password'}
           value={password}
-          onChange={handleChangePassword}/>
+          onChange={handleChangePassword} />
         <Button
           type={'button'}
           variant={'primary'}
@@ -168,7 +169,7 @@ export function LoginAuthExample() {
           size={'medium'}
           value={'SIGN UP'}
           name={'button'}
-          onClick={handleSubmitSignUp}/>
+          onClick={handleSubmitSignUp} />
 
         <div>{JSON.stringify(user)}</div>
       </div>
