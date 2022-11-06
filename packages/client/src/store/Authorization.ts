@@ -1,23 +1,26 @@
-import { action, makeAutoObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto'
 import { apiService } from '../api/ApiService'
 import { NavigateFunction } from 'react-router-dom'
 import { RoutePaths } from '../types/routes'
 
 class Authorization {
-  @observable
-  user: User | undefined | null = null
-
-  @observable
+  user: User | null  = null
   errorText = ''
 
   private api = apiService.getAuthApi()
 
   constructor() {
-    makeAutoObservable(this, {}, { deep: true })
+    makeObservable(this, {
+      user: observable,
+      errorText: observable,
+      isLogin: action,
+      signUp: action,
+      signIn: action,
+      logout: action
+    }, { deep: true })
   }
 
-  @action
   isLogin(navigate: NavigateFunction) {
     this.errorText = ''
 
@@ -30,7 +33,6 @@ class Authorization {
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  @action
   signIn(signInDto: SigninDto, navigate: NavigateFunction) {
     this.errorText = ''
 
@@ -43,7 +45,6 @@ class Authorization {
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  @action
   signUp(signUpDto: CreateUserDto, navigate: NavigateFunction) {
     this.errorText = ''
 
@@ -56,7 +57,6 @@ class Authorization {
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  @action
   logout(navigate: NavigateFunction) {
     this.errorText = ''
 
