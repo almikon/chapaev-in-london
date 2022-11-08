@@ -11,7 +11,7 @@
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
 
 Чтобы добавить зависимость для клиента 
-```yarn lerna add {your_dep} --scope client```
+```yarn lerna add {your_dep} --scope chapaevinlondon```
 
 Для сервера
 ```yarn lerna add {your_dep} --scope server```
