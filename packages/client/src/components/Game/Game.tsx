@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { GameTypeAi } from '../../gameEngine/GameType'
 import { GameVizualiser } from '../../gameEngine/GameVisualizer'
-import { Game as GameEngine } from '../../gameEngine/Game'
+import { GameEngine } from '../../gameEngine/GameEngine'
 import styles from './Game.module.sass'
 
 export function Game() {

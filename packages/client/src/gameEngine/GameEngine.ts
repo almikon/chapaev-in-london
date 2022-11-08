@@ -4,7 +4,7 @@ import { GameStepResult } from './GameStepResult';
 import { GameType } from './GameType';
 import { Vector } from './Vector';
 
-export class Game {
+export class GameEngine {
   public static readonly Dimension = 10;
   public static readonly Margin = this.Dimension * 0.1;
   public static readonly EffectiveDimension = this.Dimension - this.Margin * 2;
@@ -42,24 +42,24 @@ export class Game {
   init(gameType: GameType) {
     this._gameType = gameType;
 
-    for (let i = 0; i < Game.CheckerCount; i++) {
+    for (let i = 0; i < GameEngine.CheckerCount; i++) {
       const posBottom = new Vector(
-        (i * Game.EffectiveDimension) / Game.CheckerCount +
-          Game.EffectiveDimension / Game.CheckerCount / 2 +
-          Game.Margin,
-        Game.EffectiveDimension / Game.CheckerCount / 2 + Game.Margin,
+        (i * GameEngine.EffectiveDimension) / GameEngine.CheckerCount +
+          GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 +
+          GameEngine.Margin,
+        GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 + GameEngine.Margin,
       );
 
       const posTop = posBottom.add(
         new Vector(
           0,
-          Game.EffectiveDimension - (Game.EffectiveDimension / Game.CheckerCount / 2) * 2,
+          GameEngine.EffectiveDimension - (GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2) * 2,
         ),
       );
 
-      let checker = new Checker(posBottom, Game.CheckerRadius, 40, Game.Palyer1Id);
+      let checker = new Checker(posBottom, GameEngine.CheckerRadius, 40, GameEngine.Palyer1Id);
       this._checkers.push(checker);
-      checker = new Checker(posTop, Game.CheckerRadius, 40, Game.Palyer2Id);
+      checker = new Checker(posTop, GameEngine.CheckerRadius, 40, GameEngine.Palyer2Id);
       this._checkers.push(checker);
     }
 
@@ -95,11 +95,11 @@ export class Game {
 
   private getWinnerId() {
     const isWinner = (id: number) => this.checkers.every((c) => c.playerId === id);
-    if (isWinner(Game.Palyer1Id)) {
-      return Game.Palyer1Id;
+    if (isWinner(GameEngine.Palyer1Id)) {
+      return GameEngine.Palyer1Id;
     }
-    if (isWinner(Game.Palyer2Id)) {
-      return Game.Palyer2Id;
+    if (isWinner(GameEngine.Palyer2Id)) {
+      return GameEngine.Palyer2Id;
     }
     return null;
   }
@@ -108,10 +108,10 @@ export class Game {
     const destroyed: Checker[] = [];
     this._checkers.forEach((checker, i) => {
       if (
-        checker.position.x > Game.Dimension - Game.Margin ||
-        checker.position.x < Game.Margin ||
-        checker.position.y > Game.Dimension - Game.Margin ||
-        checker.position.y < Game.Margin
+        checker.position.x > GameEngine.Dimension - GameEngine.Margin ||
+        checker.position.x < GameEngine.Margin ||
+        checker.position.y > GameEngine.Dimension - GameEngine.Margin ||
+        checker.position.y < GameEngine.Margin
       ) {
         destroyed.push(checker);
         this._checkers.splice(i, 1);
@@ -134,7 +134,7 @@ export class Game {
             collisions.add(collisionId);
             // Hack to prevent adhesion
             const centerVec = checker2.position.sub(checker1.position);
-            const distance = centerVec.magnutude();
+            const distance = centerVec.magnitude();
             const distanceDiff = checker1.radius + checker2.radius - distance;
             checker1.position = checker1.position.sub(centerVec.mul(distanceDiff).div(distance));
             checker2.position = checker2.position.sub(
@@ -148,14 +148,14 @@ export class Game {
 
   private moveCheckers(dt: number) {
     this._checkers.forEach((checker) => {
-      checker.move(dt, Game.BoardFriction);
+      checker.move(dt, GameEngine.BoardFriction);
     });
   }
 
   public computeStrikeVelocity(strikeVec: Vector) {
-    const desiredPower = strikeVec.magnutude();
+    const desiredPower = strikeVec.magnitude();
     const effectivePower =
-      Math.min(desiredPower, Game.MaxStrikePower) * Game.StrikePowerToVelocityCoeff;
+      Math.min(desiredPower, GameEngine.MaxStrikePower) * GameEngine.StrikePowerToVelocityCoeff;
     return strikeVec.direction().mul(effectivePower);
   }
 

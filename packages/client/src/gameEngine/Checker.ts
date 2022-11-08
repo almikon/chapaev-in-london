@@ -74,14 +74,14 @@ export class Checker {
   }
 
   contains(point: Vector) {
-    return this.position.sub(point).magnutude() <= this.radius;
+    return this.position.sub(point).magnitude() <= this.radius;
   }
 
   collides(other: Checker) {
     if (this === other) {
       return false;
     }
-    const distance = this.position.sub(other.position).magnutude();
+    const distance = this.position.sub(other.position).magnitude();
     if (distance < this.radius + other.radius) {
       return true;
     }
@@ -97,7 +97,7 @@ export class Checker {
       this.position
         .sub(other.position)
         .mul(this.velocity.sub(other.velocity).dotProduct(this.position.sub(other.position)))
-        .div(this.position.sub(other.position).magnutude() ** 2)
+        .div(this.position.sub(other.position).magnitude() ** 2)
         .mul((2 * other.mass) / (this.mass + other.mass)),
     );
 
@@ -105,7 +105,7 @@ export class Checker {
   }
 
   move(dt: number, frictionKoeff = 0): Checker {
-    if (this.velocity.magnutude() < this.radius / 10) {
+    if (this.velocity.magnitude() < this.radius / 10) {
       this.velocity = Vector.NullVector;
     }
     if (this.velocity.equals(Vector.NullVector)) {

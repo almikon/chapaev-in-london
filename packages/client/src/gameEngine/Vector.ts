@@ -62,7 +62,7 @@ export class Vector {
   }
 
   public direction() {
-    return this.div(this.magnutude());
+    return this.div(this.magnitude());
   }
 
   public abs() {
@@ -95,7 +95,7 @@ export class Vector {
     return other.x === this.x && other.y === this.y;
   }
 
-  public magnutude() {
+  public magnitude() {
     return Math.sqrt(this.x ** 2 + this.y ** 2);
   }
 
@@ -108,7 +108,7 @@ export class Vector {
   }
 
   public distanceTo(other: Vector) {
-    return this.sub(other).magnutude();
+    return this.sub(other).magnitude();
   }
 
   public rotate(angle: number) {

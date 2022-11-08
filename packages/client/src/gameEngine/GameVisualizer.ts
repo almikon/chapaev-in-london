@@ -1,26 +1,10 @@
 import { Checker } from './Checker';
-import { Game } from './Game';
+import { GameEngine } from './GameEngine';
 import { GameInteraction } from './GameInteraction';
 import { Particle } from './Particle';
 import { Vector } from './Vector';
 import explosionSound from '../assets/explosion.mp3';
 import { GameStepResult } from './GameStepResult';
-
-// const gamePalette = {
-//   boardMargin: '#94524A',
-//   boardFieldDark: '#2F0A28',
-//   boardFieldLight: '#A27E6F',
-//   checker1: '#C94277',
-//   checker2: '#CADBC0',
-// }
-
-// const gamePalette = {
-//   boardMargin: '#329F5B',
-//   boardFieldDark: '#8FD5A6',
-//   boardFieldLight: '#E5C2C0',
-//   checker1: '#0C8346',
-//   checker2: '#0D5D56',
-// }
 
 const gamePalette = {
   boardMargin: '#D2D4C8',
@@ -31,7 +15,7 @@ const gamePalette = {
 };
 
 export class GameVizualiser {
-  private _game: Game;
+  private _game: GameEngine;
   private _context!: CanvasRenderingContext2D;
   private _outerContainer: Element;
   public get context(): CanvasRenderingContext2D {
@@ -60,7 +44,6 @@ export class GameVizualiser {
   private _particles: Particle[] = [];
 
   private adjustCanvasDimensions(width: number) {
-    //this._container.style.height = `${width}px`;
     [this.boardCanvas, this.canvas].forEach((canvas) => {
       canvas.width = width;
       canvas.height = width;
@@ -69,7 +52,7 @@ export class GameVizualiser {
     });
   }
 
-  constructor(game: Game, container: Element) {
+  constructor(game: GameEngine, container: Element) {
     this._game = game;
     this._outerContainer = container;
   }
@@ -146,15 +129,15 @@ export class GameVizualiser {
     new Vector(
       // Game coordinates are cartesian, whereas canvas has Y axis reversed
 
-      (this.canvas.width * vector.x) / Game.Dimension,
-      this.canvas.height - (this.canvas.height * vector.y) / Game.Dimension,
+      (this.canvas.width * vector.x) / GameEngine.Dimension,
+      this.canvas.height - (this.canvas.height * vector.y) / GameEngine.Dimension,
     );
 
   private canvasCoordToVector = (vector: Vector) => {
     // Game coordinates are cartesian, whereas canvas has Y axis reversed
     return new Vector(
-      (Game.Dimension * vector.x) / this.canvas.width,
-      Game.Dimension - (Game.Dimension * vector.y) / this.canvas.height,
+      (GameEngine.Dimension * vector.x) / this.canvas.width,
+      GameEngine.Dimension - (GameEngine.Dimension * vector.y) / this.canvas.height,
     );
   };
 
@@ -164,8 +147,8 @@ export class GameVizualiser {
   drawBoard = () => {
     this.boardContext.fillStyle = gamePalette.boardMargin;
     this.boardContext.fillRect(0, 0, this.boardCanvas.width, this.boardCanvas.height);
-    const marginX = (Game.Margin / Game.Dimension) * this.boardCanvas.width;
-    const marginY = (Game.Margin / Game.Dimension) * this.boardCanvas.height;
+    const marginX = (GameEngine.Margin / GameEngine.Dimension) * this.boardCanvas.width;
+    const marginY = (GameEngine.Margin / GameEngine.Dimension) * this.boardCanvas.height;
     const stepX = (this.boardCanvas.width - marginX * 2) / 8;
     const stepY = (this.boardCanvas.height - marginY * 2) / 8;
     let colorSwitch = true;
@@ -185,7 +168,6 @@ export class GameVizualiser {
     if (this._startTimeStamp === undefined) {
       this._startTimeStamp = timestamp;
     }
-    //const elapsed = timestamp - this._startTimeStamp;
     const step = timestamp - this._prevTimeStamp;
     const dt = step / 1000;
 
@@ -201,10 +183,8 @@ export class GameVizualiser {
       this._gameInteraction.reset();
     }
 
-    //if (elapsed < 10000) { // Stop the animation after 10 seconds
     this._prevTimeStamp = timestamp;
     window.requestAnimationFrame(this.animationStep);
-    //}
   };
 
   private animateDestroyed(tickResult: GameStepResult) {
@@ -241,11 +221,6 @@ export class GameVizualiser {
     this.clear();
     this._game.checkers.forEach((checker) => {
       this.drawChecker(checker);
-
-      // this.context.font = "14px serif";
-      // this.context.fillStyle = 'black';
-      // this.context.fillText(`${checker.velocity.x}`, canvasPos.x - canvasRadius, canvasPos.y - canvasRadius / 2);
-      // this.context.fillText(`${checker.velocity.x}`, canvasPos.x - canvasRadius, canvasPos.y + canvasRadius);
     });
     this._particles.forEach((particle) => {
       particle.draw();
@@ -254,7 +229,7 @@ export class GameVizualiser {
 
   private drawChecker(checker: Checker) {
     const canvasPos = this.vectorToCanvasCoords(checker.position);
-    const canvasRadius = (this.canvas.width * Game.CheckerRadius) / Game.Dimension;
+    const canvasRadius = (this.canvas.width * GameEngine.CheckerRadius) / GameEngine.Dimension;
     const innerRadius = canvasRadius * 0.01;
     const outerRadius = canvasRadius * 0.4;
     const gradient = this.context.createRadialGradient(
@@ -281,7 +256,6 @@ export class GameVizualiser {
 
       this.context.beginPath();
       this.context.moveTo(canvasPos.x, canvasPos.y);
-      //let powerVector = canvasPos.sub(this._mousePosition); TODO: max length of strike line (4*r)
       this.context.lineTo(this._mousePosition.x, this._mousePosition.y);
       this.context.strokeStyle = 'red';
       this.context.stroke();
@@ -289,6 +263,6 @@ export class GameVizualiser {
   }
 
   private getCheckerColor(checker: Checker): string {
-    return checker.playerId == Game.Palyer1Id ? gamePalette.checker1 : gamePalette.checker2;
+    return checker.playerId == GameEngine.Palyer1Id ? gamePalette.checker1 : gamePalette.checker2;
   }
 }

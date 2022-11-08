@@ -1,19 +1,19 @@
 import { Checker } from './Checker';
-import { Game } from './Game';
+import { GameEngine } from './GameEngine';
 import { getRandomArbitrary, getRandomIntInclusive } from './utils';
 import { Vector } from './Vector';
 
 export abstract class GameType {
-  private _game: Game;
+  private _game: GameEngine;
   protected _currentPlayerId: number;
 
-  public get game(): Game {
+  public get game(): GameEngine {
     return this._game;
   }
 
-  constructor(game: Game) {
+  constructor(game: GameEngine) {
     this._game = game;
-    this._currentPlayerId = Game.Palyer1Id;
+    this._currentPlayerId = GameEngine.Palyer1Id;
   }
 
   abstract handleRoundEnd(): void;
@@ -22,20 +22,20 @@ export abstract class GameType {
 
   protected switchPlayer() {
     this._currentPlayerId =
-      this._currentPlayerId === Game.Palyer1Id ? Game.Palyer2Id : Game.Palyer1Id;
+      this._currentPlayerId === GameEngine.Palyer1Id ? GameEngine.Palyer2Id : GameEngine.Palyer1Id;
   }
 }
 
 export class GameTypeHotSeat extends GameType {
-  constructor(game: Game) {
+  constructor(game: GameEngine) {
     super(game);
-    this._currentPlayerId = Game.Palyer1Id;
+    this._currentPlayerId = GameEngine.Palyer1Id;
   }
 
   public handleRoundEnd() {
     this.switchPlayer();
     this.game.checkers.forEach((checker) => {
-      checker.position = new Vector(checker.position.x, Game.Dimension - checker.position.y);
+      checker.position = new Vector(checker.position.x, GameEngine.Dimension - checker.position.y);
     });
   }
 
@@ -45,22 +45,22 @@ export class GameTypeHotSeat extends GameType {
 }
 
 export class GameTypeAi extends GameType {
-  constructor(game: Game) {
+  constructor(game: GameEngine) {
     super(game);
-    this._currentPlayerId = Game.Palyer1Id;
+    this._currentPlayerId = GameEngine.Palyer1Id;
   }
 
   public handleRoundEnd() {
     this.switchPlayer();
-    if (this._currentPlayerId === Game.Palyer2Id) {
+    if (this._currentPlayerId === GameEngine.Palyer2Id) {
       const aiCheckers = this.game.checkers.filter(
-        (checker) => checker.playerId === Game.Palyer2Id,
+        (checker) => checker.playerId === GameEngine.Palyer2Id,
       );
       if (aiCheckers.length > 0) {
         const aiChecker = aiCheckers[getRandomIntInclusive(0, aiCheckers.length - 1)];
         let closestPlayerChecker: Checker | null = null;
         this.game.checkers
-          .filter((c) => c.playerId === Game.Palyer1Id)
+          .filter((c) => c.playerId === GameEngine.Palyer1Id)
           .forEach((c) => {
             if (
               !closestPlayerChecker ||
@@ -72,7 +72,7 @@ export class GameTypeAi extends GameType {
           });
         const strikeDirection = closestPlayerChecker!.position.sub(aiChecker.position).direction();
         let randomStrike = strikeDirection.mul(
-          getRandomArbitrary(Game.MaxStrikePower / 2, Game.MaxStrikePower),
+          getRandomArbitrary(GameEngine.MaxStrikePower / 2, GameEngine.MaxStrikePower),
         );
         randomStrike = randomStrike.rotate(getRandomArbitrary(-Math.PI / 30, Math.PI / 30));
         aiChecker.velocity = this.game.computeStrikeVelocity(randomStrike);
@@ -82,6 +82,6 @@ export class GameTypeAi extends GameType {
   }
 
   public canTouchChecker(checker: Checker): boolean {
-    return checker.playerId === Game.Palyer1Id;
+    return checker.playerId === GameEngine.Palyer1Id;
   }
 }
