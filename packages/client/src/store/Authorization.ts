@@ -5,26 +5,31 @@ import { NavigateFunction } from 'react-router-dom'
 import { RoutePaths } from '../types/routes'
 
 class Authorization {
-  user: User | null  = null
+  user: User | null = null
   errorText = ''
 
   private api = apiService.getAuthApi()
 
   constructor() {
-    makeObservable(this, {
-      user: observable,
-      errorText: observable,
-      isLogin: action,
-      signUp: action,
-      signIn: action,
-      logout: action
-    }, { deep: true })
+    makeObservable(
+      this,
+      {
+        user: observable,
+        errorText: observable,
+        isLogin: action,
+        signUp: action,
+        signIn: action,
+        logout: action,
+      },
+      { deep: true }
+    )
   }
 
   isLogin(navigate: NavigateFunction) {
     this.errorText = ''
 
-    this.api.getUser()
+    this.api
+      .getUser()
       .then(({ data, message }) => {
         if (data) this.user = data
 
@@ -36,9 +41,10 @@ class Authorization {
   signIn(signInDto: SigninDto, navigate: NavigateFunction) {
     this.errorText = ''
 
-    this.api.signin(signInDto)
+    this.api
+      .signin(signInDto)
       .then(({ data, message }) => {
-        data && navigate(RoutePaths.MAIN, { replace: true })
+        data && navigate(RoutePaths.PROFILE, { replace: true })
 
         message && this.errorResponse(message, navigate)
       })
@@ -48,9 +54,10 @@ class Authorization {
   signUp(signUpDto: CreateUserDto, navigate: NavigateFunction) {
     this.errorText = ''
 
-    this.api.signup(signUpDto)
+    this.api
+      .signup(signUpDto)
       .then(({ data, message }) => {
-        data?.id && navigate(RoutePaths.MAIN, { replace: true })
+        data?.id && navigate(RoutePaths.PROFILE, { replace: true })
 
         message && this.errorResponse(message, navigate)
       })
@@ -60,8 +67,7 @@ class Authorization {
   logout(navigate: NavigateFunction) {
     this.errorText = ''
 
-    this.api.logout()
-      .finally(() => this.errorResponse('', navigate))
+    this.api.logout().finally(() => this.errorResponse('', navigate))
   }
 
   private errorResponse(errorText: string, navigate?: NavigateFunction) {
