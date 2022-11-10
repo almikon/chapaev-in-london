@@ -33,9 +33,6 @@ export function SignIn() {
 
   return (
     <div className={styles.ui}>
-      <p className={styles.title}>
-        CHAPAEV<br></br>in London
-      </p>
       <div className={styles.form__background}>
         <Input
           type={'text'}
