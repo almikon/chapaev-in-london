@@ -16,6 +16,8 @@ type InputProps = {
   required?: boolean | undefined;
   ariaLabel?: string | undefined;
   disabled?: boolean;
+  showErrorMessage?: boolean;
+  errorMessage?: string;
 }
 
 export function Input(props: InputProps) {
@@ -38,6 +40,7 @@ export function Input(props: InputProps) {
         aria-label={props.ariaLabel}
         disabled={props.disabled}
       />
+      {props.showErrorMessage && <p className={`${styles.input__errorMessage}`}>{props.errorMessage}</p>}
     </div>
   )
 }
