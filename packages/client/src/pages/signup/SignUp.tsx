@@ -5,13 +5,13 @@ import { CreateUserDto } from '../../types/dto/user.dto'
 import stores from '../../store'
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 import { RoutePaths } from '../../types/routes'
-import { LoginUI } from '../../components/UI-elements/LoginUI/LoginUI'
-import { PasswordUI } from '../../components/UI-elements/PasswordUI/PasswordUI'
-import { SecondNameUI } from '../../components/UI-elements/SecondNameUI/SecondNameUI'
-import { FirstNameUI } from '../../components/UI-elements/FirstNameUI/FirstNameUI'
-import { EmailUI } from '../../components/UI-elements/EmailUI/EmailUI'
-import { PhoneUI } from '../../components/UI-elements/PhoneUI/PhoneUI'
-import { CheckPasswordUI } from '../../components/UI-elements/CheckPassword/CheckPassword'
+import { LoginInput } from '../../components/UI-elements/partials/LoginInput/LoginInput'
+import { PasswordUI } from '../../components/UI-elements/partials/PasswordUI/PasswordUI'
+import { SecondNameUI } from '../../components/UI-elements/partials/SecondNameUI/SecondNameUI'
+import { FirstNameUI } from '../../components/UI-elements/partials/FirstNameUI/FirstNameUI'
+import { EmailUI } from '../../components/UI-elements/partials/EmailUI/EmailUI'
+import { PhoneUI } from '../../components/UI-elements/partials/PhoneUI/PhoneUI'
+import { CheckPasswordUI } from '../../components/UI-elements/partials/CheckPassword/CheckPassword'
 import { Form } from '../../components/UI-elements/Form/Form'
 
 export function SignUp() {
@@ -115,7 +115,7 @@ export function SignUp() {
             phoneError={phoneError}
             setPhoneError={setPhoneError}
           />
-          <LoginUI
+          <LoginInput
             handleChangeLogin={handleChangeLogin}
             login={login}
             loginError={loginError}

@@ -1,17 +1,19 @@
-import { ReactNode, SyntheticEvent } from "react"
-import styles from '../../../styles/styles.module.sass'
+import { FC, ReactNode, SyntheticEvent } from 'react'
+import styles from './Form.module.sass'
 
-type Props = {
-    children: ReactNode
-    handleOnSubmit: (event : SyntheticEvent) => void
+type FormProps = {
+  children: ReactNode
+  onSubmit: (event: SyntheticEvent) => void
+  errorText?: string
 }
 
-export function Form({children, handleOnSubmit}:Props){
-    return (
-        <div className={styles.form__background}>
-            <form onSubmit={handleOnSubmit}>
-                {children}
-            </form>
-        </div>
-    )
+export const Form: FC<FormProps> = ({ children, onSubmit, errorText }) => {
+  return (
+      <form
+          className={styles.form__background}
+          onSubmit={onSubmit}>
+        {children}
+        <p>{errorText}</p>
+      </form>
+  )
 }

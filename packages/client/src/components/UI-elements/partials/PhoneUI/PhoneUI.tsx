@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { Validation } from '../../../assets/validation'
-import { Input } from '../Input/Input'
+import { Validation } from '../../../../assets/validation'
+import { Input } from '../../Input/Input'
 
 export function PhoneUI({
   handleChangePhone,

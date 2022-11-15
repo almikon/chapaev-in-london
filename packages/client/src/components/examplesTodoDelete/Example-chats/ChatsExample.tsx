@@ -1,9 +1,9 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Chats.module.sass'
-import { Input } from '../UI-elements/Input/Input'
-import { Button } from '../UI-elements/Button/Button'
-import { apiService } from '../../api/ApiService'
-import { AddDeleteUserChatDto } from '../../types/dto/chats.dto'
+import { Input } from '../../UI-elements/Input/Input'
+import { Button } from '../../UI-elements/Button/Button'
+import { apiService } from '../../../api/ApiService'
+import { AddDeleteUserChatDto } from '../../../types/dto/chats.dto'
 
 export function ChatsExample() {
   const [title, setTitle] = useState('Как играть в эту ХХХХХ игру?')

@@ -1,8 +1,8 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './users.module.sass'
-import { Input } from '../UI-elements/Input/Input'
-import { Button } from '../UI-elements/Button/Button'
-import { apiService } from '../../api/ApiService'
+import { Input } from '../../UI-elements/Input/Input'
+import { Button } from '../../UI-elements/Button/Button'
+import { apiService } from '../../../api/ApiService'
 
 export function UsersEl() {
   const [login, setLogin] = useState('anton71')

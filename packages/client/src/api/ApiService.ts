@@ -1,5 +1,5 @@
 import Auth from './Auth'
-import { apiPath } from '../config'
+import { apiPath } from '../assets/config'
 import Users from './Users'
 import Chats from './Chats'
 import Leaderboard from './Leaderboard'
