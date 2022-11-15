@@ -16,9 +16,8 @@ export function SignIn() {
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
-  
-  const navigate: NavigateFunction = useNavigate()
 
+  const navigate: NavigateFunction = useNavigate()
 
   const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -36,7 +35,12 @@ export function SignIn() {
       password,
     }
     console.log(data)
-    if (!loginError && !passwordError && login.length > 0 && password.length > 0) {
+    if (
+      !loginError &&
+      !passwordError &&
+      login.length > 0 &&
+      password.length > 0
+    ) {
       stores.authorization.signIn(data, navigate)
     }
   }
@@ -44,21 +48,27 @@ export function SignIn() {
   return (
     <div className={styles.ui}>
       <Form handleOnSubmit={handleSubmitSignIn}>
-        <LoginUI handleChangeLogin={handleChangeLogin} 
-        login={login} loginError={loginError} setLoginError={setLoginError}></LoginUI>
-        <PasswordUI handleChangePassword={handleChangePassword} 
-        password={password} passwordError={passwordError} setPasswordError={setPasswordError}></PasswordUI>
-          
-          <Button
-            type={'button'}
-            variant={'primary'}
-            size={'medium'}
-            value={'SIGN IN'}
-            name={'button'}
-          />
-          <p>
-            <Link to={RoutePaths.SIGN_UP}>Create an account</Link>
-          </p>
+        <LoginUI
+          handleChangeLogin={handleChangeLogin}
+          login={login}
+          loginError={loginError}
+          setLoginError={setLoginError}></LoginUI>
+        <PasswordUI
+          handleChangePassword={handleChangePassword}
+          password={password}
+          passwordError={passwordError}
+          setPasswordError={setPasswordError}></PasswordUI>
+
+        <Button
+          type={'button'}
+          variant={'primary'}
+          size={'medium'}
+          value={'SIGN IN'}
+          name={'button'}
+        />
+        <p>
+          <Link to={RoutePaths.SIGN_UP}>Create an account</Link>
+        </p>
       </Form>
     </div>
   )
