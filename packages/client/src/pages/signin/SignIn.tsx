@@ -7,32 +7,21 @@ import stores from '../../store'
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 import { RoutePaths } from '../../types/routes'
 import { Validation } from '../../assets/validation'
+import { Form } from '../../components/UI-elements/Form/Form'
+import { LoginUI } from '../../components/UI-elements/LoginUI/LoginUI'
+import { PasswordUI } from '../../components/UI-elements/PasswordUI/PasswordUI'
 
 export function SignIn() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
-
+  
   const navigate: NavigateFunction = useNavigate()
 
-  useEffect(() => {
-    if (!login.match(Validation.LOGIN) && login.length > 0) {
-      setLoginError(true)
-    } else {
-      setLoginError(false)
-    }
-
-    if (!password.match(Validation.PASSWORD) && password.length > 0) {
-      setPasswordError(true)
-    } else {
-      setPasswordError(false)
-    }
-  }, [login, password])
 
   const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
-    console.log(login)
   }
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +35,7 @@ export function SignIn() {
       login,
       password,
     }
+    console.log(data)
     if (!loginError && !passwordError && login.length > 0 && password.length > 0) {
       stores.authorization.signIn(data, navigate)
     }
@@ -53,30 +43,12 @@ export function SignIn() {
 
   return (
     <div className={styles.ui}>
-      <div className={styles.form__background}>
-        <form onSubmit={handleSubmitSignIn}>
-          <Input
-            type={'text'}
-            variant={'primary'}
-            placeholder={'Enter login'}
-            name={'login'}
-            label={'Login'}
-            value={login}
-            onChange={handleChangeLogin}
-            showErrorMessage={loginError}
-            errorMessage={'Only English letters and digits. 3-20 symbols.'}
-          />
-          <Input
-            type={'password'}
-            variant={'primary'}
-            placeholder={'Enter password'}
-            name={'password'}
-            label={'Password'}
-            value={password}
-            onChange={handleChangePassword}
-            showErrorMessage={passwordError}
-            errorMessage={'Only English letters, digits, hyphen and underscore. At least 7 symbols.'}
-          />
+      <Form handleOnSubmit={handleSubmitSignIn}>
+        <LoginUI handleChangeLogin={handleChangeLogin} 
+        login={login} loginError={loginError} setLoginError={setLoginError}></LoginUI>
+        <PasswordUI handleChangePassword={handleChangePassword} 
+        password={password} passwordError={passwordError} setPasswordError={setPasswordError}></PasswordUI>
+          
           <Button
             type={'button'}
             variant={'primary'}
@@ -84,11 +56,10 @@ export function SignIn() {
             value={'SIGN IN'}
             name={'button'}
           />
-        </form>
-        <p>
-          <Link to={RoutePaths.SIGN_UP}>Create an account</Link>
-        </p>
-      </div>
+          <p>
+            <Link to={RoutePaths.SIGN_UP}>Create an account</Link>
+          </p>
+      </Form>
     </div>
   )
 }
