@@ -1,5 +1,6 @@
 import { RoutePaths, RoutesType } from '../types/routes'
 import React from 'react'
+import { Landing } from "../pages/landing/Landing";
 
 const routes: RoutesType[] = [
   {
@@ -15,7 +16,7 @@ const routes: RoutesType[] = [
   {
     isAuth: true,
     path: RoutePaths.MAIN,
-    element: <h1>MAIN</h1>
+    element: <Landing/>
   },
   {
     isAuth: true,
