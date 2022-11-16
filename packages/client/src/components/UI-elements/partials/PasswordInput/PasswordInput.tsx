@@ -3,6 +3,7 @@ import { PasswordConfig } from '../../../../assets/inputConfig';
 import { Validation } from '../../../../assets/validation'
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
+import stores from '../../../../store';
 
 type PasswordProps = {
   value: string;
@@ -14,9 +15,13 @@ export const PasswordInput: FC<PasswordProps> = ({value,onChange}) =>{
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.PASSWORD) && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(!value.match(Validation.PASSWORD) && value.length > 0){
+      setError(errorText)
+      stores.validForm.validPassword = false  
+    }else{
+      setError('')
+      stores.validForm.validPassword = true
+    }
   }, [value])
 
   return(

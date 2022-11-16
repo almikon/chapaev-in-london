@@ -3,6 +3,7 @@ import { Validation } from '../../../../assets/validation'
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
 import { FirstNameConfig } from '../../../../assets/inputConfig'
+import stores from '../../../../store'
 
 type FirstNameProps = {
   value:string;
@@ -14,9 +15,13 @@ export const FirstNameInput: FC<FirstNameProps> = ({value, onChange}) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.NAME) && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(!value.match(Validation.NAME) && value.length > 0){
+      setError(errorText)
+      stores.validForm.validFirstName = false  
+    }else{
+      setError('')
+      stores.validForm.validFirstName = true
+    }
   }, [value])
 
   return (

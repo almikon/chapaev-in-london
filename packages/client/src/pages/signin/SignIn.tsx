@@ -32,7 +32,13 @@ export function SignIn() {
       password
     }
 
-    stores.authorization.signIn(data, navigate)
+    const validForm = stores.validForm.validLogin && stores.validForm.validPassword
+    
+    if(validForm){
+    
+      stores.authorization.signIn(data, navigate)
+    
+    }
   }
 
   return (

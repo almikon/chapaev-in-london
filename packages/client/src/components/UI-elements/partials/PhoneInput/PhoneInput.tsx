@@ -3,6 +3,7 @@ import { PhoneConfig } from '../../../../assets/inputConfig';
 import { Validation } from '../../../../assets/validation'
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
+import stores from '../../../../store';
 
 type PhoneProps = {
   value:string;
@@ -14,9 +15,13 @@ export const PhoneInput: FC<PhoneProps> = ({value, onChange}) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.PHONE) && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(!value.match(Validation.PHONE) && value.length > 0){
+      setError(errorText)
+      stores.validForm.validPhone = false  
+    }else{
+      setError('')
+      stores.validForm.validPhone = true
+    }
   }, [value])
 
   return (

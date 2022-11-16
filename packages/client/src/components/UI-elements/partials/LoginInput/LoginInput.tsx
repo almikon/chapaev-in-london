@@ -3,6 +3,7 @@ import styles from './LoginInput.module.sass'
 import { Input } from '../../Input/Input';
 import { Validation } from '../../../../assets/validation';
 import { LoginConfig } from '../../../../assets/inputConfig';
+import stores from '../../../../store';
 
 type LoginProps = {
   value: string;
@@ -13,9 +14,13 @@ export const LoginInput: FC<LoginProps> = ({ value, onChange }) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.LOGIN) && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(!value.match(Validation.LOGIN) && value.length > 0){
+          setError(errorText)
+          stores.validForm.validLogin = false  
+        }else{
+          setError('')
+          stores.validForm.validLogin = true
+        }
   }, [value])
 
   return (

@@ -3,6 +3,7 @@ import { Validation } from '../../../../assets/validation'
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
 import { EmailConfig } from '../../../../assets/inputConfig'
+import stores from '../../../../store'
 
 type EmailProps = {
   value:string;
@@ -14,9 +15,13 @@ export const EmailInput: FC<EmailProps> = ({value, onChange}) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.EMAIL) && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(!value.match(Validation.EMAIL) && value.length > 0){
+      setError(errorText)
+      stores.validForm.validEmail = false  
+    }else{
+      setError('')
+      stores.validForm.validEmail = true
+    }
   }, [value])
 
   return (

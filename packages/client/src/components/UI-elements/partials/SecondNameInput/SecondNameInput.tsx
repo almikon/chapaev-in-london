@@ -3,6 +3,7 @@ import { Validation } from '../../../../assets/validation'
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
 import { SecondNameConfig } from '../../../../assets/inputConfig'
+import stores from '../../../../store'
 
 type SecondNameProps = {
   value:string;
@@ -14,9 +15,13 @@ export const SecondNameInput: FC<SecondNameProps> = ({value, onChange}) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.NAME) && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(!value.match(Validation.NAME) && value.length > 0){
+      setError(errorText)
+      stores.validForm.validSecondName = false  
+    }else{
+      setError('')
+      stores.validForm.validSecondName = true
+    }
   }, [value])
 
   return (

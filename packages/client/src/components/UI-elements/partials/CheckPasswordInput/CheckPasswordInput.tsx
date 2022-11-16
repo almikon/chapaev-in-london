@@ -2,6 +2,7 @@ import {  ChangeEventHandler, FC, useEffect, useState } from 'react'
 import { CheckPasswordConfig } from '../../../../assets/inputConfig';
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
+import stores from '../../../../store';
 
 type CheckPasswordProps = {
   value: string;
@@ -14,9 +15,14 @@ export const CheckPasswordInput: FC<CheckPasswordProps> = ({value, password, onC
   const [error, setError] = useState('')
 
   useEffect(() => {
-    value !== password && value.length > 0
-        ? setError(errorText)
-        : setError('')
+    if(value !== password && value.length > 0){
+      setError(errorText)
+      stores.validForm.validCheckPassword = false
+    }else{
+      setError('')
+      stores.validForm.validCheckPassword = true
+    }
+        
   }, [value, password])
 
   return(

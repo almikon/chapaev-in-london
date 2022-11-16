@@ -65,7 +65,21 @@ export function SignUp() {
       email,
       phone,
     }
-      stores.authorization.signUp(data, navigate)
+    
+    const validForm =
+      stores.validForm.validLogin &&
+      stores.validForm.validEmail &&
+      stores.validForm.validPassword &&
+      stores.validForm.validCheckPassword &&
+      stores.validForm.validFirstName &&
+      stores.validForm.validSecondName &&
+      stores.validForm.validPhone
+
+      if(validForm){
+
+        stores.authorization.signUp(data, navigate)
+    
+      }
   }
 
   return (
