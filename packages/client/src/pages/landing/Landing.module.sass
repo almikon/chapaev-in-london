@@ -1,0 +1,89 @@
+@use '../../styles/variables/colors'
+@use '../../styles/variables/font-sizes'
+
+.landing
+  display: flex
+  flex-direction: column
+  flex-wrap: wrap
+  margin: auto
+  max-width: 1100px
+  width: 100%
+
+.cta
+  background-color: colors.$primary
+  max-width: 1100px
+  box-shadow: 0 0 6px colors.$shadow
+  border-radius: 12px
+  display: flex
+
+.cta__description
+  display: flex
+  flex-direction: column
+  max-width: 350px
+  width: 100%
+  margin: 120px 0 95px 95px
+
+.title
+  font-family: "Montserrat", Arial, sans-serif
+  color: colors.$dark
+  font-size: font-sizes.$title
+
+.title_red
+  color: colors.$accent
+
+.subtitle
+  font-family: "Montserrat", Arial, sans-serif
+  color: colors.$dark
+  margin: 0 0 24px 0
+
+.cta__image
+  max-width: 640px
+  width: 100%
+  max-height: 342px
+  background-image: url("../../../public/game.png")
+  background-position: center
+  background-size: contain
+  background-repeat: no-repeat
+  margin-top: 120px
+
+
+.about
+  display: flex
+  flex-direction: row
+  margin-top: 175px
+  margin-bottom: 175px
+
+.about__game
+  display: flex
+  flex-direction: column
+  align-items: center
+  background-color: colors.$secondary
+  max-width: 730px
+  width: 100%
+  height: 552px
+  box-shadow: 0 0 6px colors.$shadow
+  border-radius: 12px
+
+.about__title
+  font-family: "Montserrat", Arial, sans-serif
+  color: colors.$white
+  font-size: font-sizes.$title
+  text-align: center
+  margin: 60px 0 20px 0
+
+.about__description
+  margin: 0 95px 0 95px
+  column-count: 2
+  column-gap: 30px
+  color: colors.$white
+  font-size: font-sizes.$text
+
+.about__leaderboard
+  text-align: center
+  background-color: colors.$primary
+  max-width: 350px
+  width: 100%
+  margin-left: 30px
+  height: 552px
+  box-shadow: 0 0 6px colors.$shadow
+  border-radius: 12px
