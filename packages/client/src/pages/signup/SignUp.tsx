@@ -6,12 +6,12 @@ import stores from '../../store'
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 import { RoutePaths } from '../../types/routes'
 import { LoginInput } from '../../components/UI-elements/partials/LoginInput/LoginInput'
-import { PasswordUI } from '../../components/UI-elements/partials/PasswordUI/PasswordUI'
-import { SecondNameUI } from '../../components/UI-elements/partials/SecondNameUI/SecondNameUI'
-import { FirstNameUI } from '../../components/UI-elements/partials/FirstNameUI/FirstNameUI'
-import { EmailUI } from '../../components/UI-elements/partials/EmailUI/EmailUI'
-import { PhoneUI } from '../../components/UI-elements/partials/PhoneUI/PhoneUI'
-import { CheckPasswordUI } from '../../components/UI-elements/partials/CheckPassword/CheckPassword'
+import { PasswordInput } from '../../components/UI-elements/partials/PasswordInput/PasswordInput'
+import { SecondNameInput } from '../../components/UI-elements/partials/SecondNameInput/SecondNameInput'
+import { FirstNameInput } from '../../components/UI-elements/partials/FirstNameInput/FirstNameInput'
+import { EmailInput } from '../../components/UI-elements/partials/EmailInput/EmailInput'
+import { PhoneInput } from '../../components/UI-elements/partials/PhoneInput/PhoneInput'
+import { CheckPasswordInput } from '../../components/UI-elements/partials/CheckPasswordInput/CheckPasswordInput'
 import { Form } from '../../components/UI-elements/Form/Form'
 
 export function SignUp() {
@@ -24,15 +24,8 @@ export function SignUp() {
   const [checkPassword, setCheckPassword] = useState('')
 
   const navigate: NavigateFunction = useNavigate()
-
-  const [loginError, setLoginError] = useState(false)
-  const [passwordError, setPasswordError] = useState(false)
-  const [firstNameError, setFirstNameError] = useState(false)
-  const [secondNameError, setSecondNameError] = useState(false)
-  const [emailError, setEmailError] = useState(false)
-  const [phoneError, setPhoneError] = useState(false)
-  const [checkPasswordError, setCheckPasswordError] = useState(false)
-
+  const errorText = stores.authorization.errorText
+  
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
   }
@@ -72,66 +65,44 @@ export function SignUp() {
       email,
       phone,
     }
-    if (
-      !loginError &&
-      !passwordError &&
-      !firstNameError &&
-      !secondNameError &&
-      !emailError &&
-      !phoneError &&
-      !checkPasswordError
-    ) {
       stores.authorization.signUp(data, navigate)
-    }
   }
 
   return (
     <div className={styles.ui}>
       <div className={styles.form__background}>
-        <Form handleOnSubmit={handleSubmitSignUp}>
-          <EmailUI
-            handleChangeEmail={handleChangeEmail}
-            email={email}
-            emailError={emailError}
-            setEmailError={setEmailError}
+        <Form 
+          onSubmit={handleSubmitSignUp}
+          errorText={errorText}>
+          <EmailInput
+            onChange={handleChangeEmail}
+            value={email}
           />
 
-          <FirstNameUI
-            handleChangeFirstName={handleChangeFirstName}
-            firstName={firstName}
-            firstNameError={firstNameError}
-            setFirstNameError={setFirstNameError}
+          <FirstNameInput
+            onChange={handleChangeFirstName}
+            value={firstName}
           />
-          <SecondNameUI
-            handleChangeSecondName={handleChangeSecondName}
-            secondName={secondName}
-            secondNameError={secondNameError}
-            setSecondNameError={setSecondNameError}
+          <SecondNameInput
+            onChange={handleChangeSecondName}
+            value={secondName}
           />
 
-          <PhoneUI
-            handleChangePhone={handleChangePhone}
-            phone={phone}
-            phoneError={phoneError}
-            setPhoneError={setPhoneError}
+          <PhoneInput
+            onChange={handleChangePhone}
+            value={phone}
           />
           <LoginInput
-            handleChangeLogin={handleChangeLogin}
-            login={login}
-            loginError={loginError}
-            setLoginError={setLoginError}
+            onChange={handleChangeLogin}
+            value={login}
           />
-          <PasswordUI
-            handleChangePassword={handleChangePassword}
-            password={password}
-            passwordError={passwordError}
-            setPasswordError={setPasswordError}
+          <PasswordInput
+            onChange={handleChangePassword}
+            value={password}
           />
-          <CheckPasswordUI
-            handleCheckPassword={handleCheckPassword}
-            checkPassword={checkPassword}
-            checkPasswordError={checkPasswordError}
-            setCheckPasswordError={setCheckPasswordError}
+          <CheckPasswordInput
+            onChange={handleCheckPassword}
+            value={checkPassword}
             password={password}
           />
 
@@ -144,7 +115,7 @@ export function SignUp() {
           />
 
           <p>
-            <Link to={RoutePaths.SIGN_IN}>Create an account</Link>
+            <Link to={RoutePaths.SIGN_IN}>I already have an account</Link>
           </p>
         </Form>
       </div>

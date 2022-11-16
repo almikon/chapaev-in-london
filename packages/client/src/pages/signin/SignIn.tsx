@@ -8,16 +8,14 @@ import stores from '../../store'
 import { RoutePaths } from '../../types/routes'
 import { Form } from '../../components/UI-elements/Form/Form'
 import { LoginInput } from '../../components/UI-elements/partials/LoginInput/LoginInput';
-import { PasswordUI } from '../../components/UI-elements/partials/PasswordUI/PasswordUI';
+import { PasswordInput } from '../../components/UI-elements/partials/PasswordInput/PasswordInput';
 
 export function SignIn() {
   const navigate: NavigateFunction = useNavigate()
   const errorText  = stores.authorization.errorText
-
+  
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-
-  const [passwordError, setPasswordError] = useState(false)
 
   const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -47,11 +45,9 @@ export function SignIn() {
               value={login}
               onChange={handleChangeLogin}
           />
-          <PasswordUI
-              handleChangePassword={handleChangePassword}
-              password={password}
-              passwordError={passwordError}
-              setPasswordError={setPasswordError}
+          <PasswordInput
+              value={password}
+              onChange={handleChangePassword}
           />
 
           <Button

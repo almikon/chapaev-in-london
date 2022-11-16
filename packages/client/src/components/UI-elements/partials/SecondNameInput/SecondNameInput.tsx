@@ -1,25 +1,26 @@
-import React, { ChangeEventHandler, FC, useEffect, useState } from 'react'
-import styles from './LoginInput.module.sass'
-import { Input } from '../../Input/Input';
-import { Validation } from '../../../../assets/validation';
-import { LoginConfig } from '../../../../assets/inputConfig';
+import { ChangeEventHandler, FC, useEffect, useState } from 'react'
+import { Validation } from '../../../../assets/validation'
+import { Input } from '../../Input/Input'
+import styles from '../../../../styles/inputCommon.module.sass'
+import { SecondNameConfig } from '../../../../assets/inputConfig'
 
-type LoginProps = {
-  value: string;
+type SecondNameProps = {
+  value:string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
-export const LoginInput: FC<LoginProps> = ({ value, onChange }) => {
-  const { isRequired, name, maxLength, minLength, placeholder, errorText,label } = LoginConfig
+
+export const SecondNameInput: FC<SecondNameProps> = ({value, onChange}) => {
+  const { isRequired, name, maxLength, minLength, placeholder, errorText,label } = SecondNameConfig
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.LOGIN) && value.length > 0
+    !value.match(Validation.NAME) && value.length > 0
         ? setError(errorText)
         : setError('')
   }, [value])
 
   return (
-      <div className={styles.wrapper}>
+    <div className={styles.wrapper}>
         <label className={styles.wrapper__label}>{label}</label>
         <Input
             type={'text'}

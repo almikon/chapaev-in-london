@@ -1,4 +1,4 @@
-import { FC, ReactNode, SyntheticEvent } from 'react'
+import { FC, ReactNode, SyntheticEvent} from 'react'
 import styles from './Form.module.sass'
 
 type FormProps = {
@@ -13,7 +13,7 @@ export const Form: FC<FormProps> = ({ children, onSubmit, errorText }) => {
           className={styles.form__background}
           onSubmit={onSubmit}>
         {children}
-        <p>{errorText}</p>
+        <p className={styles.errorText}>{errorText}</p>
       </form>
   )
 }
