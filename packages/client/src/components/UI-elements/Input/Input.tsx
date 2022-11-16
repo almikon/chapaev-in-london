@@ -1,43 +1,35 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { ChangeEventHandler, FC, HTMLInputTypeAttribute } from 'react'
 import styles from './Input.module.sass'
+import { VariantType } from '../../../types/htmlTag'
 
 type InputProps = {
-  type: 'text' | 'email' | 'password' | 'file' | 'button' | 'checkbox' | 'hidden' | 'image' | 'radio' | 'reset' | 'submit' | 'tel'
-  variant: 'primary' | 'secondary' | 'accent' | 'inactive';
+  type: HTMLInputTypeAttribute,
+  variant: VariantType;
   id?: string;
   name: string;
   customModifier?: string;
   placeholder: string;
-  label?: string | undefined;
   value?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
-  maxLength?: number | undefined;
-  minLength?: number | undefined;
-  required?: boolean | undefined;
-  ariaLabel?: string | undefined;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  maxLength?: number;
+  minLength?: number;
+  required?: boolean;
+  ariaLabel?: string;
   disabled?: boolean;
 }
 
-export function Input(props: InputProps) {
+export const Input: FC<InputProps> = (props) => {
+  const { variant, customModifier, ...otherProps } = props
+
+  const variantClassName = variant ? styles[`input_${variant}`] : ''
+  const customModifierClassName = customModifier ? styles[`${customModifier}`] : ''
+
+  const className = styles.input + ' ' + variantClassName + ' ' + customModifierClassName
+
   return (
-    <div className={styles.input__block}>
-      <label className={styles.input__label}>{props.label}</label>
       <input
-        className={`${styles.input} 
-          ${styles[`input_${props.variant}`]}
-          ${styles[`${props.customModifier}`]}
-        `}
-        type={props.type}
-        name={props.name}
-        placeholder={props.placeholder}
-        maxLength={props.maxLength}
-        minLength={props.minLength}
-        value={props.value}
-        onChange={props.onChange}
-        required={props.required}
-        aria-label={props.ariaLabel}
-        disabled={props.disabled}
+          className={className}
+          {...otherProps}
       />
-    </div>
   )
 }

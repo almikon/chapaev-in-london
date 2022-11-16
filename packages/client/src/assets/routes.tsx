@@ -1,17 +1,19 @@
 import { RoutePaths, RoutesType } from '../types/routes'
 import React from 'react'
 import { Landing } from "../pages/landing/Landing";
+import { SignUp } from "../pages/signup/SignUp";
+import { SignIn } from "../pages/signin/SignIn";
 
 const routes: RoutesType[] = [
   {
     isAuth: false,
     path: RoutePaths.SIGN_UP,
-    element: <h1>Регистрация</h1>
+    element: <SignUp />,
   },
   {
     isAuth: false,
     path: RoutePaths.SIGN_IN,
-    element: <h1>Вход</h1>
+    element: <SignIn />,
   },
   {
     isAuth: true,

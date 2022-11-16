@@ -5529,6 +5529,7 @@
   "integrity" "sha512-ypMKuglUrZUD99Tk2bUQ+xNQj43lPEfAeX2o9cTteAmShXy2VHDJpuwu1o0xqoKCt9jLVAvwyFKdLTPXKAfJyA=="
   "resolved" "https://registry.npmjs.org/multimatch/-/multimatch-5.0.0.tgz"
   "version" "5.0.0"
+
   dependencies:
     "@types/minimatch" "^3.0.3"
     "array-differ" "^3.0.0"
@@ -6487,6 +6488,7 @@
   "integrity" "sha512-BT6DoGn6aV1FVP5yfODMOiieakp3z46P1Fk0RNzJMACzE7C339sFuHebfvWtnB4pzBvXXkHP2vscJzWRuUjTtA=="
   "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.4.3.tgz"
   "version" "6.4.3"
+
   dependencies:
     "@remix-run/router" "1.0.3"
 

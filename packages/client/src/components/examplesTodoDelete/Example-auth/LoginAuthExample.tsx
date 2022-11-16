@@ -1,10 +1,10 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './Auth.module.sass'
-import { Input } from '../UI-elements/Input/Input'
-import { Button } from '../UI-elements/Button/Button'
-import { CreateUserDto, SigninDto, User } from '../../types/dto/user.dto'
-import { apiService } from '../../api/ApiService'
-import stores from '../../store'
+import { Input } from '../../UI-elements/Input/Input'
+import { Button } from '../../UI-elements/Button/Button'
+import { CreateUserDto, SigninDto, User } from '../../../types/dto/user.dto'
+import { apiService } from '../../../api/ApiService'
+import stores from '../../../store'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 export function LoginAuthExample() {

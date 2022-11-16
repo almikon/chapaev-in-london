@@ -1,13 +1,13 @@
 import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
 import styles from './leaderboard.module.sass'
-import { Input } from '../UI-elements/Input/Input'
-import { Button } from '../UI-elements/Button/Button'
-import { apiService } from '../../api/ApiService'
+import { Input } from '../../UI-elements/Input/Input'
+import { Button } from '../../UI-elements/Button/Button'
+import { apiService } from '../../../api/ApiService'
 import {
   AddLeaderboardDto,
   GetAllLeaderboardDto,
   GetTeamLeaderboardDto,
-} from '../../types/dto/leaderboard.dto'
+} from '../../../types/dto/leaderboard.dto'
 
 export function LeaderboardExample() {
   const [title, setTitle] = useState('Как играть в эту ХХХХХ игру?')

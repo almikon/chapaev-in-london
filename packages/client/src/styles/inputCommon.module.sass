@@ -1,0 +1,18 @@
+@use './variables/colors'
+@use './variables/font-sizes'
+
+.wrapper
+  display: flex
+  flex-direction: column
+  max-width: 280px
+  min-width: 00px
+  width: 100%
+
+.wrapper__label
+  font-family: "Montserrat", Arial, sans-serif
+  font-size: font-sizes.$input-label
+  margin-top: 8px
+  margin-bottom: 8px
+
+.wrapper__errorMessage
+  color: colors.$accent
