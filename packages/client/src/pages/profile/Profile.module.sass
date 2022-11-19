@@ -1,0 +1,37 @@
+@use '../../styles/variables/colors'
+@use '../../styles/variables/font-sizes'
+
+.profile
+  display: flex
+  width: 100%
+  align-items: center
+  flex-direction: column
+  margin-top: 20px
+
+.profile__links
+  list-style: none
+  text-align: center
+  padding: 0
+  margin-top: 10px
+
+.profile__link
+  margin-top: 20px
+  transition: 0.2s ease-in-out
+
+.profile__link:hover
+  cursor: pointer
+  opacity: 0.7
+  transition: 0.2s ease-in-out
+
+.profile__link_logout
+  color: colors.$accent
+
+.profile__updateMessage
+  margin-top: 36px
+  font-size: font-sizes.$systemMessages
+
+.profile__avatarInput
+  display: none
+
+.hide
+  display: none

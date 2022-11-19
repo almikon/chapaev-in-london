@@ -31,14 +31,20 @@ class Authorization {
     this.api
       .getUser()
       .then(({ data, message }) => {
-        if (data) this.user = data
+        if (data) {
+          this.user = data
+        }
+
+
+
 
         message && this.errorResponse(message, navigate)
       })
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  signIn(signInDto: SigninDto, navigate: NavigateFunction) {
+  signIn(
+    signInDto: SigninDto, navigate: NavigateFunction) {
     this.errorText = ''
 
     this.api

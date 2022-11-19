@@ -1,0 +1,22 @@
+@use '../../../styles/fonts/fonts'
+@use '../../../styles/variables/colors'
+
+.avatar
+  width: 130px
+  height: 130px
+  border-radius: 50%
+  background-color: colors.$light-grey
+  justify-content: center
+  align-items: center
+  display: flex
+  z-index: 0
+  object-fit: cover
+
+.avatar_edit:hover
+  opacity: 0.6
+  cursor: pointer
+
+.avatar__noAvatar
+  background-image: url("../public/no-avatar.svg")
+  background-repeat: no-repeat
+  background-position: center
