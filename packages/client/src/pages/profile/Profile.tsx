@@ -162,8 +162,8 @@ export const Profile = observer(({store}: Record<string, any>) => {
 
   const handleAvatarClick = (e: SyntheticEvent) => {
     e.preventDefault()
-    const avatarUploadInput: any = document.getElementById('avatarUpload');
-    avatarUploadInput.click()
+    const avatarUploadInput: HTMLElement | null = document.getElementById('avatarUpload');
+    avatarUploadInput && avatarUploadInput.click()
 
     setIsAvatarSaveBtnVisible(true)
   }
