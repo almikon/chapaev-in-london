@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { Component, ErrorInfo, ReactNode, Fragment, ComponentType } from 'react'
 
-type ErrorHandler = (error: Error, info: React.ErrorInfo) => void
-type ErrorHandlingComponent<Props> = (props: Props, error?: Error) => React.ReactNode
+type ErrorHandler = (error: Error, info: ErrorInfo) => void
+type ErrorHandlingComponent<Props> = (props: Props, error?: Error) => ReactNode
 type ErrorState = { error?: Error }
 
 export const Catch = <Props, >(
   component: ErrorHandlingComponent<Props>,
   errorHandler?: ErrorHandler
-): React.ComponentType<Props> => {
+): ComponentType<Props> => {
   function Inner(props: { error?: Error, props: Props }) {
-    return <React.Fragment>{component(props.props, props.error)}</React.Fragment>
+    return <Fragment>{component(props.props, props.error)}</Fragment>
   }
 
-  return class extends React.Component<Props, ErrorState> {
+  return class extends Component<Props, ErrorState> {
     state: ErrorState = {
       error: undefined
     }
@@ -21,7 +21,7 @@ export const Catch = <Props, >(
       return { error }
     }
 
-    componentDidCatch(error: Error, info: React.ErrorInfo) {
+    componentDidCatch(error: Error, info: ErrorInfo) {
       if (errorHandler) {
         errorHandler(error, info)
       }
