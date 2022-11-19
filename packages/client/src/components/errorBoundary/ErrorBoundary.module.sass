@@ -1,0 +1,14 @@
+@use '../../styles/variables/alignment'
+
+.errorBoundary
+  @extend %flexCenterColumn
+
+  .errorBoundary__description
+    padding: 10px 0
+
+  .errorBoundary__details
+    whiteSpace: 'pre-wrap'
+    text-align: center
+
+  .errorBoundary__details:hover
+   cursor: pointer
