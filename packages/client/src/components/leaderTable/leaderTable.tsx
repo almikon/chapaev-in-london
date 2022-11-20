@@ -13,7 +13,7 @@ export function LeaderTable(props: LeaderTableProps) {
       <div className={styles.title}>Leaderboard</div>
       <div className={styles.card}>
         {cards.length
-          ? cards.map(card => <ScoreCard {...card} />)
+          ? cards.map(card => <ScoreCard {...card} key={card.number} />)
           : <h3>Здесь пока нет записей!</h3>
         }
       </div>
