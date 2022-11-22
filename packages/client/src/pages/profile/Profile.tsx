@@ -38,7 +38,8 @@ export const Profile = observer(({store}: Record<string, any>) => {
   const [profileChange, setProfileChange] = useState({isChanged: false, text: ''})
   const [passwordChange, setPasswordChange] = useState({isChanged: false, text: ''})
   const [avatar, setAvatar] = useState('')
-  const [isAvatarSaveBtnVisible, setIsAvatarSaveBtnVisible] = useState(false)
+  const [isAvatarSaveBtnVisible, setIsAvatarSaveButtonVisible] = useState(false)
+  const [avatarFileName, setAvatarFileName] = useState('')
   const errorText = stores.authorization.errorText
 
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +95,7 @@ export const Profile = observer(({store}: Record<string, any>) => {
     userData && setPhone(userData.phone)
     userData && userData.display_name && setDisplayName(userData.display_name)
     userData && userData.avatar && setAvatar(prepareAvatarLink(userData.avatar))
+    setChangeDataOrPassword('data')
   }, [userData])
 
 
@@ -160,24 +162,32 @@ export const Profile = observer(({store}: Record<string, any>) => {
     stores.authorization.logout(navigate)
   }
 
+  const avatarUploadInput = document.getElementById('avatarUpload') as HTMLInputElement;
+
+  const handleChangeInput = () => {
+    if (avatarUploadInput.files) {
+      setAvatarFileName(avatarUploadInput.files[0].name)
+      setIsAvatarSaveButtonVisible(true)
+    }
+  }
+
   const handleAvatarClick = (e: SyntheticEvent) => {
     e.preventDefault()
-    const avatarUploadInput: HTMLElement | null = document.getElementById('avatarUpload');
-    avatarUploadInput && avatarUploadInput.click()
 
-    setIsAvatarSaveBtnVisible(true)
+
+    avatarUploadInput && avatarUploadInput.click()
   }
 
   const handleAvatarUpload = async (e: SyntheticEvent) => {
     e.preventDefault()
-    const inputDataFileList: FileList | null = (document.getElementById('avatarUpload') as HTMLInputElement).files
 
-    if (inputDataFileList) {
-      const avatar: File = inputDataFileList[0]
+    if (avatarUploadInput.files) {
+      const avatar: File = avatarUploadInput.files[0]
       await apiService.getUsersApi().changeAvatar(avatar)
         .then(res => {
           res.data && setAvatar(prepareAvatarLink(res.data.avatar))
-          setIsAvatarSaveBtnVisible(false)
+          setIsAvatarSaveButtonVisible(false)
+          setAvatarFileName('')
         })
         .catch(e => {
           throw new Error(e)
@@ -196,12 +206,13 @@ export const Profile = observer(({store}: Record<string, any>) => {
 
               <Avatar type={"upload"} size={"large"} src={avatar} alt={login} onClick={handleAvatarClick}></Avatar>
 
+              <label className={styles.profile__avatarFileLabel}>{avatarFileName}</label>
               <input className={styles.profile__avatarInput} id={"avatarUpload"} type={"file"} name={"avatar"}
-                     accept={"image/*"}></input>
+                     accept={"image/*"} onChange={handleChangeInput}></input>
 
               <Button type={"submit"} variant={"primary"} size={"small"} onClick={handleAvatarUpload}
                       value={"Загрузить аватар"}
-                      customModifier={isAvatarSaveBtnVisible ? '' : 'button_hidden'}></Button>
+                      customModifier={isAvatarSaveBtnVisible ? 'button_marginDown' : 'button_hidden'}></Button>
 
               <EmailInput
                   onChange={handleChangeEmail}

@@ -20,7 +20,11 @@ export function Avatar(props: AvatarProps) {
       />
 
     )
-  } else {
-    return <div className={`${styles.avatar} ${styles.avatar__noAvatar} ${styles.avatar_edit}`}></div>
+  }
+  else {
+    return <div
+      className={`${styles.avatar} ${styles.avatar__noAvatar} ${styles.avatar_edit}`}
+      onClick={props.onClick}
+    ></div>
   }
 }
