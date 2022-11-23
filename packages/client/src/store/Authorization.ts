@@ -21,7 +21,7 @@ class Authorization {
         signIn: action,
         logout: action,
       },
-      { deep: true }
+      {deep: true}
     )
   }
 
@@ -30,12 +30,10 @@ class Authorization {
 
     this.api
       .getUser()
-      .then(({ data, message }) => {
+      .then(({data, message}) => {
         if (data) {
           this.user = data
         }
-
-
 
 
         message && this.errorResponse(message, navigate)
@@ -48,8 +46,8 @@ class Authorization {
 
     this.api
       .signin(signInDto)
-      .then(({ data, message }) => {
-        data && navigate(RoutePaths.PROFILE, { replace: true })
+      .then(({data, message}) => {
+        data && navigate(RoutePaths.PROFILE, {replace: true})
 
         message && this.errorResponse(message, navigate)
       })
@@ -61,8 +59,8 @@ class Authorization {
 
     this.api
       .signup(signUpDto)
-      .then(({ data, message }) => {
-        data?.id && navigate(RoutePaths.PROFILE, { replace: true })
+      .then(({data, message}) => {
+        data?.id && navigate(RoutePaths.PROFILE, {replace: true})
 
         message && this.errorResponse(message, navigate)
       })
@@ -80,7 +78,7 @@ class Authorization {
     this.errorText = errorText
 
     if (navigate) {
-      navigate(RoutePaths.SIGN_IN, { replace: true })
+      navigate(RoutePaths.SIGN_IN, {replace: true})
     }
   }
 }
