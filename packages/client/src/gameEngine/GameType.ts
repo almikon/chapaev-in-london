@@ -20,7 +20,7 @@ export abstract class GameType {
 
   abstract canTouchChecker(checker: Checker): boolean;
 
-  protected switchPlayer() {
+  protected switchPlayer = () => {
     this._currentPlayerId =
       this._currentPlayerId === GameEngine.Palyer1Id ? GameEngine.Palyer2Id : GameEngine.Palyer1Id;
   }
@@ -32,14 +32,14 @@ export class GameTypeHotSeat extends GameType {
     this._currentPlayerId = GameEngine.Palyer1Id;
   }
 
-  public handleRoundEnd() {
+  public handleRoundEnd = () => {
     this.switchPlayer();
     this.game.checkers.forEach((checker) => {
       checker.position = new Vector(checker.position.x, GameEngine.Dimension - checker.position.y);
     });
   }
 
-  public canTouchChecker(checker: Checker): boolean {
+  public canTouchChecker = (checker: Checker): boolean => {
     return checker.playerId === this._currentPlayerId;
   }
 }
@@ -50,7 +50,7 @@ export class GameTypeAi extends GameType {
     this._currentPlayerId = GameEngine.Palyer1Id;
   }
 
-  public handleRoundEnd() {
+  public handleRoundEnd = () => {
     this.switchPlayer();
     if (this._currentPlayerId === GameEngine.Palyer2Id) {
       const aiCheckers = this.game.checkers.filter(
@@ -81,7 +81,7 @@ export class GameTypeAi extends GameType {
     }
   }
 
-  public canTouchChecker(checker: Checker): boolean {
+  public canTouchChecker = (checker: Checker): boolean => {
     return checker.playerId === GameEngine.Palyer1Id;
   }
 }

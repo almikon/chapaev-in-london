@@ -73,11 +73,11 @@ export class Checker {
     this._selected = false;
   }
 
-  contains(point: Vector) {
+  contains = (point: Vector) => {
     return this.position.sub(point).magnitude() <= this.radius;
   }
 
-  collides(other: Checker) {
+  collides = (other: Checker) => {
     if (this === other) {
       return false;
     }
@@ -87,7 +87,7 @@ export class Checker {
     }
   }
 
-  getVelocityAfterCollision(other: Checker) {
+  getVelocityAfterCollision = (other: Checker) => {
     /*
                 The formulas were taken from
                 https://en.wikipedia.org/wiki/Elastic_collision#Two-dimensional
@@ -104,7 +104,7 @@ export class Checker {
     return velocity;
   }
 
-  move(dt: number, frictionKoeff = 0): Checker {
+  move= (dt: number, frictionKoeff = 0): Checker => {
     if (this.velocity.magnitude() < this.radius / 10) {
       this.velocity = Vector.NullVector;
     }

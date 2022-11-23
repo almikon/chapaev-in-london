@@ -25,7 +25,7 @@ export class Particle {
     this._alpha = 1;
   }
 
-  draw() {
+  draw = () => {
     const prevAlpha = this._ctx.globalAlpha;
     this._ctx.globalAlpha = this._alpha;
     this._ctx.fillStyle = this._color;
@@ -37,7 +37,7 @@ export class Particle {
     this._ctx.globalAlpha = prevAlpha;
   }
 
-  update() {
+  update = () => {
     this._alpha -= 0.01;
     this._position = this._position.add(this._velocity);
   }

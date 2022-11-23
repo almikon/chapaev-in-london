@@ -39,7 +39,7 @@ export class GameEngine {
   private _delaySec = 0;
   private _elapsedSec = 0;
 
-  init(gameType: GameType) {
+  init = (gameType: GameType) => {
     this._gameType = gameType;
 
     for (let i = 0; i < GameEngine.CheckerCount; i++) {
@@ -66,7 +66,7 @@ export class GameEngine {
     this._userMoveInProgress = false;
   }
 
-  tick(dt: number, gameInteraction: GameInteraction) {
+  tick = (dt: number, gameInteraction: GameInteraction) => {
     const result = new GameStepResult();
     if (this._delayInProgress) {
       this._elapsedSec += dt;
@@ -93,7 +93,7 @@ export class GameEngine {
     return result;
   }
 
-  private getWinnerId() {
+  private getWinnerId = () => {
     const isWinner = (id: number) => this.checkers.every((c) => c.playerId === id);
     if (isWinner(GameEngine.Palyer1Id)) {
       return GameEngine.Palyer1Id;
@@ -104,7 +104,7 @@ export class GameEngine {
     return null;
   }
 
-  private removeDestroyedCheckers() {
+  private removeDestroyedCheckers = () => {
     const destroyed: Checker[] = [];
     this._checkers.forEach((checker, i) => {
       if (
@@ -120,7 +120,7 @@ export class GameEngine {
     return destroyed;
   }
 
-  private handleCollisions() {
+  private handleCollisions = () => {
     const collisions = new Set();
     this._checkers.forEach((checker1) => {
       this._checkers.forEach((checker2) => {
@@ -146,20 +146,20 @@ export class GameEngine {
     });
   }
 
-  private moveCheckers(dt: number) {
+  private moveCheckers = (dt: number) => {
     this._checkers.forEach((checker) => {
       checker.move(dt, GameEngine.BoardFriction);
     });
   }
 
-  public computeStrikeVelocity(strikeVec: Vector) {
+  public computeStrikeVelocity = (strikeVec: Vector) => {
     const desiredPower = strikeVec.magnitude();
     const effectivePower =
       Math.min(desiredPower, GameEngine.MaxStrikePower) * GameEngine.StrikePowerToVelocityCoeff;
     return strikeVec.direction().mul(effectivePower);
   }
 
-  private handleInteraction(gameInteraction: GameInteraction) {
+  private handleInteraction = (gameInteraction: GameInteraction) => {
     if (this._userMoveInProgress) {
       return;
     }

@@ -43,7 +43,7 @@ export class GameVizualiser {
 
   private _particles: Particle[] = [];
 
-  private adjustCanvasDimensions(width: number) {
+  private adjustCanvasDimensions = (width: number) => {
     [this.boardCanvas, this.canvas].forEach((canvas) => {
       canvas.width = width;
       canvas.height = width;
@@ -57,12 +57,12 @@ export class GameVizualiser {
     this._outerContainer = container;
   }
 
-  private async playSound(sound: string) {
+  private playSound = async (sound: string) => {
     const audio = new Audio(sound);
     await audio.play();
   }
 
-  public start() {
+  public start = () => {
     this.stop();
     this._outerContainer.innerHTML = '';
     this._container = document.createElement('div');
@@ -103,7 +103,7 @@ export class GameVizualiser {
     window.requestAnimationFrame(this.animationStep);
   }
 
-  public stop() {
+  public stop = () => {
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mousedown', this.onMouseDown);
     document.removeEventListener('mouseup', this.onMouseUp);
@@ -164,7 +164,7 @@ export class GameVizualiser {
     }
   };
 
-  animationStep: FrameRequestCallback = (timestamp) => {
+  animationStep: FrameRequestCallback = async (timestamp) => {
     if (this._startTimeStamp === undefined) {
       this._startTimeStamp = timestamp;
     }
@@ -174,7 +174,7 @@ export class GameVizualiser {
     if (this._prevTimeStamp !== timestamp) {
       if (step) {
         const tickResult = this._game.tick(dt, this._gameInteraction);
-        this.animateDestroyed(tickResult);
+        await this.animateDestroyed(tickResult);
         if (tickResult.winnerId) {
           alert(`Player ${tickResult.winnerId} wins!`);
         }
@@ -187,7 +187,7 @@ export class GameVizualiser {
     window.requestAnimationFrame(this.animationStep);
   };
 
-  private animateDestroyed(tickResult: GameStepResult) {
+  private animateDestroyed = async (tickResult: GameStepResult) => {
     tickResult.destroyedCheckers.forEach(async (checker) => {
       const canvasPos = this.vectorToCanvasCoords(checker.position);
       await this.playSound(explosionSound);
@@ -213,11 +213,11 @@ export class GameVizualiser {
     });
   }
 
-  clear() {
+  clear = () => {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  draw() {
+  draw = () => {
     this.clear();
     this._game.checkers.forEach((checker) => {
       this.drawChecker(checker);
@@ -227,7 +227,7 @@ export class GameVizualiser {
     });
   }
 
-  private drawChecker(checker: Checker) {
+  private drawChecker = (checker: Checker) => {
     const canvasPos = this.vectorToCanvasCoords(checker.position);
     const canvasRadius = (this.canvas.width * GameEngine.CheckerRadius) / GameEngine.Dimension;
     const innerRadius = canvasRadius * 0.01;
@@ -262,7 +262,7 @@ export class GameVizualiser {
     }
   }
 
-  private getCheckerColor(checker: Checker): string {
+  private getCheckerColor = (checker: Checker): string => {
     return checker.playerId == GameEngine.Palyer1Id ? gamePalette.checker1 : gamePalette.checker2;
   }
 }
