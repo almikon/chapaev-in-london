@@ -7,9 +7,9 @@ import { ChangeData } from "./components/ChangeData";
 
 export const Profile = observer(({store}: Record<string, any>) => {
   const userData = store.user
-  const [changeDataOrPassword, setChangeDataOrPassword] = useState('data')
+  const [changeDataOrPassword, setChangeDataOrPassword] = useState('data' as 'data' | 'password')
 
-  const handleChangePasswordButtonClick = () => {
+  const toggleDataOrPassword = () => {
     changeDataOrPassword === 'data'
       ? setChangeDataOrPassword('password')
       : setChangeDataOrPassword('data')
@@ -25,12 +25,12 @@ export const Profile = observer(({store}: Record<string, any>) => {
       {userData !== null && changeDataOrPassword === 'data' &&
          <ChangeData
              userData={userData}
-             handleChangePasswordButtonClick={handleChangePasswordButtonClick}/>
+             handleChangePasswordButtonClick={toggleDataOrPassword}/>
       }
 
       {userData !== null && changeDataOrPassword === 'password' &&
         <ChangePassword
-            handleChangePasswordButtonClick={handleChangePasswordButtonClick}/>
+            handleChangePasswordButtonClick={toggleDataOrPassword}/>
       }
 
       {!userData && 'Загрузка...'}

@@ -25,7 +25,7 @@ class Authorization {
     )
   }
 
-  isLogin(navigate: NavigateFunction) {
+  isLogin = (navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api
@@ -43,8 +43,7 @@ class Authorization {
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  signIn(
-    signInDto: SigninDto, navigate: NavigateFunction) {
+  signIn = (signInDto: SigninDto, navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api
@@ -57,7 +56,7 @@ class Authorization {
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  signUp(signUpDto: CreateUserDto, navigate: NavigateFunction) {
+  signUp = (signUpDto: CreateUserDto, navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api
@@ -70,7 +69,7 @@ class Authorization {
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  logout(navigate: NavigateFunction) {
+  logout = (navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api.logout().finally(() => this.errorResponse('', navigate))
