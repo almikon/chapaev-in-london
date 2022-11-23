@@ -1,0 +1,33 @@
+@use '../../../styles/variables/common'
+
+.buttonSend:hover
+  background-color: common.$hoverBackground
+  cursor: pointer
+
+.buttonSend
+  position: relative
+  padding: 0
+  border: none
+  font: inherit
+  color: inherit
+  background-color: #DEB63D
+
+  border-radius: 50%
+
+  width: 65px
+  height: 65px
+
+  .buttonSend__icon::before
+    position: relative
+    border-style: solid
+    border-color: white
+    border-width: 2px 2px 0 0
+    content: ''
+    display: inline-block
+    height: 15px
+    width: 15px
+    transform: rotate(45deg)
+    vertical-align: top
+
+
+

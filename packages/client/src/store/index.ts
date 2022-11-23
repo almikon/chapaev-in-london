@@ -1,7 +1,9 @@
 import authorization from './Authorization'
+import { forumStore } from './Forum'
 
 const stores = {
-  authorization
+  authorization,
+  forumStore
 }
 
 export default stores
