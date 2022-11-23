@@ -64,7 +64,7 @@ class ForumStore {
       chat_id: chatId,
       type: 'type',
       time,
-      user_id: 2,
+      user: {} as User,
       content: message
     }
 
