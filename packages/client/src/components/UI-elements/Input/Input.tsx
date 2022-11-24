@@ -16,6 +16,7 @@ type InputProps = {
   required?: boolean;
   ariaLabel?: string;
   disabled?: boolean;
+  accept?: string;
 }
 
 export const Input: FC<InputProps> = (props) => {
