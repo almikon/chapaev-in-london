@@ -6,8 +6,8 @@ export function Nav() {
     return (
         <div className={styles.nav}>
             <div className={styles.nav__side}>
-                <Link className={styles.nav__el} to={RoutePaths.SIGN_IN}>Home</Link>
-                <Link className={styles.nav__el} to={RoutePaths.MAIN}>Play</Link>
+                <Link className={styles.nav__el} to={RoutePaths.MAIN}>Home</Link>
+                <Link className={styles.nav__el} to={RoutePaths.GAME}>Play</Link>
                 <Link className={styles.nav__el} to={RoutePaths.FORUM}>Forum</Link>
             </div>
             <div><p className={styles.title}>CHAPAEV<br></br>in London</p></div>
