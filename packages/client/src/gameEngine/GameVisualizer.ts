@@ -43,6 +43,8 @@ export class GameVizualiser {
 
   private _particles: Particle[] = []
 
+  public onGameEnd: ((playerId: number) => void) | null = null
+
   constructor(game: GameEngine, container: Element) {
     this._game = game
     this._outerContainer = container
@@ -97,7 +99,7 @@ export class GameVizualiser {
     const width = this._outerContainer.clientWidth
     const clientRect = this._outerContainer.getBoundingClientRect()
     const height = window.innerHeight - clientRect.top
-    const innerDimension = Math.min(width, height)
+    const innerDimension = Math.min(width, height) - 10
     this._container.style.left = `${(this._outerContainer.clientWidth - innerDimension) / 2}px`
     this._container.style.width = `${innerDimension}px`
     this._container.style.paddingTop = `${innerDimension}px`
@@ -196,7 +198,7 @@ export class GameVizualiser {
         const tickResult = this._game.tick(dt, this._gameInteraction)
         await this.animateDestroyed(tickResult)
         if (tickResult.winnerId) {
-          alert(`Player ${tickResult.winnerId} wins!`)
+          this.onGameEnd && this.onGameEnd(tickResult.winnerId)
         }
       }
       this.draw()
