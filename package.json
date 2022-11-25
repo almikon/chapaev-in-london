@@ -23,5 +23,8 @@
     "@evilmartians/lefthook": "^1.1.1",
     "identity-obj-proxy": "3.0.0",
     "lerna": "^5.4.3"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.4.3"
   }
 }

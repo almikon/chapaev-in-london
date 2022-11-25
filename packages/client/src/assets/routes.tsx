@@ -3,6 +3,7 @@ import React from 'react'
 import { Landing } from "../pages/landing/Landing";
 import { SignUp } from "../pages/signup/SignUp";
 import { SignIn } from "../pages/signin/SignIn";
+import { Leaderboard } from '../pages/leaderboard/Leaderboard'
 import { Game } from '../pages/game/Game';
 import { Profile } from "../pages/profile/Profile";
 import stores from '../store'
@@ -41,7 +42,7 @@ const routes: RoutesType[] = [
   {
     isAuth: true,
     path: RoutePaths.LEADERBOARD,
-    element: <h1>LEADERBOARD</h1>
+    element: <Leaderboard/>
   },
   {
     isAuth: true,
