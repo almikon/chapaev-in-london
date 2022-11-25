@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Landing.module.sass'
 import { Button } from "../../components/UI-elements/Button/Button";
 import { Link } from "react-router-dom";
+import { RoutePaths } from '../../types/routes';
 
 export function Landing() {
 
@@ -39,7 +40,7 @@ export function Landing() {
           </p>
 
           <h2 className={styles.about__title}>Want to play?</h2>
-          <Link to={"/game"}>
+          <Link to={RoutePaths.GAME}>
             <Button type={"button"} variant={"secondary"} size={"large"} value={"Let's GO!"}></Button>
           </Link>
         </div>

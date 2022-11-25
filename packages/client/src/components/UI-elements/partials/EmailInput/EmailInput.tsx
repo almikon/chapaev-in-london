@@ -5,7 +5,7 @@ import styles from '../../../../styles/inputCommon.module.sass'
 import { EmailConfig } from '../../../../assets/inputConfig'
 
 type EmailProps = {
-  value:string;
+  value: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   emailError: boolean;
   setEmailError: Dispatch<SetStateAction<boolean>>;
@@ -25,23 +25,24 @@ export const EmailInput: FC<EmailProps> = ({value, onChange, emailError, setEmai
     }
   }, [value,emailError])
 
+
   return (
     <div className={styles.wrapper}>
-        <label className={styles.wrapper__label}>{label}</label>
-        <Input
-            type={'email'}
-            variant={'primary'}
-            placeholder={placeholder}
-            name={name}
-            value={value}
-            minLength={minLength}
-            maxLength={maxLength}
-            required={isRequired}
-            onChange={onChange}
-        />
-        {error
-            ? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-            : null}
-      </div>
+      <label className={styles.wrapper__label}>{label}</label>
+      <Input
+        type={'email'}
+        variant={'primary'}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        minLength={minLength}
+        maxLength={maxLength}
+        required={isRequired}
+        onChange={onChange}
+      />
+      {error
+        ? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+        : null}
+    </div>
   )
 }
