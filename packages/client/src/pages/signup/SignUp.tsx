@@ -25,6 +25,14 @@ export function SignUp() {
 
   const navigate: NavigateFunction = useNavigate()
   const errorText = stores.authorization.errorText
+
+  const [loginError, setLoginError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [firstNameError, setFirstNameError] = useState(false)
+  const [secondNameError, setSecondNameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [phoneError, setPhoneError] = useState(false)
+  const [checkPasswordError, setCheckPasswordError] = useState(false)
   
   const handleChangeLogin = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -56,7 +64,7 @@ export function SignUp() {
 
   const handleSubmitSignUp = async (e: SyntheticEvent) => {
     e.preventDefault()
-
+    
     const data: CreateUserDto = {
       login,
       password,
@@ -65,7 +73,18 @@ export function SignUp() {
       email,
       phone,
     }
-      stores.authorization.signUp(data, navigate)
+
+      if (
+        !loginError &&
+        !passwordError &&
+        !emailError &&
+        !firstNameError &&
+        !secondNameError &&
+        !phoneError &&
+        !checkPasswordError
+      ) {
+        stores.authorization.signUp(data, navigate)
+      }
   }
 
   return (
@@ -77,33 +96,47 @@ export function SignUp() {
           <EmailInput
             onChange={handleChangeEmail}
             value={email}
+            emailError={emailError}
+            setEmailError={setEmailError}
           />
 
           <FirstNameInput
             onChange={handleChangeFirstName}
             value={firstName}
+            firstNameError={firstNameError}
+            setFirstNameError={setFirstNameError}
           />
           <SecondNameInput
             onChange={handleChangeSecondName}
             value={secondName}
+            secondNameError={secondNameError}
+            setSecondNameError={setSecondNameError}
           />
 
           <PhoneInput
             onChange={handleChangePhone}
             value={phone}
+            phoneError={phoneError}
+            setPhoneError={setPhoneError}
           />
           <LoginInput
-            onChange={handleChangeLogin}
-            value={login}
+              value={login}
+              onChange={handleChangeLogin}
+              loginError={loginError}
+              setLoginError={setLoginError}
           />
           <PasswordInput
-            onChange={handleChangePassword}
-            value={password}
+              value={password}
+              onChange={handleChangePassword}
+              passwordError={passwordError}
+              setPasswordError={setPasswordError}
           />
           <CheckPasswordInput
             onChange={handleCheckPassword}
             value={checkPassword}
             password={password}
+            checkPasswordError={checkPasswordError}
+            setCheckPasswordError={setCheckPasswordError}
           />
 
           <Button
