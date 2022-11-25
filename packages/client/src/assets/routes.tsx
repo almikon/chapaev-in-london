@@ -4,6 +4,9 @@ import { Landing } from "../pages/landing/Landing";
 import { SignUp } from "../pages/signup/SignUp";
 import { SignIn } from "../pages/signin/SignIn";
 import { Leaderboard } from '../pages/leaderboard/Leaderboard'
+import { Game } from '../pages/game/Game';
+import { Profile } from "../pages/profile/Profile";
+import stores from '../store'
 
 const routes: RoutesType[] = [
   {
@@ -19,7 +22,7 @@ const routes: RoutesType[] = [
   {
     isAuth: true,
     path: RoutePaths.MAIN,
-    element: <Landing/>
+    element: <Landing />
   },
   {
     isAuth: true,
@@ -29,7 +32,7 @@ const routes: RoutesType[] = [
   {
     isAuth: true,
     path: RoutePaths.PROFILE,
-    element: <h1>Profile</h1>
+    element: <Profile store={stores.authorization}/>
   },
   {
     isAuth: true,
@@ -40,6 +43,11 @@ const routes: RoutesType[] = [
     isAuth: true,
     path: RoutePaths.LEADERBOARD,
     element: <Leaderboard/>
+  },
+  {
+    isAuth: true,
+    path: RoutePaths.GAME,
+    element: <Game/>
   },
   {
     isAuth: false,

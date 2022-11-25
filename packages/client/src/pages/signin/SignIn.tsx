@@ -17,6 +17,9 @@ export function SignIn() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
 
+  const [loginError, setLoginError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+
   const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
   }
@@ -27,12 +30,18 @@ export function SignIn() {
 
   const handleSubmitSignIn = async (e: SyntheticEvent) => {
     e.preventDefault()
+
     const data: SigninDto = {
       login,
       password
     }
-
+    
+    if (
+      !loginError &&
+      !passwordError
+    ) {
     stores.authorization.signIn(data, navigate)
+    }
   }
 
   return (
@@ -44,10 +53,14 @@ export function SignIn() {
           <LoginInput
               value={login}
               onChange={handleChangeLogin}
+              loginError={loginError}
+              setLoginError={setLoginError}
           />
           <PasswordInput
               value={password}
               onChange={handleChangePassword}
+              passwordError={passwordError}
+              setPasswordError={setPasswordError}
           />
 
           <Button

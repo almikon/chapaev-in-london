@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 
 export enum RoutePaths {
   MAIN = '/',
+  GAME= '/game',
   SIGN_UP = '/sign-up',
   SIGN_IN = '/sign-in',
   SETTINGS = '/settings',
