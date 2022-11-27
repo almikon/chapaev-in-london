@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FC, SyntheticEvent, useState } from 'react'
+import { ChangeEvent, FC, SyntheticEvent, useState } from 'react'
 import { Avatar } from '../../UI-elements/Avatar/Avatar'
 import stores from '../../../store'
 import styles from './CreateChatForm.module.sass'
-import stylesInput  from '../../UI-elements/Input/Input.module.sass'
+import stylesInput from '../../UI-elements/Input/Input.module.sass'
 import { Input } from '../../UI-elements/Input/Input'
 import { ButtonSend } from '../../UI-elements/ButtonSend/ButtonSend'
+import { apiPath } from '../../../assets/config'
 
 type CreateChatFormProps = {
   handleForm: (title: string, message: string) => void
@@ -32,7 +33,9 @@ export const CreateChatForm: FC<CreateChatFormProps> = ({ handleForm }) => {
 
   return (
     <div className={styles.createChatForm}>
-      <Avatar src={stores.authorization.user?.avatar ?? ''} />
+      <Avatar src={stores.authorization.user?.avatar
+        ? `${apiPath}/resources/${stores.authorization.user?.avatar}`
+        : ''} />
       <form
         className={styles.createChatForm__form}
         onSubmit={handleSubmit}>
@@ -55,7 +58,7 @@ export const CreateChatForm: FC<CreateChatFormProps> = ({ handleForm }) => {
 
         </div>
 
-        <ButtonSend type={'submit'}/>
+        <ButtonSend type={'submit'} />
       </form>
     </div>
   )
