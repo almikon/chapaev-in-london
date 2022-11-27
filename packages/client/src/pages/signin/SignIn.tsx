@@ -1,66 +1,57 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from 'react'
-import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 
-import styles from '../../styles/styles.module.sass'
-import { Button } from '../../components/UI-elements/Button/Button'
-import { SigninDto } from '../../types/dto/user.dto'
-import stores from '../../store'
-import { RoutePaths } from '../../types/routes'
-import { Form } from '../../components/UI-elements/Form/Form'
+import { Button } from '../../components/UI-elements/Button/Button';
+import { Form } from '../../components/UI-elements/Form/Form';
 import { LoginInput } from '../../components/UI-elements/partials/LoginInput/LoginInput';
 import { PasswordInput } from '../../components/UI-elements/partials/PasswordInput/PasswordInput';
+import { stores } from '../../store';
+import styles from '../../styles/styles.module.sass';
+import { SigninDto } from '../../types/dto/user.dto';
+import { RoutePaths } from '../../types/routes';
 
-export function SignIn() {
-  const navigate: NavigateFunction = useNavigate()
-  const errorText  = stores.authorization.errorText
-  
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
+export const SignIn = () => {
+	const navigate: NavigateFunction = useNavigate();
+	const errorText = stores.authorization.errorText;
 
-  const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
-    setLogin(e.currentTarget.value)
-  }
+	const [login, setLogin] = useState('');
+	const [password, setPassword] = useState('');
 
-  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value)
-  }
+	const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
+		setLogin(e.currentTarget.value);
+	};
 
-  const handleSubmitSignIn = async (e: SyntheticEvent) => {
-    e.preventDefault()
-    const data: SigninDto = {
-      login,
-      password
-    }
+	const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+		setPassword(e.currentTarget.value);
+	};
 
-    stores.authorization.signIn(data, navigate)
-  }
+	const handleSubmitSignIn = async (e: SyntheticEvent) => {
+		e.preventDefault();
+		const data: SigninDto = {
+			login,
+			password,
+		};
 
-  return (
-      <div className={styles.ui}>
-        <Form
-            onSubmit={handleSubmitSignIn}
-            errorText={errorText}
-        >
-          <LoginInput
-              value={login}
-              onChange={handleChangeLogin}
-          />
-          <PasswordInput
-              value={password}
-              onChange={handleChangePassword}
-          />
+		stores.authorization.signIn(data, navigate);
+	};
 
-          <Button
-              type={'button'}
-              variant={'primary'}
-              size={'medium'}
-              value={'SIGN IN'}
-              name={'button'}
-          />
-          <p>
-            <Link to={RoutePaths.SIGN_UP}>Create an account</Link>
-          </p>
-        </Form>
-      </div>
-  )
-}
+	return (
+		<div className={styles.ui}>
+			<Form onSubmit={handleSubmitSignIn} errorText={errorText}>
+				<LoginInput value={login} onChange={handleChangeLogin} />
+				<PasswordInput value={password} onChange={handleChangePassword} />
+
+				<Button
+					type={'button'}
+					variant={'primary'}
+					size={'medium'}
+					value={'SIGN IN'}
+					name={'button'}
+				/>
+				<p>
+					<Link to={RoutePaths.SIGN_UP}>Create an account</Link>
+				</p>
+			</Form>
+		</div>
+	);
+};

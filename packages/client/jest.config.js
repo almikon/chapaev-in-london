@@ -9,6 +9,7 @@ export default {
     '\\.(css|sass)$': 'identity-obj-proxy',
   },
   globals: {
+    'process.env': process.env,
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
 }

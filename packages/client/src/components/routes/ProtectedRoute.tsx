@@ -1,20 +1,16 @@
-import stores from '../../store'
-import { FC, PropsWithChildren, useEffect } from 'react'
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { FC, PropsWithChildren, useEffect } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { stores } from '../../store';
 
-type ProtectedRouteProps = PropsWithChildren
+type ProtectedRouteProps = PropsWithChildren;
 
-const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
-  const user = stores.authorization.user
-  const navigate: NavigateFunction = useNavigate()
+export const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
+	const user = stores.authorization.user;
+	const navigate: NavigateFunction = useNavigate();
 
-  useEffect(() => {
-    stores.authorization.isLogin(navigate)
-  }, [user])
+	useEffect(() => {
+		stores.authorization.isLogin(navigate);
+	}, [user]);
 
-  return (
-    <> {children} </>
-  )
-}
-
-export default ProtectedRoute
+	return <> {children} </>;
+};

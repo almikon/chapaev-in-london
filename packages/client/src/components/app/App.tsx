@@ -1,20 +1,16 @@
-import React from 'react'
+import { FC } from 'react';
+import { ErrorBoundary } from '../errorBoundary/ErrorBoundary';
+import { Nav } from '../nav/Nav';
+import { RoutesApp } from '../routes/RoutesApp';
+import styles from './App.module.sass';
 
-import styles from './App.module.sass'
-import RoutesApp from '../routes/RoutesApp'
-import { Nav } from '../nav/Nav'
-import { ErrorBoundary } from '../errorBoundary/ErrorBoundary'
-
-function App() {
-  return (
-    <div className={styles.App}>
-      <Nav />
-      <ErrorBoundary>
-        <RoutesApp />
-      </ErrorBoundary>
-    </div>
-  )
-}
-
-export default App
-
+export const App: FC = () => {
+	return (
+		<div className={styles.App}>
+			<Nav />
+			<ErrorBoundary>
+				<RoutesApp />
+			</ErrorBoundary>
+		</div>
+	);
+};

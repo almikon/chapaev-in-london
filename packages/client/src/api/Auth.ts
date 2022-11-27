@@ -1,62 +1,60 @@
-import Api from './Api'
-import { AuthPaths } from '../types/apiPaths'
-import { ApiResponse } from '../types/api'
-import { Options } from '../types/httpTransport'
-import { SigninDto, CreateUserDto, User } from '../types/dto/user.dto'
-import { Id } from '../types/dto/commom.dto'
+import { ApiResponse } from '../types/api';
+import { AuthPaths } from '../types/apiPaths';
+import { Id } from '../types/dto/commom.dto';
+import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto';
+import { Options } from '../types/httpTransport';
+import { Api } from './Api';
 
-class Auth extends Api {
-  private readonly authPath: string = AuthPaths.AUTH
+export class Auth extends Api {
+	private readonly authPath: string = AuthPaths.AUTH;
 
-  constructor(url: string) {
-    super(url)
-  }
+	constructor(url: string) {
+		super(url);
+	}
 
-  public async signin(data: SigninDto): Promise<ApiResponse<string>> {
-    const url = this.getPathAuth(AuthPaths.SIGN_IN)
+	public signin = async (data: SigninDto): Promise<ApiResponse<string>> => {
+		const url = this.getPathAuth(AuthPaths.SIGN_IN);
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options,
+			data,
+		};
 
-    return this.requestProcessing<string>(url, options, 'post')
-  }
+		return this.requestProcessing<string>(url, options, 'post');
+	};
 
-  public async signup(data: CreateUserDto): Promise<ApiResponse<Id>> {
-    const url = this.getPathAuth(AuthPaths.SIGN_UP)
+	public signup = async (data: CreateUserDto): Promise<ApiResponse<Id>> => {
+		const url = this.getPathAuth(AuthPaths.SIGN_UP);
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options,
+			data,
+		};
 
-    return this.requestProcessing<Id>(url, options, 'post')
-  }
+		return this.requestProcessing<Id>(url, options, 'post');
+	};
 
-  public async logout(): Promise<ApiResponse<string>> {
-    const url = this.getPathAuth(AuthPaths.LOGOUT)
+	public logout = async (): Promise<ApiResponse<string>> => {
+		const url = this.getPathAuth(AuthPaths.LOGOUT);
 
-    const options: Options = {
-      ...this.options,
-    }
+		const options: Options = {
+			...this.options,
+		};
 
-    return this.requestProcessing<string>(url, options, 'post')
-  }
+		return this.requestProcessing<string>(url, options, 'post');
+	};
 
-  public async getUser(): Promise<ApiResponse<User>> {
-    const url = this.getPathAuth(AuthPaths.USER)
+	public getUser = async (): Promise<ApiResponse<User>> => {
+		const url = this.getPathAuth(AuthPaths.USER);
 
-    const options: Options = {
-      ...this.options,
-    }
+		const options: Options = {
+			...this.options,
+		};
 
-    return this.requestProcessing<User>(url, options, 'get')
-  }
+		return this.requestProcessing<User>(url, options, 'get');
+	};
 
-  private getPathAuth(endPath: string) {
-    return `${this.url}/${this.authPath}/${endPath}`
-  }
+	private getPathAuth = (endPath: string) => {
+		return `${this.url}/${this.authPath}/${endPath}`;
+	};
 }
-
-export default Auth

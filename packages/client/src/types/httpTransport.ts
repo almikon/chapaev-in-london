@@ -7,18 +7,18 @@ export enum Method {
 }
 
 export type Headers = {
-  [key: string]: string
-}
+  [key: string]: string;
+};
 
 export type Options = {
-  data?: any
-  headers: Headers
-  withCredentials?: boolean
-}
+  data?: any;
+  headers: Headers;
+  withCredentials?: boolean;
+};
 
 export type RequestOptions = {
-  options: Options
-  method: Method
-}
+  options: Options;
+  method: Method;
+};
 
-export type OptionsWithoutMethod = Omit<Options, 'method'>
+export type OptionsWithoutMethod = Omit<Options, 'method'>;
