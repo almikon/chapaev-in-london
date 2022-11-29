@@ -10,15 +10,7 @@ type PhoneProps = {
 };
 
 export const PhoneInput: FC<PhoneProps> = ({ value, onChange }) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = PhoneConfig;
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = PhoneConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -27,6 +19,7 @@ export const PhoneInput: FC<PhoneProps> = ({ value, onChange }) => {
 		} else {
 			setError('');
 		}
+
 	}, [value]);
 
 	return (
@@ -43,9 +36,9 @@ export const PhoneInput: FC<PhoneProps> = ({ value, onChange }) => {
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };

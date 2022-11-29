@@ -10,15 +10,7 @@ type FirstNameProps = {
 };
 
 export const FirstNameInput: FC<FirstNameProps> = ({ value, onChange }) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = FirstNameConfig;
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = FirstNameConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -43,9 +35,9 @@ export const FirstNameInput: FC<FirstNameProps> = ({ value, onChange }) => {
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };

@@ -9,20 +9,8 @@ type CheckPasswordProps = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
-export const CheckPasswordInput: FC<CheckPasswordProps> = ({
-	value,
-	password,
-	onChange,
-}) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = CheckPasswordConfig;
+export const CheckPasswordInput: FC<CheckPasswordProps> = ({ value, password, onChange }) => {
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = CheckPasswordConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -31,6 +19,7 @@ export const CheckPasswordInput: FC<CheckPasswordProps> = ({
 		} else {
 			setError('');
 		}
+
 	}, [value, password]);
 
 	return (
@@ -47,9 +36,9 @@ export const CheckPasswordInput: FC<CheckPasswordProps> = ({
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };

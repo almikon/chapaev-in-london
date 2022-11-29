@@ -10,15 +10,7 @@ type SecondNameProps = {
 };
 
 export const SecondNameInput: FC<SecondNameProps> = ({ value, onChange }) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = SecondNameConfig;
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = SecondNameConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -43,9 +35,9 @@ export const SecondNameInput: FC<SecondNameProps> = ({ value, onChange }) => {
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };

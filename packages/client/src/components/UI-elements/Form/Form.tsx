@@ -9,7 +9,9 @@ type FormProps = {
 
 export const Form: FC<FormProps> = ({ children, onSubmit, errorText }) => {
 	return (
-		<form className={styles.form__background} onSubmit={onSubmit}>
+		<form
+			className={styles.form__background}
+			onSubmit={onSubmit}>
 			{children}
 			<p className={styles.errorText}>{errorText}</p>
 		</form>

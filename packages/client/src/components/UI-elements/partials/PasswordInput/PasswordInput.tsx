@@ -10,15 +10,7 @@ type PasswordProps = {
 };
 
 export const PasswordInput: FC<PasswordProps> = ({ value, onChange }) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = PasswordConfig;
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = PasswordConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -27,6 +19,7 @@ export const PasswordInput: FC<PasswordProps> = ({ value, onChange }) => {
 		} else {
 			setError('');
 		}
+
 	}, [value]);
 
 	return (
@@ -43,9 +36,9 @@ export const PasswordInput: FC<PasswordProps> = ({ value, onChange }) => {
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };

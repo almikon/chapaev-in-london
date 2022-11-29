@@ -5,8 +5,7 @@ export const LoginConfig = {
 	placeholder: 'Введите логин',
 	isRequired: true,
 	name: 'Логин',
-	errorText:
-    'Логин должен содержать цифры (но полностью не состоять из них), буквы, длина от 3 до 20 символов',
+	errorText: 'Логин должен содержать цифры (но полностью не состоять из них), буквы, длина от 3 до 20 символов'
 };
 export const PasswordConfig = {
 	label: 'Пароль',
@@ -15,7 +14,16 @@ export const PasswordConfig = {
 	placeholder: 'Введите пароль',
 	isRequired: true,
 	name: 'Пароль',
-	errorText: 'от 8 до 40 символов, английские буквы и цифры',
+	errorText: 'от 8 до 40 символов, английские буквы и цифры'
+};
+export const OldPasswordConfig = {
+	label: 'Старый пароль',
+	minLength: 8,
+	maxLength: 40,
+	placeholder: 'Введите старый пароль',
+	isRequired: true,
+	name: 'Старый пароль',
+	errorText: 'от 8 до 40 символов, английские буквы и цифры'
 };
 export const EmailConfig = {
 	label: 'Адрес почты',
@@ -24,7 +32,7 @@ export const EmailConfig = {
 	placeholder: 'Введите адрес почты',
 	isRequired: true,
 	name: 'Почта',
-	errorText: 'Введите корректный адрес почты',
+	errorText: 'Введите корректный адрес почты'
 };
 export const PhoneConfig = {
 	label: 'Телефон',
@@ -33,7 +41,7 @@ export const PhoneConfig = {
 	placeholder: 'Введите номер телефона',
 	isRequired: true,
 	name: 'Телефон',
-	errorText: 'от 10 до 15 символов, состоит из цифр, может начинаться с плюса.',
+	errorText: 'от 10 до 15 символов, состоит из цифр, может начинаться с плюса.'
 };
 export const FirstNameConfig = {
 	label: 'Имя',
@@ -42,8 +50,7 @@ export const FirstNameConfig = {
 	placeholder: 'Введите имя',
 	isRequired: true,
 	name: 'Имя',
-	errorText:
-    'Латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
+	errorText: 'Латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)'
 };
 export const SecondNameConfig = {
 	label: 'Фамилия',
@@ -52,8 +59,16 @@ export const SecondNameConfig = {
 	placeholder: 'Введите фамилию',
 	isRequired: true,
 	name: 'Фамилия',
-	errorText:
-    'Латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
+	errorText: 'Латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)'
+};
+export const DisplayNameConfig = {
+	label: 'Отображаемое имя',
+	minLength: 3,
+	maxLength: 20,
+	placeholder: 'Введите отображаемое имя',
+	isRequired: true,
+	name: 'Отображаемое имя',
+	errorText: 'Отображаемое имя должно содержать цифры (но полностью не состоять из них), буквы, длина от 3 до 20 символов'
 };
 export const CheckPasswordConfig = {
 	label: 'Пароль ещё раз',
@@ -62,5 +77,5 @@ export const CheckPasswordConfig = {
 	placeholder: 'Введите пароль ещё раз',
 	isRequired: true,
 	name: 'Пароль ещё раз',
-	errorText: 'Пароли должны совпадать',
+	errorText: 'Пароли должны совпадать'
 };

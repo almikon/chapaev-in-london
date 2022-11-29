@@ -10,15 +10,7 @@ type EmailProps = {
 };
 
 export const EmailInput: FC<EmailProps> = ({ value, onChange }) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = EmailConfig;
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = EmailConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -43,9 +35,9 @@ export const EmailInput: FC<EmailProps> = ({ value, onChange }) => {
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };

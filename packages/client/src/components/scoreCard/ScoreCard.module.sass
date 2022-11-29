@@ -1,0 +1,48 @@
+@use '../../styles/fonts/fonts'
+@use '../../styles/variables/colors'
+@use '../../styles/variables/font-sizes'
+
+.scoreCard
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background: transparent
+  border-radius: 8px
+  border: 1px solid colors.$white-soft
+  padding: 8px 12px
+
+.number
+  width: 24px
+  height: 11px
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: font-sizes.$leaderboard-text
+  margin-right: 12px
+
+.user
+  display: flex
+  width: 100%
+
+  justify-content: flex-start
+  align-items: center
+  column-gap: 18px
+
+  &__avatar
+    width: 40px
+    height: 40px
+    border-radius: 50%
+    background-color: colors.$light-grey
+
+  &__name
+    font-size: font-sizes.$leaderboard-text
+
+
+.score
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  width: 37px
+  height: 10px
+  color: colors.$accent
+  font-size: font-sizes.$leaderboard-text

@@ -1,4 +1,4 @@
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import React, { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../components/UI-elements/Button/Button';
@@ -10,12 +10,15 @@ import styles from '../../styles/styles.module.sass';
 import { SigninDto } from '../../types/dto/user.dto';
 import { RoutePaths } from '../../types/routes';
 
-export const SignIn = () => {
+export const SignIn: FC = () => {
 	const navigate: NavigateFunction = useNavigate();
 	const errorText = stores.authorization.errorText;
 
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
+
+	const [loginError, setLoginError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 
 	const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
 		setLogin(e.currentTarget.value);
@@ -27,19 +30,38 @@ export const SignIn = () => {
 
 	const handleSubmitSignIn = async (e: SyntheticEvent) => {
 		e.preventDefault();
+
 		const data: SigninDto = {
 			login,
-			password,
+			password
 		};
 
-		stores.authorization.signIn(data, navigate);
+		if (
+			!loginError &&
+        !passwordError
+		) {
+			stores.authorization.signIn(data, navigate);
+		}
 	};
 
 	return (
 		<div className={styles.ui}>
-			<Form onSubmit={handleSubmitSignIn} errorText={errorText}>
-				<LoginInput value={login} onChange={handleChangeLogin} />
-				<PasswordInput value={password} onChange={handleChangePassword} />
+			<Form
+				onSubmit={handleSubmitSignIn}
+				errorText={errorText}
+			>
+				<LoginInput
+					value={login}
+					onChange={handleChangeLogin}
+					loginError={loginError}
+					setLoginError={setLoginError}
+				/>
+				<PasswordInput
+					value={password}
+					onChange={handleChangePassword}
+					passwordError={passwordError}
+					setPasswordError={setPasswordError}
+				/>
 
 				<Button
 					type={'button'}

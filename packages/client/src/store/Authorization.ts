@@ -8,7 +8,7 @@ class Authorization {
 	user: User | null = null;
 	errorText = '';
 
-	api = apiService.getAuthApi();
+	private api = apiService.getAuthApi();
 
 	constructor() {
 		makeObservable(
@@ -82,7 +82,7 @@ class Authorization {
 		this.api.logout().finally(() => this.errorResponse('', navigate));
 	};
 
-	errorResponse = (errorText: string, navigate?: NavigateFunction) => {
+	private errorResponse = (errorText: string, navigate?: NavigateFunction) => {
 		this.user = null;
 		this.errorText = errorText;
 

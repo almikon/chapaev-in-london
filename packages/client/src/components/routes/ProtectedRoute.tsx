@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useEffect } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { stores } from '../../store';
+import { stores }  from '../../store';
 
 type ProtectedRouteProps = PropsWithChildren;
 

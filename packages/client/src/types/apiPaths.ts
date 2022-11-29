@@ -27,3 +27,7 @@ export enum ChatsPaths {
   AVATAR = 'avatar',
   NEW = 'new',
 }
+
+export enum ForumPaths {
+
+}

@@ -9,15 +9,7 @@ type LoginProps = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 export const LoginInput: FC<LoginProps> = ({ value, onChange }) => {
-	const {
-		isRequired,
-		name,
-		maxLength,
-		minLength,
-		placeholder,
-		errorText,
-		label,
-	} = LoginConfig;
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = LoginConfig;
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -42,9 +34,9 @@ export const LoginInput: FC<LoginProps> = ({ value, onChange }) => {
 				required={isRequired}
 				onChange={onChange}
 			/>
-			{error ? (
-				<p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-			) : null}
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
 		</div>
 	);
 };
