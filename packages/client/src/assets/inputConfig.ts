@@ -16,6 +16,15 @@ export const PasswordConfig = {
   name: 'Пароль',
   errorText: 'от 8 до 40 символов, английские буквы и цифры'
 }
+export const OldPasswordConfig = {
+  label: 'Старый пароль',
+  minLength: 8,
+  maxLength: 40,
+  placeholder: 'Введите старый пароль',
+  isRequired: true,
+  name: 'Старый пароль',
+  errorText: 'от 8 до 40 символов, английские буквы и цифры'
+}
 export const EmailConfig = {
   label: 'Адрес почты',
   minLength: 5,
@@ -51,6 +60,15 @@ export const SecondNameConfig = {
   isRequired: true,
   name: 'Фамилия',
   errorText: 'Латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)'
+}
+export const DisplayNameConfig = {
+  label: 'Отображаемое имя',
+  minLength: 3,
+  maxLength: 20,
+  placeholder: 'Введите отображаемое имя',
+  isRequired: true,
+  name: 'Отображаемое имя',
+  errorText: 'Отображаемое имя должно содержать цифры (но полностью не состоять из них), буквы, длина от 3 до 20 символов'
 }
 export const CheckPasswordConfig = {
   label: 'Пароль ещё раз',

@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, useEffect, useState } from 'react'
+import { ChangeEventHandler, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { Validation } from '../../../../assets/validation'
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
@@ -7,17 +7,24 @@ import { SecondNameConfig } from '../../../../assets/inputConfig'
 type SecondNameProps = {
   value:string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  secondNameError: boolean;
+  setSecondNameError: Dispatch<SetStateAction<boolean>>;
 }
 
-export const SecondNameInput: FC<SecondNameProps> = ({value, onChange}) => {
+export const SecondNameInput: FC<SecondNameProps> = ({
+  value, onChange, secondNameError, setSecondNameError}) => {
   const { isRequired, name, maxLength, minLength, placeholder, errorText,label } = SecondNameConfig
   const [error, setError] = useState('')
 
   useEffect(() => {
-    !value.match(Validation.NAME) && value.length > 0
-        ? setError(errorText)
-        : setError('')
-  }, [value])
+    if (!value.match(Validation.NAME) && value.length > 0) {
+      setSecondNameError(true)
+      setError(errorText)
+    } else {
+      setSecondNameError(false)
+      setError('')
+    }
+  }, [value,secondNameError])
 
   return (
     <div className={styles.wrapper}>

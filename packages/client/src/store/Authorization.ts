@@ -21,50 +21,53 @@ class Authorization {
         signIn: action,
         logout: action,
       },
-      { deep: true }
+      {deep: true}
     )
   }
 
-  isLogin(navigate: NavigateFunction) {
+  isLogin = (navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api
       .getUser()
-      .then(({ data, message }) => {
-        if (data) this.user = data
+      .then(({data, message}) => {
+        if (data) {
+          this.user = data
+        }
+
 
         message && this.errorResponse(message, navigate)
       })
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  signIn(signInDto: SigninDto, navigate: NavigateFunction) {
+  signIn = (signInDto: SigninDto, navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api
       .signin(signInDto)
-      .then(({ data, message }) => {
-        data && navigate(RoutePaths.PROFILE, { replace: true })
+      .then(({data, message}) => {
+        data && navigate(RoutePaths.PROFILE, {replace: true})
 
         message && this.errorResponse(message, navigate)
       })
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  signUp(signUpDto: CreateUserDto, navigate: NavigateFunction) {
+  signUp = (signUpDto: CreateUserDto, navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api
       .signup(signUpDto)
-      .then(({ data, message }) => {
-        data?.id && navigate(RoutePaths.PROFILE, { replace: true })
+      .then(({data, message}) => {
+        data?.id && navigate(RoutePaths.PROFILE, {replace: true})
 
         message && this.errorResponse(message, navigate)
       })
       .catch((e: Error) => this.errorResponse(e.message, navigate))
   }
 
-  logout(navigate: NavigateFunction) {
+  logout = (navigate: NavigateFunction) => {
     this.errorText = ''
 
     this.api.logout().finally(() => this.errorResponse('', navigate))
@@ -75,7 +78,7 @@ class Authorization {
     this.errorText = errorText
 
     if (navigate) {
-      navigate(RoutePaths.SIGN_IN, { replace: true })
+      navigate(RoutePaths.SIGN_IN, {replace: true})
     }
   }
 }

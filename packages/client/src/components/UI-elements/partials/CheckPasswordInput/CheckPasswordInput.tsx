@@ -1,4 +1,4 @@
-import {  ChangeEventHandler, FC, useEffect, useState } from 'react'
+import {  ChangeEventHandler, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { CheckPasswordConfig } from '../../../../assets/inputConfig';
 import { Input } from '../../Input/Input'
 import styles from '../../../../styles/inputCommon.module.sass'
@@ -7,17 +7,24 @@ type CheckPasswordProps = {
   value: string;
   password: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  checkPasswordError: boolean;
+  setCheckPasswordError: Dispatch<SetStateAction<boolean>>;
 }
 
-export const CheckPasswordInput: FC<CheckPasswordProps> = ({value, password, onChange}) =>{
+export const CheckPasswordInput: FC<CheckPasswordProps> = ({
+  value, password, onChange, checkPasswordError, setCheckPasswordError}) =>{
   const { isRequired, name, maxLength, minLength, placeholder, errorText,label } = CheckPasswordConfig
   const [error, setError] = useState('')
 
   useEffect(() => {
-    value !== password && value.length > 0
-        ? setError(errorText)
-        : setError('')
-  }, [value, password])
+    if (value !== password && value.length > 0) {
+      setCheckPasswordError(true)
+      setError(errorText)
+    } else {
+      setCheckPasswordError(false)
+      setError('')
+    }
+  }, [value, password, checkPasswordError])
 
   return(
     <div className={styles.wrapper}>
