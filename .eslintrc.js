@@ -18,7 +18,7 @@ module.exports = {
 	ignorePatterns: ['node_modules/**/*.*', 'vite.config.ts', 'jest.config.js'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
-		// ecmaVersion: 11,
+		ecmaVersion: 11,
     // project: 'packages/client/tsconfig.json',
     // project: 'tsconfig.json',
     sourceType: 'module'
