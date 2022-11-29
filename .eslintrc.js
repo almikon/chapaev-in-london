@@ -1,9 +1,9 @@
 module.exports = {
-  settings: {
-    "react": {
-      "version": "detect"
-    }
-  },
+	settings: {
+		'react': {
+			'version': 'detect'
+		}
+	},
 	env: {
 		browser: true,
 		es2020: true,
@@ -15,17 +15,18 @@ module.exports = {
 		'plugin:@typescript-eslint/eslint-recommended',
 		'prettier'
 	],
-	ignorePatterns: ['node_modules/**/*.*', 'vite.config.ts', 'jest.config.js', 'packages/server'],
+	ignorePatterns: ['node_modules/**/*.*',  'dist', '*.test.ts', '*.config.js', '*.config.ts'],
+	// ignorePatterns: ['node_modules/**/*.*', 'vite.config.ts', 'jest.config.js', 'packages/server/**/*'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 11,
-    sourceType: 'module'
+		sourceType: 'module'
 	},
 	plugins: [
 		'@typescript-eslint',
 		'import',
 		'prefer-arrow',
-  ],
+	],
 	rules: {
 		'@typescript-eslint/ban-ts-comment': 1,
 		'@typescript-eslint/ban-types': 'off',
