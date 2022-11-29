@@ -1,0 +1,37 @@
+@use '../../../styles/variables/common'
+
+.chatPreview:last-child
+  border-bottom: common.$forumBorderColor
+
+.chatPreview:hover
+  background: common.$hoverBackground
+  cursor: pointer
+
+.chatPreview
+  border-top: common.$forumBorderColor
+  display: flex
+  justify-content: space-between
+  align-items: center
+  min-width: 920px
+  padding: 16px 24px
+  font-size: 18px
+
+  .chatPreview__description
+    display: block
+
+  .chatPreview__title, .chatPreview__userLogin
+    font-weight: bold
+    margin: 0
+    padding-bottom: 8px
+
+  .chatPreview__countMessages, .chatPreview__createdAd
+    margin: 0
+    padding: 0
+
+  .chatPreview__info
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  .chatPreview__creatorInfo
+    margin-left: 24px

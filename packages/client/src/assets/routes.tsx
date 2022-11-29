@@ -1,5 +1,8 @@
 import { RoutePaths, RoutesType } from '../types/routes'
 import React from 'react'
+import { Forum } from '../pages/forum/Forum'
+import { CreateChat } from '../pages/forum/createChat/CreateChat'
+import { Chat } from '../pages/forum/chat/Chat'
 import { Landing } from "../pages/landing/Landing";
 import { SignUp } from "../pages/signup/SignUp";
 import { SignIn } from "../pages/signin/SignIn";
@@ -12,12 +15,12 @@ const routes: RoutesType[] = [
   {
     isAuth: false,
     path: RoutePaths.SIGN_UP,
-    element: <SignUp />,
+    element: <SignUp />
   },
   {
     isAuth: false,
     path: RoutePaths.SIGN_IN,
-    element: <SignIn />,
+    element: <SignIn />
   },
   {
     isAuth: true,
@@ -37,7 +40,19 @@ const routes: RoutesType[] = [
   {
     isAuth: true,
     path: RoutePaths.FORUM,
-    element: <h1>FORUM</h1>
+    element: <Forum />,
+    children: [
+      {
+        isAuth: true,
+        path: RoutePaths.FORUM_CREATE_CHAT,
+        element: <CreateChat />
+      },
+      {
+        isAuth: true,
+        path: RoutePaths.FORUM_CHAT,
+        element: <Chat />
+      },
+    ]
   },
   {
     isAuth: true,

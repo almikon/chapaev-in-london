@@ -2,18 +2,18 @@ import React, { SyntheticEvent } from "react";
 import styles from "./Avatar.module.sass"
 
 type AvatarProps = {
-  size: 'small' | 'large'
+  size?: 'small' | 'large'
   src: string
-  alt: string
+  alt?: string
   type?: 'upload'
-  onClick: (e: SyntheticEvent) => void
+  onClick?: (e: SyntheticEvent) => void
 }
 
 export function Avatar(props: AvatarProps) {
   if (props.src) {
     return (
       <img
-        className={`${styles.avatar} ${styles[props.size]} ${props.type && styles.avatar_edit}`}
+        className={`${styles.avatar} ${props.size ? styles[props.size] : ''} ${props.type && styles.avatar_edit}`}
         alt={props.alt}
         src={props.src}
         onClick={props.onClick}
@@ -25,6 +25,6 @@ export function Avatar(props: AvatarProps) {
     return <div
       className={`${styles.avatar} ${styles.avatar__noAvatar} ${styles.avatar_edit}`}
       onClick={props.onClick}
-    ></div>
+    />
   }
 }

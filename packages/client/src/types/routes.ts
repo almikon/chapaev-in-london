@@ -8,6 +8,10 @@ export enum RoutePaths {
   SETTINGS = '/settings',
   PROFILE = '/profile',
   FORUM = '/forum',
+  CREATE_CHAT = 'create-chat',
+  CHAT = 'chat',
+  FORUM_CREATE_CHAT = 'forum/create-chat',
+  FORUM_CHAT = 'forum/chat',
   LEADERBOARD = '/leaderboard',
   UNKNOWN = '*'
 }
@@ -15,5 +19,6 @@ export enum RoutePaths {
 export type RoutesType = {
   isAuth: boolean,
   path: RoutePaths,
-  element: ReactElement
+  element: ReactElement,
+  children?: RoutesType[]
 }
