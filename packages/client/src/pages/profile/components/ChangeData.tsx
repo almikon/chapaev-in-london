@@ -21,7 +21,7 @@ type ChangeDataProps = {
 
 export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClick, userData }) => {
 	const navigate: NavigateFunction = useNavigate();
-	const errorText = stores.authorization.errorText;
+	const errorText = stores.authorizationStore.errorText;
 
 	const [login, setLogin] = useState('');
 	const [firstName, setFirstName] = useState('');
@@ -103,7 +103,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 
 	const handleLogout = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		stores.authorization.logout(navigate);
+		stores.authorizationStore.logout(navigate);
 	};
 
 	return (

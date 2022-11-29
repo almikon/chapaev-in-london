@@ -5,11 +5,11 @@ import { stores }  from '../../store';
 type ProtectedRouteProps = PropsWithChildren;
 
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
-	const user = stores.authorization.user;
+	const user = stores.authorizationStore.user;
 	const navigate: NavigateFunction = useNavigate();
 
 	useEffect(() => {
-		stores.authorization.isLogin(navigate);
+		stores.authorizationStore.isLogin(navigate);
 	}, [user]);
 
 	return <> {children} </>;

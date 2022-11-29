@@ -13,6 +13,7 @@ export class Checker {
 	public get playerId(): number {
 		return this._playerId;
 	}
+
 	public set playerId(value: number) {
 		this._playerId = value;
 	}
@@ -20,6 +21,7 @@ export class Checker {
 	public get selected(): boolean {
 		return this._selected;
 	}
+
 	public set selected(value: boolean) {
 		this._selected = value;
 	}
@@ -31,6 +33,7 @@ export class Checker {
 	public get radius(): number {
 		return this._radius;
 	}
+
 	public set radius(value: number) {
 		this._radius = value;
 	}
@@ -38,6 +41,7 @@ export class Checker {
 	public get position(): Vector {
 		return this._position;
 	}
+
 	public set position(value: Vector) {
 		this._position = value;
 	}
@@ -53,6 +57,7 @@ export class Checker {
 	public get mass(): number {
 		return this._mass;
 	}
+
 	public set mass(value: number) {
 		this._mass = value;
 	}
@@ -77,7 +82,7 @@ export class Checker {
 		return this.position.sub(point).magnitude() <= this.radius;
 	};
 
-	collides = (other: Checker) => {
+	collides = (other: Checker): boolean | void => {
 		if (this === other) {
 			return false;
 		}
@@ -104,7 +109,7 @@ export class Checker {
 		return velocity;
 	};
 
-	move= (dt: number, frictionKoeff = 0): Checker => {
+	move = (dt: number, frictionKoeff = 0): Checker => {
 		if (this.velocity.magnitude() < this.radius / 10) {
 			this.velocity = Vector.NullVector;
 		}

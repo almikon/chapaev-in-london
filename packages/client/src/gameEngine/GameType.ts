@@ -11,7 +11,7 @@ export abstract class GameType {
 		return this._game;
 	}
 
-	constructor(game: GameEngine) {
+	protected constructor(game: GameEngine) {
 		this._game = game;
 		this._currentPlayerId = GameEngine.Palyer1Id;
 	}
@@ -64,19 +64,25 @@ export class GameTypeAi extends GameType {
 					.forEach((c) => {
 						if (
 							!closestPlayerChecker ||
-              aiChecker.position.distanceTo(c.position) <
-                aiChecker.position.distanceTo(closestPlayerChecker.position)
+              aiChecker && aiChecker.position.distanceTo(c.position) <
+              aiChecker.position.distanceTo(closestPlayerChecker.position)
 						) {
 							closestPlayerChecker = c;
 						}
 					});
-				const strikeDirection = closestPlayerChecker!.position.sub(aiChecker.position).direction();
-				let randomStrike = strikeDirection.mul(
-					getRandomArbitrary(GameEngine.MaxStrikePower / 2, GameEngine.MaxStrikePower),
-				);
-				randomStrike = randomStrike.rotate(getRandomArbitrary(-Math.PI / 30, Math.PI / 30));
-				aiChecker.velocity = this.game.computeStrikeVelocity(randomStrike);
-				this.game.userMoveInProgress = true;
+
+				if (aiChecker) {
+					const strikeDirection = closestPlayerChecker!.position.sub(aiChecker.position).direction();
+
+					let randomStrike = strikeDirection.mul(
+						getRandomArbitrary(GameEngine.MaxStrikePower / 2, GameEngine.MaxStrikePower),
+					);
+					randomStrike = randomStrike.rotate(getRandomArbitrary(-Math.PI / 30, Math.PI / 30));
+					if (aiChecker) {
+						aiChecker.velocity = this.game.computeStrikeVelocity(randomStrike);
+					}
+					this.game.userMoveInProgress = true;
+				}
 			}
 		}
 	};

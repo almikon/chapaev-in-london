@@ -15,7 +15,7 @@ module.exports = {
 		'plugin:@typescript-eslint/eslint-recommended',
 		'prettier'
 	],
-	ignorePatterns: ['node_modules/**/*.*', 'vite.config.ts', 'jest.config.js'],
+	ignorePatterns: ['node_modules/**/*.*', 'vite.config.ts', 'jest.config.js', 'packages/server'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 11,
@@ -116,6 +116,6 @@ module.exports = {
 				'classPropertiesAllowed': true
 			}
 		],
-		'prefer-const': 'error',
+		'prefer-const': 'error'
 	}
 };

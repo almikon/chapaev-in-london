@@ -14,7 +14,7 @@ type ChangePasswordProps = {
 };
 
 export const ChangePassword: FC<ChangePasswordProps> = ({ handleChangePasswordButtonClick }) => {
-	const errorText = stores.authorization.errorText;
+	const errorText = stores.authorizationStore.errorText;
 	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [checkNewPassword, setCheckNewPassword] = useState('');

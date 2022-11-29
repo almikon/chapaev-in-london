@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
+import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../components/UI-elements/Button/Button';
@@ -12,7 +12,7 @@ import { RoutePaths } from '../../types/routes';
 
 export const SignIn: FC = () => {
 	const navigate: NavigateFunction = useNavigate();
-	const errorText = stores.authorization.errorText;
+	const errorText = stores.authorizationStore.errorText;
 
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
@@ -40,7 +40,7 @@ export const SignIn: FC = () => {
 			!loginError &&
         !passwordError
 		) {
-			stores.authorization.signIn(data, navigate);
+			stores.authorizationStore.signIn(data, navigate);
 		}
 	};
 

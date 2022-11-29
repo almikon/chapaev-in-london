@@ -4,7 +4,7 @@ import { apiService } from '../api/ApiService';
 import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto';
 import { RoutePaths } from '../types/routes';
 
-class Authorization {
+export class AuthorizationStore {
 	user: User | null = null;
 	errorText = '';
 
@@ -92,4 +92,4 @@ class Authorization {
 	};
 }
 
-export const authorization = new Authorization();
+export const authorizationStore = new AuthorizationStore();

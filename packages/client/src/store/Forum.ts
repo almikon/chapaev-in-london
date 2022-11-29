@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { mockForum } from '../assets/mockData/mockForum';
 import { Chat, Message, User } from '../types/forumType';
 
-class ForumStore {
+export class ForumStore {
 	chats: Chat[] = [];
 	messages: Message[] = [];
 	activeChat: number | null = null;

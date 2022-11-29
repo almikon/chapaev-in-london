@@ -24,7 +24,7 @@ export const SignUp: FC = () => {
 	const [checkPassword, setCheckPassword] = useState('');
 
 	const navigate: NavigateFunction = useNavigate();
-	const errorText = stores.authorization.errorText;
+	const errorText = stores.authorizationStore.errorText;
 
 	const [loginError, setLoginError] = useState(false);
 	const [passwordError, setPasswordError] = useState(false);
@@ -83,7 +83,7 @@ export const SignUp: FC = () => {
         !phoneError &&
         !checkPasswordError
 		) {
-			stores.authorization.signUp(data, navigate);
+			stores.authorizationStore.signUp(data, navigate);
 		}
 	};
 

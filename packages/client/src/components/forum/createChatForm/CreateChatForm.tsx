@@ -33,8 +33,8 @@ export const CreateChatForm: FC<CreateChatFormProps> = ({ handleForm }) => {
 
 	return (
 		<div className={styles.createChatForm}>
-			<Avatar src={stores.authorization.user?.avatar
-				? `${apiPath}/resources/${stores.authorization.user?.avatar}`
+			<Avatar src={stores.authorizationStore.user?.avatar
+				? `${apiPath}/resources/${stores.authorizationStore.user?.avatar}`
 				: ''} />
 			<form
 				className={styles.createChatForm__form}

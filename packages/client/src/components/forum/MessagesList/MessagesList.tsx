@@ -20,7 +20,7 @@ export const MessagesList: FC<MessagesListProps> = observer(({ messages, handleF
 	const [activeMessages, setCurrentMessages] = useState(messages);
 	const [message, setMessage] = useState('');
 
-	const { user } = stores.authorization;
+	const { user } = stores.authorizationStore;
 
 	const handleSubmit = (e: SyntheticEvent) => {
 		e.preventDefault();

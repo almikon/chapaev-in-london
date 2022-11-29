@@ -1,7 +1,12 @@
-import { authorization } from './Authorization';
-import { forumStore } from './Forum';
+import { AuthorizationStore, authorizationStore } from './Authorization';
+import { ForumStore, forumStore } from './Forum';
 
-export const stores = {
-	authorization,
-	forumStore: forumStore
+type StoreType = {
+  authorizationStore: AuthorizationStore;
+  forumStore: ForumStore;
+};
+
+export const stores: StoreType = {
+	authorizationStore,
+	forumStore
 };

@@ -7,7 +7,6 @@ import { Leaderboard } from '../pages/leaderboard/Leaderboard';
 import { Profile } from '../pages/profile/Profile';
 import { SignIn } from '../pages/signin/SignIn';
 import { SignUp } from '../pages/signup/SignUp';
-import { stores } from '../store';
 import { RoutePaths, RoutesType } from '../types/routes';
 
 export const routes: RoutesType[] = [
@@ -34,7 +33,7 @@ export const routes: RoutesType[] = [
 	{
 		isAuth: true,
 		path: RoutePaths.PROFILE,
-		element: <Profile store={stores.authorization}/>
+		element: <Profile />
 	},
 	{
 		isAuth: true,
