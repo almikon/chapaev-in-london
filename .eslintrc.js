@@ -15,8 +15,7 @@ module.exports = {
 		'plugin:@typescript-eslint/eslint-recommended',
 		'prettier'
 	],
-	ignorePatterns: ['node_modules/**/*.*',  'dist', '*.test.ts', '*.config.js', '*.config.ts'],
-	// ignorePatterns: ['node_modules/**/*.*', 'vite.config.ts', 'jest.config.js', 'packages/server/**/*'],
+	ignorePatterns: ['node_modules/**/*.*',  'dist', '*.test.ts', '*.config.js', '*.config.ts',],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 11,
