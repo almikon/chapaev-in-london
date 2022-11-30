@@ -1,5 +1,5 @@
-import React, { SyntheticEvent } from "react";
-import styles from "./Button.module.sass"
+import { FC, SyntheticEvent } from 'react';
+import styles from './Button.module.sass';
 
 type ButtonProps = {
   type: 'button' | 'submit' | 'reset';
@@ -11,22 +11,21 @@ type ButtonProps = {
   name?: string;
   disabled?: boolean;
   id?: string;
-}
+};
 
-export function Button(props: ButtonProps) {
-  return (
-    <button
-      onClick={props.onClick}
-      id={props.id}
-      className={`${styles.button} 
+export const Button: FC<ButtonProps> = (props: ButtonProps) => {
+	return (
+		<button
+			onClick={props.onClick}
+			id={props.id}
+			className={`${styles.button} 
         ${styles[`button_${props.variant}`]}
         ${styles[`button_${props.size}`]}
         ${styles[`${props.customModifier}`]}
       `}
-      name={props.name}
-      disabled={props.disabled}
-    >
-      {props.value}
-    </button>
-  )
-}
+			name={props.name}
+			disabled={props.disabled}>
+			{props.value}
+		</button>
+	);
+};

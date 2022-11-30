@@ -1,22 +1,22 @@
-import { Cursor, Limit } from './commom.dto'
-import { User } from './user.dto'
+import { Cursor, Limit } from './commom.dto';
+import { User } from './user.dto';
 
 export type DataLeaderBoard = {
   data: Partial<User> & {
-    [key: string]: string | number
-  }
-}
+    [key: string]: string | number;
+  };
+};
 
 export type TeamName = {
-  teamName: string
-}
+  teamName: string;
+};
 
 export type RatingFieldName = {
-  ratingFieldName: string
-}
+  ratingFieldName: string;
+};
 
-export type AddLeaderboardDto = DataLeaderBoard & TeamName & RatingFieldName
-export type GetAllLeaderboardDto = RatingFieldName & Limit & Cursor
-export type GetTeamLeaderboardDto = RatingFieldName & Limit & Cursor
+export type AddLeaderboardDto = DataLeaderBoard & TeamName & RatingFieldName;
+export type GetAllLeaderboardDto = RatingFieldName & Limit & Cursor;
+export type GetTeamLeaderboardDto = RatingFieldName & Limit & Cursor;
 
-export type LeaderboardResponse = DataLeaderBoard[]
+export type LeaderboardResponse = DataLeaderBoard[];

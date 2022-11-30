@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement } from 'react';
 
 export enum RoutePaths {
   MAIN = '/',
@@ -17,8 +17,8 @@ export enum RoutePaths {
 }
 
 export type RoutesType = {
-  isAuth: boolean,
-  path: RoutePaths,
-  element: ReactElement,
-  children?: RoutesType[]
-}
+  isAuth: boolean;
+  path: RoutePaths;
+  element: ReactElement;
+  children?: RoutesType[];
+};

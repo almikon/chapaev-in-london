@@ -1,48 +1,43 @@
-import { ChangeEventHandler, Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
-import { Validation } from '../../../../assets/validation'
-import { Input } from '../../Input/Input'
-import styles from '../../../../styles/inputCommon.module.sass'
-import { EmailConfig } from '../../../../assets/inputConfig'
+import { ChangeEventHandler, FC, useEffect, useState } from 'react';
+import { EmailConfig } from '../../../../assets/inputConfig';
+import { Validation } from '../../../../assets/validation';
+import styles from '../../../../styles/inputCommon.module.sass';
+import { Input } from '../../Input/Input';
 
 type EmailProps = {
   value: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  emailError: boolean;
-  setEmailError: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-export const EmailInput: FC<EmailProps> = ({value, onChange, emailError, setEmailError}) => {
-  const { isRequired, name, maxLength, minLength, placeholder, errorText,label } = EmailConfig
-  const [error, setError] = useState('')
+export const EmailInput: FC<EmailProps> = ({ value, onChange }) => {
+	const { isRequired, name, maxLength, minLength, placeholder, errorText, label } = EmailConfig;
+	const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (!value.match(Validation.EMAIL) && value.length > 0) {
-      setEmailError(true)
-      setError(errorText)
-    } else {
-      setEmailError(false)
-      setError('')
-    }
-  }, [value,emailError])
+	useEffect(() => {
+		if (!value.match(Validation.EMAIL) && value.length > 0) {
+			setError(errorText);
+		} else {
+			setError('');
+		}
+	}, [value]);
 
-
-  return (
-    <div className={styles.wrapper}>
-      <label className={styles.wrapper__label}>{label}</label>
-      <Input
-        type={'email'}
-        variant={'primary'}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        minLength={minLength}
-        maxLength={maxLength}
-        required={isRequired}
-        onChange={onChange}
-      />
-      {error
-        ? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
-        : null}
-    </div>
-  )
-}
+	return (
+		<div className={styles.wrapper}>
+			<label className={styles.wrapper__label}>{label}</label>
+			<Input
+				type={'email'}
+				variant={'primary'}
+				placeholder={placeholder}
+				name={name}
+				value={value}
+				minLength={minLength}
+				maxLength={maxLength}
+				required={isRequired}
+				onChange={onChange}
+			/>
+			{error
+				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
+				: null}
+		</div>
+	);
+};

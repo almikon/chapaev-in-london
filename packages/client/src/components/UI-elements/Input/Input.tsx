@@ -1,9 +1,9 @@
-import React, { ChangeEventHandler, FC, HTMLInputTypeAttribute } from 'react'
-import styles from './Input.module.sass'
-import { VariantType } from '../../../types/htmlTag'
+import { ChangeEventHandler, FC, HTMLInputTypeAttribute } from 'react';
+import { VariantType } from '../../../types/htmlTag';
+import styles from './Input.module.sass';
 
 type InputProps = {
-  type: HTMLInputTypeAttribute,
+  type: HTMLInputTypeAttribute;
   variant: VariantType;
   id?: string;
   name: string;
@@ -17,20 +17,20 @@ type InputProps = {
   ariaLabel?: string;
   disabled?: boolean;
   accept?: string;
-}
+};
 
 export const Input: FC<InputProps> = (props) => {
-  const { variant, customModifier, ...otherProps } = props
+	const { variant, customModifier, ...otherProps } = props;
 
-  const variantClassName = variant ? styles[`input_${variant}`] : ''
-  const customModifierClassName = customModifier ? styles[`${customModifier}`] : ''
+	const variantClassName = variant ? styles[`input_${variant}`] : '';
+	const customModifierClassName = customModifier ? styles[`${customModifier}`] : '';
 
-  const className = styles.input + ' ' + variantClassName + ' ' + customModifierClassName
+	const className = styles.input + ' ' + variantClassName + ' ' + customModifierClassName;
 
-  return (
-      <input
-          className={className}
-          {...otherProps}
-      />
-  )
-}
+	return (
+		<input
+			className={className}
+			{...otherProps}
+		/>
+	);
+};

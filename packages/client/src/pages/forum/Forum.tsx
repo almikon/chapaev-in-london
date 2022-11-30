@@ -1,28 +1,28 @@
-import { FC, useEffect } from 'react'
-import { observer } from 'mobx-react-lite'
+import { observer } from 'mobx-react-lite';
+import { FC, useEffect } from 'react';
 
-import styles from './Forum.module.sass'
-import stylesUI from '../../styles/styles.module.sass'
-import { ChatsList } from '../../components/forum/ChatList/ChatsList'
-import stores from '../../store'
-import { Loader } from '../../components/UI-elements/Loader/Loader'
+import { ChatsList } from '../../components/forum/ChatList/ChatsList';
+import { Loader } from '../../components/UI-elements/Loader/Loader';
+import { stores } from '../../store';
+import stylesUI from '../../styles/styles.module.sass';
+import styles from './Forum.module.sass';
 
 export const Forum: FC = observer(() => {
-  const { isLoading } = stores.forumStore
+	const { isLoading } = stores.forumStore;
 
-  useEffect(() => {
-    stores.forumStore.getChats()
-  }, [])
+	useEffect(() => {
+		stores.forumStore.getChats();
+	}, []);
 
-  const className = styles.forum + ' ' + stylesUI.ui
+	const className = styles.forum + ' ' + stylesUI.ui;
 
-  return (
-    <div className={className}>
-      {
-        isLoading
-          ? <Loader />
-          : <ChatsList />
-      }
-    </div>
-  )
-})
+	return (
+		<div className={className}>
+			{
+				isLoading
+					? <Loader />
+					: <ChatsList />
+			}
+		</div>
+	);
+});

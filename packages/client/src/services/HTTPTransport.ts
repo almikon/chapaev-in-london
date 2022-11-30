@@ -1,49 +1,59 @@
-import { Method, Options, RequestOptions } from '../types/httpTransport'
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios';
+import { Method, Options, RequestOptions } from '../types/httpTransport';
 
-class HTTPTransport {
-  get(url: string, options: Options = {} as Options): Promise<AxiosResponse> {
-    return this._request(url, options, Method.GET)
-  }
+export class HTTPTransport {
+	get = (
+		url: string,
+		options: Options = {} as Options
+	): Promise<AxiosResponse> => {
+		return this._request(url, options, Method.GET);
+	};
 
-  post(url: string, options: Options = {} as Options): Promise<AxiosResponse> {
-    return this._request(url, options, Method.POST)
-  }
+	post = (
+		url: string,
+		options: Options = {} as Options
+	): Promise<AxiosResponse> => {
+		return this._request(url, options, Method.POST);
+	};
 
-  patch(url: string, options: Options = {} as Options): Promise<AxiosResponse> {
-    return this._request(url, options, Method.PATCH)
-  }
+	patch = (
+		url: string,
+		options: Options = {} as Options
+	): Promise<AxiosResponse> => {
+		return this._request(url, options, Method.PATCH);
+	};
 
-  put(url: string, options: Options = {} as Options): Promise<AxiosResponse> {
-    return this._request(url, options, Method.PUT)
-  }
+	put = (
+		url: string,
+		options: Options = {} as Options
+	): Promise<AxiosResponse> => {
+		return this._request(url, options, Method.PUT);
+	};
 
-  delete(
-    url: string,
-    options: Options = {} as Options
-  ): Promise<AxiosResponse> {
-    return this._request(url, options, Method.DELETE)
-  }
+	delete = (
+		url: string,
+		options: Options = {} as Options
+	): Promise<AxiosResponse> => {
+		return this._request(url, options, Method.DELETE);
+	};
 
-  private _request(
-    url: string,
-    options: Options = {} as Options,
-    method: Method
-  ) {
-    return this.request(url, {
-      options,
-      method,
-    })
-  }
+	private _request = (
+		url: string,
+		options: Options = {} as Options,
+		method: Method
+	) => {
+		return this.request(url, {
+			options,
+			method,
+		});
+	};
 
-  private request(
-    url: string,
-    requestOptions: RequestOptions
-  ): Promise<AxiosResponse> {
-    const { method, options } = requestOptions
+	private request = (
+		url: string,
+		requestOptions: RequestOptions
+	): Promise<AxiosResponse> => {
+		const { method, options } = requestOptions;
 
-    return axios({ url, method, ...options })
-  }
+		return axios({ url, method, ...options });
+	};
 }
-
-export default HTTPTransport

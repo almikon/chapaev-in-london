@@ -1,86 +1,95 @@
-import { action, makeObservable, observable } from 'mobx'
-import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto'
-import { apiService } from '../api/ApiService'
-import { NavigateFunction } from 'react-router-dom'
-import { RoutePaths } from '../types/routes'
+import { action, makeObservable, observable } from 'mobx';
+import { NavigateFunction } from 'react-router-dom';
+import { apiService } from '../api/ApiService';
+import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto';
+import { RoutePaths } from '../types/routes';
 
-class Authorization {
-  user: User | null = null
-  errorText = ''
+export class AuthorizationStore {
+	user: User | null = null;
+	errorText = '';
 
-  private api = apiService.getAuthApi()
+	private api = apiService.getAuthApi();
 
-  constructor() {
-    makeObservable(
-      this,
-      {
-        user: observable,
-        errorText: observable,
-        isLogin: action,
-        signUp: action,
-        signIn: action,
-        logout: action,
-      },
-      {deep: true}
-    )
-  }
+	constructor() {
+		makeObservable(
+			this,
+			{
+				user: observable,
+				errorText: observable,
+				isLogin: action,
+				signUp: action,
+				signIn: action,
+				logout: action,
+			},
+			{ deep: true }
+		);
+	}
 
-  isLogin = (navigate: NavigateFunction) => {
-    this.errorText = ''
+	isLogin = (navigate: NavigateFunction) => {
+		this.errorText = '';
 
-    this.api
-      .getUser()
-      .then(({data, message}) => {
-        if (data) {
-          this.user = data
-        }
+		this.api
+			.getUser()
+			.then(({ data, message }) => {
+				if (data) {
+					this.user = data;
+				}
 
+				if (message) {
+					this.errorResponse(message, navigate);
+				}
+			})
+			.catch((e: Error) => this.errorResponse(e.message, navigate));
+	};
 
-        message && this.errorResponse(message, navigate)
-      })
-      .catch((e: Error) => this.errorResponse(e.message, navigate))
-  }
+	signIn = (signInDto: SigninDto, navigate: NavigateFunction) => {
+		this.errorText = '';
 
-  signIn = (signInDto: SigninDto, navigate: NavigateFunction) => {
-    this.errorText = ''
+		this.api
+			.signin(signInDto)
+			.then(({ data, message }) => {
+				if (data) {
+					navigate(RoutePaths.PROFILE, { replace: true });
+				}
 
-    this.api
-      .signin(signInDto)
-      .then(({data, message}) => {
-        data && navigate(RoutePaths.PROFILE, {replace: true})
+				if (message) {
+					this.errorResponse(message, navigate);
+				}
+			})
+			.catch((e: Error) => this.errorResponse(e.message, navigate));
+	};
 
-        message && this.errorResponse(message, navigate)
-      })
-      .catch((e: Error) => this.errorResponse(e.message, navigate))
-  }
+	signUp = (signUpDto: CreateUserDto, navigate: NavigateFunction) => {
+		this.errorText = '';
 
-  signUp = (signUpDto: CreateUserDto, navigate: NavigateFunction) => {
-    this.errorText = ''
+		this.api
+			.signup(signUpDto)
+			.then(({ data, message }) => {
+				if (data?.id) {
+					navigate(RoutePaths.PROFILE, { replace: true });
+				}
 
-    this.api
-      .signup(signUpDto)
-      .then(({data, message}) => {
-        data?.id && navigate(RoutePaths.PROFILE, {replace: true})
+				if (message) {
+					this.errorResponse(message, navigate);
+				}
+			})
+			.catch((e: Error) => this.errorResponse(e.message, navigate));
+	};
 
-        message && this.errorResponse(message, navigate)
-      })
-      .catch((e: Error) => this.errorResponse(e.message, navigate))
-  }
+	logout = (navigate: NavigateFunction) => {
+		this.errorText = '';
 
-  logout = (navigate: NavigateFunction) => {
-    this.errorText = ''
+		this.api.logout().finally(() => this.errorResponse('', navigate));
+	};
 
-    this.api.logout().finally(() => this.errorResponse('', navigate))
-  }
+	private errorResponse = (errorText: string, navigate?: NavigateFunction) => {
+		this.user = null;
+		this.errorText = errorText;
 
-  private errorResponse(errorText: string, navigate?: NavigateFunction) {
-    this.user = null
-    this.errorText = errorText
-
-    if (navigate) {
-      navigate(RoutePaths.SIGN_IN, {replace: true})
-    }
-  }
+		if (navigate) {
+			navigate(RoutePaths.SIGN_IN, { replace: true });
+		}
+	};
 }
 
-export default new Authorization()
+export const authorizationStore = new AuthorizationStore();
