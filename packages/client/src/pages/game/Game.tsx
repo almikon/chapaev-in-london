@@ -8,7 +8,7 @@ import styles from './Game.module.sass';
 
 type GameState = 'INIT' | 'STARTED' | 'OVER';
 
-const GameStatsPanelToGameWidth = 0.5;
+const GameStatsPanelToGameWidth = 0.3;
 
 export const Game = () => {
 	const [gameState, setGameState] = useState<GameState>('INIT');
@@ -17,6 +17,10 @@ export const Game = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const uiRef = useRef<HTMLDivElement>(null);
 	const gameUiContainerRef = useRef<HTMLDivElement>(null);
+
+	const [fullScreenToggleRequested, setIsFullscreenToggleRequested] =
+    useState(false);
+	const [isFullscreen, setIsFullscreen] = useState(false);
 
 	const onWindowResize = useRef(() => {
 		const ui = uiRef.current;
@@ -39,11 +43,26 @@ export const Game = () => {
 		game.style.left = `${(uiWidth - gameUiWidth) / 2}px`;
 		game.style.width = `${gameUiWidth}px`;
 		game.style.height = `${gameUiHeight}px`;
+
 	});
 
+	const toggleFullscreen = () => {
+		if (isFullscreen) {
+			document
+				.exitFullscreen()
+				.then(() => setIsFullscreen(false))
+				.finally(() => setIsFullscreenToggleRequested(false));
+		} else {
+			uiRef.current
+				?.requestFullscreen()
+				.then(() => {
+					setIsFullscreen(true);
+				})
+				.finally(() => setIsFullscreenToggleRequested(false));
+		}
+	};
+
 	useEffect(() => {
-		window.addEventListener('resize', onWindowResize.current);
-		onWindowResize.current();
 		if (!containerRef.current) {
 			return;
 		}
@@ -51,7 +70,8 @@ export const Game = () => {
 			return;
 		}
 
-		//uiRef.current?.requestFullscreen()
+		window.addEventListener('resize', onWindowResize.current);
+		onWindowResize.current();
 
 		const game = new GameEngine();
 		const gameViz = new GameVizualiser(game, containerRef.current);
@@ -127,11 +147,22 @@ export const Game = () => {
 			<div ref={gameUiContainerRef} className={styles['game-ui-container']}>
 				<div
 					ref={containerRef}
-					className={styles['game-ui-container__game']}
+					className={styles['game']}
 					style={{
 						width: `${100 / (1 + GameStatsPanelToGameWidth)}%`,
+						minWidth: `${100 / (1 + GameStatsPanelToGameWidth)}%`,
 					}}></div>
-				<div className={styles['game-ui-container__stats']}></div>
+				<div className={styles['stats']}>
+					<div className={styles['stats__fullscreen-container']}>
+						<Button
+							size="small"
+							type="button"
+							variant="secondary"
+							value={isFullscreen ? 'Свернуть' : 'На весь экран'}
+							onClick={() => toggleFullscreen()}
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
