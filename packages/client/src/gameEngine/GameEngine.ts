@@ -10,7 +10,7 @@ export class GameEngine {
 	public static readonly EffectiveDimension = this.Dimension - this.Margin * 2;
 	public static readonly CheckerCount = 8;
 	public static readonly CheckerRadius = this.EffectiveDimension / 8 / 1.4 / 2;
-	public static readonly BoardFriction = 15;
+	public static readonly BoardFriction = 20;
 	public static readonly Palyer1Id = 1;
 	public static readonly Palyer2Id = 2;
 	public static readonly MaxStrikePower = this.CheckerRadius * 5;

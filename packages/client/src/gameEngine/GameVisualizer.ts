@@ -17,7 +17,7 @@ const gamePalette = {
 export class GameVizualiser {
 	private _game: GameEngine;
 	private _context!: CanvasRenderingContext2D;
-	private _outerContainer: Element;
+	private _resizeObserver: ResizeObserver | undefined;
 
 	public get context(): CanvasRenderingContext2D {
 		return this._context;
@@ -46,9 +46,9 @@ export class GameVizualiser {
 
 	public onGameEnd: ((playerId: number) => void) | null = null;
 
-	constructor(game: GameEngine, container: Element) {
+	constructor(game: GameEngine, container: HTMLDivElement) {
 		this._game = game;
-		this._outerContainer = container;
+		this._container = container;
 	}
 
 	private playSound = async (sound: string) => {
@@ -58,12 +58,6 @@ export class GameVizualiser {
 
 	public start = () => {
 		this.stop();
-		this._outerContainer.innerHTML = '';
-		this._container = document.createElement('div');
-		this._container.style.position = 'relative';
-		this._container.style.width = '100%';
-		this._container.style.paddingTop = '100%';
-		this._outerContainer.appendChild(this._container);
 
 		const boardCanvas = document.createElement('canvas');
 		boardCanvas.style.position = 'absolute';
@@ -77,38 +71,31 @@ export class GameVizualiser {
 		this._container.appendChild(gameCanvas);
 		this._context = gameCanvas.getContext('2d')!;
 
-		window.addEventListener('resize', this.onWindowResize);
+		this._resizeObserver = new ResizeObserver(this.onContainerResize);
+		this._resizeObserver.observe(this._container);
 
 		document.addEventListener('mousemove', this.onMouseMove);
 		document.addEventListener('mousedown', this.onMouseDown);
 		document.addEventListener('mouseup', this.onMouseUp);
 
-		this.onWindowResize();
 		this.drawBoard();
 		window.requestAnimationFrame(this.animationStep);
 	};
 
 	public stop = () => {
-		window.removeEventListener('resize', this.onWindowResize);
+		this._resizeObserver?.disconnect();
 
 		document.removeEventListener('mousemove', this.onMouseMove);
 		document.removeEventListener('mousedown', this.onMouseDown);
 		document.removeEventListener('mouseup', this.onMouseUp);
 	};
 
-	private onWindowResize = () => {
-		const width = this._outerContainer.clientWidth;
-		const clientRect = this._outerContainer.getBoundingClientRect();
-		const height = window.innerHeight - clientRect.top;
-		const innerDimension = Math.min(width, height) - 10;
-		this._container.style.left = `${(this._outerContainer.clientWidth - innerDimension) / 2}px`;
-		this._container.style.width = `${innerDimension}px`;
-		this._container.style.paddingTop = `${innerDimension}px`
+	private onContainerResize = () => {
 		;[this.boardCanvas, this.canvas].forEach(canvas => {
-			canvas.width = innerDimension;
-			canvas.height = innerDimension;
-			canvas.style.width = `${innerDimension}px`;
-			canvas.style.height = `${innerDimension}px`;
+			canvas.width = this._container.clientWidth;
+			canvas.height = this._container.clientHeight;
+			canvas.style.width = `${this._container.clientWidth}px`;
+			canvas.style.height = `${this._container.clientHeight}px`;
 		});
 		this.drawBoard();
 	};
@@ -137,7 +124,7 @@ export class GameVizualiser {
 
 			(this.canvas.width * vector.x) / GameEngine.Dimension,
 			this.canvas.height -
-      (this.canvas.height * vector.y) / GameEngine.Dimension
+        (this.canvas.height * vector.y) / GameEngine.Dimension
 		);
 
 	private canvasCoordToVector = (vector: Vector) => {
@@ -145,7 +132,7 @@ export class GameVizualiser {
 		return new Vector(
 			(GameEngine.Dimension * vector.x) / this.canvas.width,
 			GameEngine.Dimension -
-      (GameEngine.Dimension * vector.y) / this.canvas.height
+        (GameEngine.Dimension * vector.y) / this.canvas.height
 		);
 	};
 
@@ -211,7 +198,7 @@ export class GameVizualiser {
 	};
 
 	private animateDestroyed = async (tickResult: GameStepResult) => {
-		tickResult.destroyedCheckers.forEach(async (checker) => {
+		tickResult.destroyedCheckers.forEach(async checker => {
 			const canvasPos = this.vectorToCanvasCoords(checker.position);
 			await this.playSound(explosionSound);
 			for (let i = 0; i <= 80; i++) {
