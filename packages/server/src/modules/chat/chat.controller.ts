@@ -5,11 +5,11 @@ import { createChatValidator } from '../../midleware/validation/chat/createChat.
 import { checkDataUserValidator } from '../../midleware/validation/user/checkDataUserValidator';
 import { ControllersPath } from '../../types/controllersPath';
 import { ChatColumns, ChatDto, UserColumns, UserDto } from '../../types/database';
-import type { IControllerBase } from '../../types/IControllerBase.interface';
+import type { ControllerBase } from '../../types/IControllerBase.interface';
 import type { ChatServiceType } from '../../types/servicesTypes';
 import type { UserEntity } from '../users/user.entity';
 
-export class ChatController implements IControllerBase {
+export class ChatController implements ControllerBase {
 	private path = ControllersPath.Chat;
 	private router = Router();
 	private services: ChatServiceType;

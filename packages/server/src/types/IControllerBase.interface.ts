@@ -1,3 +1,3 @@
-export interface IControllerBase {
+export interface ControllerBase {
   initRoutes(): any;
 }

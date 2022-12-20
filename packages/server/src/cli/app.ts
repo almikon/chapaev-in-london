@@ -16,7 +16,7 @@ export class App {
 		this.routes(appInit.controllers);
 	}
 
-	public listen() {
+	public listen = () => {
 		try {
 			const server = http.createServer(this.app);
 
@@ -28,17 +28,17 @@ export class App {
 		} catch (error) {
 			process.exit(1);
 		}
-	}
+	};
 
-	private middlewares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void }) {
+	private middlewares = (middleWares: { forEach: (arg0: (middleWare: any) => void) => void }) => {
 		middleWares.forEach((middleWare) => {
 			this.app.use(middleWare);
 		});
-	}
+	};
 
-	private routes(controllers: { forEach: (arg0: (controller: any) => void) => void }) {
+	private routes = (controllers: { forEach: (arg0: (controller: any) => void) => void }) => {
 		controllers.forEach((controller) => {
 			this.app.use('/', controller.router);
 		});
-	}
+	};
 }
