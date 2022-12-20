@@ -1,12 +1,16 @@
 import { action, makeObservable, observable } from 'mobx';
+import { apiService } from '../api/ApiService';
 import { mockForum } from '../assets/mockData/mockForum';
-import { Chat, Message, User } from '../types/forumType';
+import { User } from '../types/dto/user.dto';
+import { Chat, Message } from '../types/forumType';
 
 export class ForumStore {
 	chats: Chat[] = [];
 	messages: Message[] = [];
 	activeChat: number | null = null;
 	isLoading = false;
+
+	private api = apiService.getChatsApi();
 
 	constructor() {
 		makeObservable(
@@ -27,10 +31,14 @@ export class ForumStore {
 	getChats = () => {
 		this.isLoading = true;
 
-		mockForum.getChats()
-			.then(res => {
+		this.api.getChats()
+			.then((res) => {
+				if (res.data && res.data.length > 0) {
+					this.chats = [...res.data as unknown as Chat[]];
+				} else {
+					this.chats = [];
+				}
 
-				this.chats = [...res];
 				this.isLoading = false;
 			})
 			.catch(() => {
@@ -55,36 +63,18 @@ export class ForumStore {
 		this.activeChat = id;
 	};
 
-	createChat = (title: string, message: string) => {
-		const chatId = this.chats.length;
-		const time = (new Date()).toDateString();
+	createChat = (title: string, user: Omit<User, 'id'>) => {
+		this.isLoading = true;
 
-		const newMessage: Message = {
-			id: this.messages.length,
-			chat_id: chatId,
-			type: 'type',
-			time,
-			user: {} as User,
-			content: message
-		};
-
-		const newChat: Chat = {
-			id: this.chats.length,
-			create_ad: time,
-			creator: {} as User,
+		this.api.createChat({
 			title,
-			last_message: newMessage,
-			unread_count: 0
-		};
-
-		mockForum.addChat(newChat)
+			user
+		})
 			.then(() => {
-				mockForum.addMessage(newMessage)
-					.then(() => {
-						mockForum.getChats()
-							.then(res => this.chats = [...res]
-							);
-					});
+				this.isLoading = false;
+			})
+			.catch(() => {
+				this.isLoading = false;
 			});
 	};
 }

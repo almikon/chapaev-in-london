@@ -1,13 +1,13 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { apiService } from '../../../api/ApiService';
-import { apiPath } from '../../../assets/config';
+import { apiPathYandex } from '../../../assets/config';
 import { Avatar } from '../../../components/UI-elements/Avatar/Avatar';
 import { Button } from '../../../components/UI-elements/Button/Button';
 import styles from '../Profile.module.sass';
 
 type ChangeAvatarProps = {
-  avatar: string | null;
-  login: string;
+	avatar: string | null;
+	login: string;
 };
 
 export const ChangeAvatar: FC<ChangeAvatarProps> = (props) => {
@@ -17,7 +17,7 @@ export const ChangeAvatar: FC<ChangeAvatarProps> = (props) => {
 	const avatarUploadInput = document.getElementById('avatarUpload') as HTMLInputElement;
 
 	const prepareAvatarLink = (url: string | null) => {
-		return `${apiPath}/resources/${url}`;
+		return `${apiPathYandex}/resources/${url}`;
 	};
 
 	useEffect(() => {
@@ -65,10 +65,10 @@ export const ChangeAvatar: FC<ChangeAvatarProps> = (props) => {
 	return (
 		<>
 			<Avatar type={'upload'} size={'large'} src={avatar} alt={props.login}
-				onClick={handleAvatarClick}/>
+				onClick={handleAvatarClick} />
 			<label className={styles.profile__avatarFileLabel}>{avatarFileName}</label>
 			<input className={styles.profile__avatarInput} id={'avatarUpload'} type={'file'} name={'avatar'}
-				accept={'image/*'} onChange={handleChangeInput}/>
+						 accept={'image/*'} onChange={handleChangeInput} />
 			<Button type={'submit'} variant={'primary'} size={'small'} onClick={handleAvatarUpload}
 				value={'Загрузить аватар'}
 				customModifier={isAvatarSaveBtnVisible ? 'button_marginDown' : 'button_hidden'}
