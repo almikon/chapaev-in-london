@@ -15,7 +15,7 @@ import styles from '../Profile.module.sass';
 import { ChangeAvatar } from './ChangeAvatar';
 
 type ChangeDataProps = {
-  userData: User;
+  userData: any;
   handleChangePasswordButtonClick: () => void;
 };
 
@@ -28,7 +28,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 	const [secondName, setSecondName] = useState('');
 	const [displayName, setDisplayName] = useState('');
 	const [email, setEmail] = useState('');
-	const [phone, setPhone] = useState('');
+	// const [phone, setPhone] = useState('');
 	const [saveButtonState, setSaveButtonState] = useState(false);
 	const [profileChange, setProfileChange] = useState({ isChanged: false, text: '' });
 
@@ -38,7 +38,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 			setLogin(userData.login);
 			setFirstName(userData.first_name);
 			setSecondName(userData.second_name);
-			setPhone(userData.phone);
+			// setPhone(userData.phone);
 		}
 
 		if (userData && userData.display_name) {
@@ -70,21 +70,21 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 		setSaveButtonState(e.currentTarget.value !== userData.email);
 		setEmail(e.currentTarget.value);
 	};
-
-	const handleChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
-		setSaveButtonState(e.currentTarget.value !== userData.phone);
-		setPhone(e.currentTarget.value);
-	};
+	//
+	// const handleChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
+	// 	setSaveButtonState(e.currentTarget.value !== userData.phone);
+	// 	// setPhone(e.currentTarget.value);
+	// };
 
 	const handleSubmitProfileData = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		const data: UpdateUserDto = {
+		const data: any = {
 			login,
 			first_name: firstName,
 			display_name: displayName,
 			second_name: secondName,
 			email,
-			phone,
+			// phone,
 		};
 		await apiService.getUsersApi().changeProfile(data)
 			.then((res) => {
@@ -128,10 +128,10 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 				value={secondName}
 			/>
 
-			<PhoneInput
-				onChange={handleChangePhone}
-				value={phone}
-			/>
+			{/*<PhoneInput*/}
+			{/*	onChange={handleChangePhone}*/}
+			{/*	value={phone}*/}
+			{/*/>*/}
 
 			<LoginInput
 				onChange={handleChangeLogin}

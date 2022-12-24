@@ -1,10 +1,54 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { redirectUri } from '../../assets/config';
+import { getQueryStringParams } from '../../assets/utils/getQueryStringParams';
 import { Button } from '../../components/UI-elements/Button/Button';
+import { stores } from '../../store';
+import { User } from '../../types/dto/user.dto';
 import { RoutePaths } from '../../types/routes';
 import styles from './Landing.module.sass';
 
 export const Landing: FC = () => {
+
+	const [user, setUser] = useState<User>();
+
+	const getUser = () => {
+		return fetch('https://ya-praktikum.tech/api/v2/auth/user/', {
+			credentials: 'include'
+		}).then(r => (r.json()))
+			.then(res => setUser(res))
+			.catch(e => console.log(e));
+	};
+
+	const sendServiceId = (code: string) => {
+		return fetch('https://ya-praktikum.tech/api/v2/oauth/yandex/', {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(
+				{
+					'code': code,
+					'redirect_uri': redirectUri
+				})
+		}).then(r => r);
+	};
+
+	useEffect(() => {
+		const codeFromParams: Record<string, string> = getQueryStringParams(location.search);
+
+		if (codeFromParams.code) {
+			console.log(codeFromParams.code);
+			sendServiceId(codeFromParams.code).then(() => getUser());
+		}
+	}, [location]);
+
+	useEffect(() => {
+		if (user && user.id) {
+			stores.authorizationStore.OAUth(user);
+		}
+	}, [user]);
 
 	return (
 		<section className={styles.landing}>

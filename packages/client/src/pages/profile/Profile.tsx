@@ -8,6 +8,8 @@ import styles from './Profile.module.sass';
 // export const Profile: FC = observer(({ store }: Record<string, any>) => {
 export const Profile: FC = observer(() => {
 	const userData = stores.authorizationStore.user;
+	const isFromOAuth = stores.authorizationStore.fromOAuth;
+
 	const [changeDataOrPassword, setChangeDataOrPassword] = useState('data' as 'data' | 'password');
 
 	const toggleDataOrPassword = () => {
@@ -19,8 +21,10 @@ export const Profile: FC = observer(() => {
 	};
 
 	useEffect(() => {
+		console.log(userData?.first_name);
 		setChangeDataOrPassword('data');
-	}, [userData]);
+		console.log(isFromOAuth);
+	}, [userData, isFromOAuth]);
 
 	return (
 		<div className={styles.profile}>
@@ -29,10 +33,10 @@ export const Profile: FC = observer(() => {
             	userData={userData}
             	handleChangePasswordButtonClick={toggleDataOrPassword}/>
 			}
-			{userData !== null && changeDataOrPassword === 'password' &&
-            <ChangePassword
-            	handleChangePasswordButtonClick={toggleDataOrPassword}/>
-			}
+			{/*{userData !== null && changeDataOrPassword === 'password' &&*/}
+			{/*      <ChangePassword*/}
+			{/*      	handleChangePasswordButtonClick={toggleDataOrPassword}/>*/}
+			{/*}*/}
 			{!userData && 'Загрузка...'}
 		</div>
 	);

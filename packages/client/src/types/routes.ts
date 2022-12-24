@@ -4,7 +4,7 @@ export enum RoutePaths {
   MAIN = '/',
   GAME= '/game',
   SIGN_UP = '/sign-up',
-  SIGN_IN = '/sign-in',
+  SIGN_IN = '/signin',
   SETTINGS = '/settings',
   PROFILE = '/profile',
   FORUM = '/forum',

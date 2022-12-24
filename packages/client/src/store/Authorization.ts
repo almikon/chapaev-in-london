@@ -6,6 +6,7 @@ import { RoutePaths } from '../types/routes';
 
 export class AuthorizationStore {
 	user: User | null = null;
+	fromOAuth = false;
 	errorText = '';
 
 	private api = apiService.getAuthApi();
@@ -28,6 +29,13 @@ export class AuthorizationStore {
 	isLogin = (navigate: NavigateFunction) => {
 		this.errorText = '';
 
+		console.log(this.user);
+
+		if (this.user) {
+			console.log('user');
+			return;
+		}
+
 		this.api
 			.getUser()
 			.then(({ data, message }) => {
@@ -40,6 +48,13 @@ export class AuthorizationStore {
 				}
 			})
 			.catch((e: Error) => this.errorResponse(e.message, navigate));
+	};
+
+	OAUth = (user: User) => {
+		if (user) {
+			this.user = user;
+			this.fromOAuth = true;
+		}
 	};
 
 	signIn = (signInDto: SigninDto, navigate: NavigateFunction) => {
