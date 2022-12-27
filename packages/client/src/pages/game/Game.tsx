@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../components/UI-elements/Button/Button';
 import { GameEngine } from '../../gameEngine/GameEngine';
+import { GameStats } from '../../gameEngine/GameStats';
 import { GameTypeAi } from '../../gameEngine/GameType';
 import { GameVizualiser } from '../../gameEngine/GameVisualizer';
 import commonStyles from '../../styles/styles.module.sass';
@@ -13,13 +14,13 @@ const GameStatsPanelToGameWidth = 0.3;
 export const Game = () => {
 	const [gameState, setGameState] = useState<GameState>('INIT');
 	const [winnerId, setWinnerId] = useState(0);
+	const [gameStats, setGameStats] = useState<GameStats | null>(null);
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const uiRef = useRef<HTMLDivElement>(null);
 	const gameUiContainerRef = useRef<HTMLDivElement>(null);
+	const statsContainerRef = useRef<HTMLDivElement>(null);
 
-	const [fullScreenToggleRequested, setIsFullscreenToggleRequested] =
-    useState(false);
 	const [isFullscreen, setIsFullscreen] = useState(false);
 
 	const onWindowResize = useRef(() => {
@@ -43,23 +44,23 @@ export const Game = () => {
 		game.style.left = `${(uiWidth - gameUiWidth) / 2}px`;
 		game.style.width = `${gameUiWidth}px`;
 		game.style.height = `${gameUiHeight}px`;
+    statsContainerRef.current!.style.fontSize = `${gameUiHeight/50}px`;
+	});
 
+	const onFullscreenChange = useRef(() => {
+		setIsFullscreen(Boolean(document.fullscreenElement));
 	});
 
 	const toggleFullscreen = () => {
 		if (isFullscreen) {
-			document
-				.exitFullscreen()
-				.then(() => setIsFullscreen(false))
-				.finally(() => setIsFullscreenToggleRequested(false));
+			document.exitFullscreen();
 		} else {
-			uiRef.current
-				?.requestFullscreen()
-				.then(() => {
-					setIsFullscreen(true);
-				})
-				.finally(() => setIsFullscreenToggleRequested(false));
+			uiRef.current?.requestFullscreen();
 		}
+	};
+
+	const onAfterRound = (stats: GameStats) => {
+		setGameStats(stats);
 	};
 
 	useEffect(() => {
@@ -72,6 +73,7 @@ export const Game = () => {
 
 		window.addEventListener('resize', onWindowResize.current);
 		onWindowResize.current();
+		document.addEventListener('fullscreenchange', onFullscreenChange.current);
 
 		const game = new GameEngine();
 		const gameViz = new GameVizualiser(game, containerRef.current);
@@ -80,11 +82,13 @@ export const Game = () => {
 			setGameState('OVER');
 		};
 		const gameType = new GameTypeAi(game);
+		game.onAfterRound = onAfterRound;
 		game.init(gameType);
 		gameViz.start();
 		return () => {
 			gameViz.stop();
 			window.removeEventListener('resize', onWindowResize.current);
+			window.removeEventListener('fullscreenchange', onFullscreenChange.current);
 		};
 	}, [containerRef, gameState]);
 
@@ -123,7 +127,8 @@ export const Game = () => {
 			<section className={styles.start}>
 				<div className={styles.about} id={'about'}>
 					<div className={styles.about__game}>
-						<h2 className={styles.about__title}>Game over</h2>
+						<h2 className={styles.about__title}>Game over!</h2>
+						<h2 className={styles.about__score}>Your score: {gameStats?.player1Score}</h2>
 						<p className={styles.about__result}>
 							{winnerId === 1
 								? 'You won?!?! It must be a mistake. I shall fine-tune the AI next time.'
@@ -147,17 +152,26 @@ export const Game = () => {
 			<div ref={gameUiContainerRef} className={styles['game-ui-container']}>
 				<div
 					ref={containerRef}
-					className={styles['game']}
+					className={styles.game}
 					style={{
 						width: `${100 / (1 + GameStatsPanelToGameWidth)}%`,
 						minWidth: `${100 / (1 + GameStatsPanelToGameWidth)}%`,
 					}}></div>
-				<div className={styles['stats']}>
+				<div ref={statsContainerRef} className={styles.stats}>
+					<div className={styles['stats__stat-container']}>
+						<div className={styles.stats__caption}>Игрок 1: </div>
+						<div className={styles.stats__value}>{gameStats?.player1Score ?? 0}</div>
+					</div>
+					<div className={styles['stats__stat-container']}>
+						<div className={styles.stats__caption}>Игрок 2: </div>
+						<div className={styles.stats__value}>{gameStats?.player2Score ?? 0}</div>
+					</div>
 					<div className={styles['stats__fullscreen-container']}>
 						<Button
 							size="small"
 							type="button"
 							variant="secondary"
+							customModifier="button_adaptive"
 							value={isFullscreen ? 'Свернуть' : 'На весь экран'}
 							onClick={() => toggleFullscreen()}
 						/>
