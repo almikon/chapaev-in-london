@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { NavigateFunction } from 'react-router-dom';
 import { apiService } from '../api/ApiService';
 import { oAuthYandex, redirectUri } from '../assets/config';
-import { CreateUserDto, OAuthDto, SigninDto, User } from '../types/dto/user.dto';
+import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto';
 import { RoutePaths } from '../types/routes';
 
 export class AuthorizationStore {
@@ -59,7 +59,7 @@ export class AuthorizationStore {
 			.catch((e: Error) => this.errorResponse(e.message));
 	};
 
-	oAuth = (data: OAuthDto) => {
+	oAuth = (data: string) => {
 		this.oauth
 			.sendCode(data)
 			.catch((e: Error) => this.errorResponse(e.message));

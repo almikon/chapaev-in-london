@@ -10,7 +10,7 @@ import styles from './Landing.module.sass';
 export const Landing: FC = () => {
 
 	const sendServiceId = (code: string) => {
-		const data: any = JSON.stringify(
+		const data: string = JSON.stringify(
 			{
 				'code': code,
 				'redirect_uri': redirectUri

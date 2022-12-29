@@ -17,7 +17,6 @@ export class Auth extends Api {
 
 		const options: Options = {
 			...this.options,
-			withCredentials: true,
 			data,
 		};
 

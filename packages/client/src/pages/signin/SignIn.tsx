@@ -67,7 +67,7 @@ export const SignIn: FC = () => {
 				/>
 
 				<Button
-					type={'submit'}
+					type={'button'}
 					variant={'primary'}
 					size={'medium'}
 					value={'SIGN IN'}
@@ -75,7 +75,7 @@ export const SignIn: FC = () => {
 				/>
 
 				<Button
-					type={'submit'}
+					type={'button'}
 					variant={'accent'}
 					size={'medium'}
 					value={'Login with Yandex'}

@@ -10,11 +10,12 @@ import { LoginInput } from '../../../components/UI-elements/partials/LoginInput/
 import { PhoneInput } from '../../../components/UI-elements/partials/PhoneInput/PhoneInput';
 import { SecondNameInput } from '../../../components/UI-elements/partials/SecondNameInput/SecondNameInput';
 import { stores } from '../../../store';
+import { UpdateUserDto, User } from '../../../types/dto/user.dto';
 import styles from '../Profile.module.sass';
 import { ChangeAvatar } from './ChangeAvatar';
 
 type ChangeDataProps = {
-  userData: any;
+  userData: User;
   handleChangePasswordButtonClick: () => void;
 };
 
@@ -77,7 +78,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 
 	const handleSubmitProfileData = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		const data: any = {
+		const data: UpdateUserDto = {
 			login,
 			first_name: firstName,
 			display_name: displayName,

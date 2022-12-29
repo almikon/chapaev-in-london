@@ -22,7 +22,7 @@ export class OAuth extends Api {
 		return this.requestProcessing<Record<string, string>>(url, options, 'get');
 	};
 
-	public sendCode = async (data: any): Promise<ApiResponse<string>> => {
+	public sendCode = async (data: string): Promise<ApiResponse<string>> => {
 		const url = this.getPathAuth(OAuthPaths.YANDEX);
 
 		const options: Options = {
