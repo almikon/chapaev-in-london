@@ -20,7 +20,7 @@ export enum LeaderBoardPaths {
 }
 
 export enum ChatsPaths {
-  CHATS = 'chats',
+  CHAT = 'chat',
   FILES = 'files',
   USERS = 'users',
   TOKEN = 'token',
