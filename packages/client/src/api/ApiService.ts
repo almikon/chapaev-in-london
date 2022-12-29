@@ -11,7 +11,7 @@ class ApiService {
 	};
 
 	public getOAuthAPI = () => {
-		return new OAuth(apiPath);
+		return new OAuth(apiPathYandex);
 	};
 
 	public getUsersApi = () => {
