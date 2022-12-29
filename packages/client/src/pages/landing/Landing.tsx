@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { redirectUri } from '../../assets/config';
-import { getQueryStringParams } from '../../assets/utils/getQueryStringParams';
 import { Button } from '../../components/UI-elements/Button/Button';
 import { authorizationStore } from '../../store/Authorization';
 import { RoutePaths } from '../../types/routes';
@@ -20,10 +19,11 @@ export const Landing: FC = () => {
 	};
 
 	useEffect(() => {
-		const codeFromParams: Record<string, string> = getQueryStringParams(location.search);
+		const params = new URLSearchParams(location.search);
+		const code: string | null = params.get('code');
 
-		if (codeFromParams.code) {
-			sendServiceId(codeFromParams.code);
+		if (code) {
+			sendServiceId(code);
 		}
 	}, [location]);
 

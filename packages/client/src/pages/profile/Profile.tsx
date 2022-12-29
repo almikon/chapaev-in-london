@@ -21,6 +21,7 @@ export const Profile: FC = observer(() => {
 
 	useEffect(() => {
 		setChangeDataOrPassword('data');
+		console.log(userData);
 	}, [userData]);
 
 	return (
