@@ -9,7 +9,7 @@ import { App } from './app';
 
 export const server = {
 	name: '--server',
-	run: async function(serverPort: number) {
+	run: async (serverPort: number) => {
 		await sequelize.sync({ force: true });
 
 		const app = new App({
