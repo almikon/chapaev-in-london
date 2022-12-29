@@ -1,18 +1,17 @@
 import express, { Application } from 'express';
 import * as http from 'http';
+import type { ExpressMiddleware } from '../types/express';
+import type { ControllerBase } from '../types/IControllerBase.interface';
 
 export class App {
 	public app: Application;
 	public port: number;
 
-	constructor(appInit: { port: number, middleWares: any, controllers: any }) {
+	constructor(appInit: { port: number, middleWares: ExpressMiddleware[], controllers: ControllerBase[] }) {
 		this.app = express();
 		this.port = appInit.port;
 
-		// мидлвары для всех роутов
 		this.middlewares(appInit.middleWares);
-
-		// добавление роутов в приложение
 		this.routes(appInit.controllers);
 	}
 
@@ -30,13 +29,13 @@ export class App {
 		}
 	};
 
-	private middlewares = (middleWares: { forEach: (arg0: (middleWare: any) => void) => void }) => {
-		middleWares.forEach((middleWare) => {
+	private middlewares = (middleWares: ExpressMiddleware[]) => {
+		middleWares.forEach((middleWare: ExpressMiddleware) => {
 			this.app.use(middleWare);
 		});
 	};
 
-	private routes = (controllers: { forEach: (arg0: (controller: any) => void) => void }) => {
+	private routes = (controllers: ControllerBase[]) => {
 		controllers.forEach((controller) => {
 			this.app.use('/', controller.router);
 		});

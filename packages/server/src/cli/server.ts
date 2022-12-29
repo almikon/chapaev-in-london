@@ -21,7 +21,7 @@ export const server = {
 			],
 			middleWares: [
 				cors({
-					origin: 'http://127.0.0.1:3000',
+					origin: true,
 					credentials: true
 				}),
 				express.json({ limit: '2MB' }),

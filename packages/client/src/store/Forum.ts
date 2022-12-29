@@ -72,6 +72,7 @@ export class ForumStore {
 		})
 			.then(() => {
 				this.isLoading = false;
+				this.getChats();
 			})
 			.catch(() => {
 				this.isLoading = false;

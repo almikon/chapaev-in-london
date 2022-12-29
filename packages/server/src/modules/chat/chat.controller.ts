@@ -1,4 +1,4 @@
-import Router, { Request as IRequest, Response as IResponse } from 'express';
+import Router, { Express, Request as IRequest, Response as IResponse } from 'express';
 
 import { HttpCode } from '../../assets/constants';
 import { createChatValidator } from '../../midleware/validation/chat/createChat.validator';
@@ -11,7 +11,7 @@ import type { UserEntity } from '../users/user.entity';
 
 export class ChatController implements ControllerBase {
 	private path = ControllersPath.Chat;
-	private router = Router();
+	public router: Express = Router();
 	private services: ChatServiceType;
 
 	constructor(services: ChatServiceType) {
