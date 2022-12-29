@@ -1,15 +1,16 @@
 import { action, makeObservable, observable } from 'mobx';
 import { NavigateFunction } from 'react-router-dom';
 import { apiService } from '../api/ApiService';
-import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto';
+import { oAuthYandex, redirectUri } from '../assets/config';
+import { CreateUserDto, OAuthDto, SigninDto, User } from '../types/dto/user.dto';
 import { RoutePaths } from '../types/routes';
 
 export class AuthorizationStore {
 	user: User | null = null;
-	fromOAuth = false;
 	errorText = '';
 
 	private api = apiService.getAuthApi();
+	private oauth = apiService.getOAuthAPI();
 
 	constructor() {
 		makeObservable(
@@ -29,10 +30,7 @@ export class AuthorizationStore {
 	isLogin = (navigate: NavigateFunction) => {
 		this.errorText = '';
 
-		console.log(this.user);
-
 		if (this.user) {
-			console.log('user');
 			return;
 		}
 
@@ -50,11 +48,21 @@ export class AuthorizationStore {
 			.catch((e: Error) => this.errorResponse(e.message, navigate));
 	};
 
-	OAUth = (user: User) => {
-		if (user) {
-			this.user = user;
-			this.fromOAuth = true;
-		}
+	getOAuthServiceId = () => {
+		return this.oauth
+			.getCode()
+			.then(res =>
+				window.location.replace(
+					`${oAuthYandex}/authorize?response_type=code&client_id=${res?.data?.service_id}&redirect_uri=${redirectUri}`
+				)
+			)
+			.catch((e: Error) => this.errorResponse(e.message));
+	};
+
+	oAuth = (data: OAuthDto) => {
+		this.oauth
+			.sendCode(data)
+			.catch((e: Error) => this.errorResponse(e.message));
 	};
 
 	signIn = (signInDto: SigninDto, navigate: NavigateFunction) => {

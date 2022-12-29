@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-import { redirectUri } from '../../assets/config';
 import { Button } from '../../components/UI-elements/Button/Button';
 import { Form } from '../../components/UI-elements/Form/Form';
 import { LoginInput } from '../../components/UI-elements/partials/LoginInput/LoginInput';
@@ -44,24 +43,8 @@ export const SignIn: FC = () => {
 		}
 	};
 
-	const getServiceId = () => {
-		return fetch(`https://ya-praktikum.tech/api/v2/oauth/yandex/service-id?redirect_uri=${redirectUri}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}).then(r => (r.json()));
-	};
-
 	const handleYandexOAuth = () => {
-		console.log(redirectUri);
-		getServiceId()
-			.then(res => window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${res.service_id}&redirect_uri=${redirectUri}`));
-	};
-
-	const handleLogout = async (e: SyntheticEvent) => {
-		e.preventDefault();
-		stores.authorizationStore.logout(navigate);
+		return stores.authorizationStore.getOAuthServiceId();
 	};
 
 	return (
@@ -91,15 +74,14 @@ export const SignIn: FC = () => {
 					name={'button'}
 				/>
 
-				<p
-					onClick={handleYandexOAuth}>
-          Login with yandex
-				</p>
-
-				<p
-					onClick={handleLogout}>
-          LOG OUT
-				</p>
+				<Button
+					type={'submit'}
+					variant={'accent'}
+					size={'medium'}
+					value={'Login with Yandex'}
+					name={'button-oauth'}
+					onClick={handleYandexOAuth}
+				/>
 
 				<p>
 					<Link to={RoutePaths.SIGN_UP}>Create an account</Link>
