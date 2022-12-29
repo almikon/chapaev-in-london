@@ -3,6 +3,7 @@ import { User } from './user.dto';
 
 export type CreateChatDto = {
   title: string;
+  user: Omit<User, 'id'>;
 };
 
 export type UserId = {

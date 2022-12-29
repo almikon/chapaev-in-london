@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Pagination } from '../components/UI-elements/Pagination/Pagination';
 
 type UsePaginationProps<List> = {
-  list: List[];
-  paginateList: (list: List[]) => void;
-  limit: number;
+	list: List[];
+	paginateList: (list: List[]) => void;
+	limit: number;
 };
 
 export const UsePagination = <T extends object>(props: UsePaginationProps<T>) => {
@@ -24,13 +24,19 @@ export const UsePagination = <T extends object>(props: UsePaginationProps<T>) =>
 	const nextPage = () => setCurrentPage(prev => prev + 1);
 
 	return (
-		<Pagination
-			limit={limit}
-			currentPage={currentPage}
-			totalPages={list.length}
-			paginate={paginate}
-			prevPage={prevPage}
-			nextPage={nextPage}
-		/>
+		<>
+			{
+				list.length > 0
+					? <Pagination
+						limit={limit}
+						currentPage={currentPage}
+						totalPages={list.length}
+						paginate={paginate}
+						prevPage={prevPage}
+						nextPage={nextPage}
+					/>
+					: null
+			}
+		</>
 	);
 };
