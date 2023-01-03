@@ -31,3 +31,8 @@ export type CreateUserDto = UserDto & Password;
 export type UpdateUserDto = UserDto & DisplayName;
 
 export type User = Id & UserDto & Avatar & DisplayName;
+
+export type OAuthDto = {
+  code: string;
+  redirect_uri: string;
+};

@@ -6,6 +6,11 @@ export enum AuthPaths {
   LOGOUT = 'logout',
 }
 
+export enum OAuthPaths {
+  OAUTH = 'oauth',
+  YANDEX = 'yandex'
+}
+
 export enum UsersPaths {
   USER = 'user',
   PROFILE = 'profile',

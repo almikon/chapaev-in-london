@@ -38,7 +38,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 			setLogin(userData.login);
 			setFirstName(userData.first_name);
 			setSecondName(userData.second_name);
-			setPhone(userData.phone);
+			setPhone(userData.phone || '');
 		}
 
 		if (userData && userData.display_name) {

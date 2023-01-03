@@ -1,10 +1,31 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { redirectUri } from '../../assets/config';
 import { Button } from '../../components/UI-elements/Button/Button';
+import { authorizationStore } from '../../store/Authorization';
 import { RoutePaths } from '../../types/routes';
 import styles from './Landing.module.sass';
 
 export const Landing: FC = () => {
+
+	const sendServiceId = (code: string) => {
+		const data: string = JSON.stringify(
+			{
+				'code': code,
+				'redirect_uri': redirectUri
+			});
+
+		return authorizationStore.oAuth(data);
+	};
+
+	useEffect(() => {
+		const params = new URLSearchParams(location.search);
+		const code: string | null = params.get('code');
+
+		if (code) {
+			sendServiceId(code);
+		}
+	}, [location]);
 
 	return (
 		<section className={styles.landing}>

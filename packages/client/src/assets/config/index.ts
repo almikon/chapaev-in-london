@@ -1,5 +1,7 @@
-const { API_PATH, API_PATH_CHAPAEV } = process.env;
+const { API_PATH, API_PATH_CHAPAEV, REDIRECT_URI, OAUTH_YANDEX } = process.env;
 
+export const oAuthYandex = OAUTH_YANDEX || 'https://oauth.yandex.ru';
+export const redirectUri = REDIRECT_URI || 'http://localhost:3000/';
 export const apiPathYandex = API_PATH || '';
 export const apiPathChapaev = API_PATH_CHAPAEV || '';
 export const limitShowChatPreview = 6;
