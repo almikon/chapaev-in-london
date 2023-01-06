@@ -32,8 +32,8 @@ class MockData {
 				id: this.countChatId,
 				title: createRandomText(),
 				unread_count: Math.round(Math.random() * 100),
-				create_ad: (new Date()).toDateString(),
-				creator: {
+				createAd: (new Date()).toDateString(),
+				user: {
 					id: this.countUserId,
 					first_name: createRandomText(),
 					login: createRandomText(),

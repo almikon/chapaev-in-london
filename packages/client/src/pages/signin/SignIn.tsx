@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-
 import { Button } from '../../components/UI-elements/Button/Button';
 import { Form } from '../../components/UI-elements/Form/Form';
 import { LoginInput } from '../../components/UI-elements/partials/LoginInput/LoginInput';
@@ -38,10 +37,14 @@ export const SignIn: FC = () => {
 
 		if (
 			!loginError &&
-        !passwordError
+      !passwordError
 		) {
 			stores.authorizationStore.signIn(data, navigate);
 		}
+	};
+
+	const handleYandexOAuth = () => {
+		return stores.authorizationStore.getOAuthServiceId();
 	};
 
 	return (
@@ -70,6 +73,16 @@ export const SignIn: FC = () => {
 					value={'SIGN IN'}
 					name={'button'}
 				/>
+
+				<Button
+					type={'button'}
+					variant={'accent'}
+					size={'medium'}
+					value={'Login with Yandex'}
+					name={'button-oauth'}
+					onClick={handleYandexOAuth}
+				/>
+
 				<p>
 					<Link to={RoutePaths.SIGN_UP}>Create an account</Link>
 				</p>

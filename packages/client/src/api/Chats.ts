@@ -9,17 +9,27 @@ import {
 	GetChatUsersDto,
 	ResponseChatUsers,
 	ResponseDeleteChat,
-	ResponseTokenChat,
+	ResponseTokenChat
 } from '../types/dto/chats.dto';
 import { Options } from '../types/httpTransport';
 import { Api } from './Api';
 
 export class Chats extends Api {
-	private readonly chatsPath: string = ChatsPaths.CHATS;
+	private readonly chatsPath: string = ChatsPaths.CHAT;
 
 	constructor(url: string) {
 		super(url);
 	}
+
+	public getChats = async (): Promise<ApiResponse<Chat[]>> => {
+		const url = this.getPathAuth('');
+
+		const options: Options = {
+			...this.options
+		};
+
+		return await this.requestProcessing<Chat[]>(url, options, 'get');
+	};
 
 	public createChat = async (
 		data: CreateChatDto
@@ -28,7 +38,7 @@ export class Chats extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<string>(url, options, 'post');
@@ -40,7 +50,7 @@ export class Chats extends Api {
 		const url = this.getPathAuth('');
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<ResponseDeleteChat>(url, options, 'delete');
@@ -58,7 +68,7 @@ export class Chats extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<Chat[]>(url, options, 'get');
@@ -77,7 +87,7 @@ export class Chats extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<ResponseChatUsers[]>(url, options, 'get');
@@ -89,7 +99,7 @@ export class Chats extends Api {
 		const url = this.getPathAuth(`${ChatsPaths.TOKEN}/${chatId}`);
 
 		const options: Options = {
-			...this.options,
+			...this.options
 		};
 
 		return this.requestProcessing<ResponseTokenChat>(url, options, 'post');
@@ -102,7 +112,7 @@ export class Chats extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<string>(url, options, 'put');
@@ -115,7 +125,7 @@ export class Chats extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<string>(url, options, 'delete');
