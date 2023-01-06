@@ -1,5 +1,6 @@
 import { Checker } from './Checker';
 import { GameInteraction } from './GameInteraction';
+import { GameStats } from './GameStats';
 import { GameStepResult } from './GameStepResult';
 import { GameType } from './GameType';
 import { Vector } from './Vector';
@@ -10,11 +11,23 @@ export class GameEngine {
 	public static readonly EffectiveDimension = this.Dimension - this.Margin * 2;
 	public static readonly CheckerCount = 8;
 	public static readonly CheckerRadius = this.EffectiveDimension / 8 / 1.4 / 2;
-	public static readonly BoardFriction = 15;
+	public static readonly BoardFriction = 20;
 	public static readonly Palyer1Id = 1;
 	public static readonly Palyer2Id = 2;
 	public static readonly MaxStrikePower = this.CheckerRadius * 5;
 	public static readonly StrikePowerToVelocityCoeff = 30;
+	public static readonly FirstCheckerScore = 100;
+	public static readonly SubsequentCheckerScoreBonus = 100;
+
+	private _onAfterRound: (gameStats: GameStats) => void;
+
+	public get onAfterRound(): (gameStats: GameStats) => void {
+		return this._onAfterRound;
+	}
+
+	public set onAfterRound(value: (gameStats: GameStats) => void) {
+		this._onAfterRound = value;
+	}
 
 	private _checkers: Checker[] = [];
 
@@ -47,23 +60,41 @@ export class GameEngine {
 				(i * GameEngine.EffectiveDimension) / GameEngine.CheckerCount +
           GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 +
           GameEngine.Margin,
-				GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 + GameEngine.Margin,
+				GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 +
+          GameEngine.Margin
 			);
 
 			const posTop = posBottom.add(
 				new Vector(
 					0,
-					GameEngine.EffectiveDimension - (GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2) * 2,
-				),
+					GameEngine.EffectiveDimension -
+            (GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2) * 2
+				)
 			);
 
-			let checker = new Checker(posBottom, GameEngine.CheckerRadius, 40, GameEngine.Palyer1Id);
+			let checker = new Checker(
+				posBottom,
+				GameEngine.CheckerRadius,
+				40,
+				GameEngine.Palyer1Id
+			);
 			this._checkers.push(checker);
-			checker = new Checker(posTop, GameEngine.CheckerRadius, 40, GameEngine.Palyer2Id);
+			checker = new Checker(
+				posTop,
+				GameEngine.CheckerRadius,
+				40,
+				GameEngine.Palyer2Id
+			);
 			this._checkers.push(checker);
 		}
 
 		this._userMoveInProgress = false;
+		if (this.onAfterRound) {
+			this.onAfterRound({
+				player1Score: 0,
+				player2Score: 0,
+			});
+		}
 	};
 
 	tick = (dt: number, gameInteraction: GameInteraction) => {
@@ -72,7 +103,6 @@ export class GameEngine {
 			this._elapsedSec += dt;
 			if (this._elapsedSec >= this._delaySec) {
 				result.winnerId = this.getWinnerId();
-				console.log('Winner id:', result.winnerId);
 				this._userMoveInProgress = false;
 				this._delayInProgress = false;
 				if (result.winnerId === null) {
@@ -84,7 +114,19 @@ export class GameEngine {
 			this.moveCheckers(dt);
 			this.handleCollisions();
 			result.destroyedCheckers = this.removeDestroyedCheckers();
-			if (this._userMoveInProgress && this.checkers.every((c) => c.velocity === Vector.NullVector)) {
+			const scoreChanged = this._gameType.calculateScore(
+				result.destroyedCheckers
+			);
+			if (scoreChanged && this.onAfterRound) {
+				this.onAfterRound({
+					player1Score: this._gameType.playerScores[GameEngine.Palyer1Id],
+					player2Score: this._gameType.playerScores[GameEngine.Palyer2Id],
+				});
+			}
+			if (
+				this._userMoveInProgress &&
+        this.checkers.every(c => c.velocity === Vector.NullVector)
+			) {
 				this._delayInProgress = true;
 				this._delaySec = 1;
 				this._elapsedSec = 0;
@@ -94,7 +136,7 @@ export class GameEngine {
 	};
 
 	private getWinnerId = () => {
-		const isWinner = (id: number) => this.checkers.every((c) => c.playerId === id);
+		const isWinner = (id: number) => this.checkers.every(c => c.playerId === id);
 		if (isWinner(GameEngine.Palyer1Id)) {
 			return GameEngine.Palyer1Id;
 		}
@@ -122,8 +164,8 @@ export class GameEngine {
 
 	private handleCollisions = () => {
 		const collisions = new Set();
-		this._checkers.forEach((checker1) => {
-			this._checkers.forEach((checker2) => {
+		this._checkers.forEach(checker1 => {
+			this._checkers.forEach(checker2 => {
 				const collisionId = [checker1.id, checker2.id].sort().join('');
 				if (!collisions.has(collisionId)) {
 					if (checker1.collides(checker2)) {
@@ -136,9 +178,11 @@ export class GameEngine {
 						const centerVec = checker2.position.sub(checker1.position);
 						const distance = centerVec.magnitude();
 						const distanceDiff = checker1.radius + checker2.radius - distance;
-						checker1.position = checker1.position.sub(centerVec.mul(distanceDiff).div(distance));
+						checker1.position = checker1.position.sub(
+							centerVec.mul(distanceDiff).div(distance)
+						);
 						checker2.position = checker2.position.sub(
-							centerVec.mul(distanceDiff).div(distance).mul(-1),
+							centerVec.mul(distanceDiff).div(distance).mul(-1)
 						);
 					}
 				}
@@ -147,7 +191,7 @@ export class GameEngine {
 	};
 
 	private moveCheckers = (dt: number) => {
-		this._checkers.forEach((checker) => {
+		this._checkers.forEach(checker => {
 			checker.move(dt, GameEngine.BoardFriction);
 		});
 	};
@@ -155,7 +199,8 @@ export class GameEngine {
 	public computeStrikeVelocity = (strikeVec: Vector) => {
 		const desiredPower = strikeVec.magnitude();
 		const effectivePower =
-      Math.min(desiredPower, GameEngine.MaxStrikePower) * GameEngine.StrikePowerToVelocityCoeff;
+      Math.min(desiredPower, GameEngine.MaxStrikePower) *
+      GameEngine.StrikePowerToVelocityCoeff;
 		return strikeVec.direction().mul(effectivePower);
 	};
 
@@ -164,12 +209,15 @@ export class GameEngine {
 			return;
 		}
 		if (gameInteraction.mouseUp && this._selectedChecker) {
-			const strikeToCenter = this._selectedChecker.position.sub(gameInteraction.mousePosition);
-			this._selectedChecker.velocity = this.computeStrikeVelocity(strikeToCenter);
+			const strikeToCenter = this._selectedChecker.position.sub(
+				gameInteraction.mousePosition
+			);
+			this._selectedChecker.velocity =
+        this.computeStrikeVelocity(strikeToCenter);
 			this._userMoveInProgress = true;
 			this._selectedChecker = null;
 		}
-		this._checkers.forEach((checker) => {
+		this._checkers.forEach(checker => {
 			if (
 				checker.contains(gameInteraction.mousePosition) &&
         gameInteraction.mouseDown &&

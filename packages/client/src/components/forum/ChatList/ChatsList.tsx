@@ -24,9 +24,9 @@ export const ChatsList: FC = observer(() => {
 				{
 					currentChats.map(item => (
 						<ChatPreview
-							createAd={item.create_ad}
+							createAd={item.createAd}
 							title={item.title}
-							user={item.creator}
+							user={item.user}
 							chatId={item.id}
 							key={item.id + Date.now()}
 							countMessages={item.unread_count}

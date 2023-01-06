@@ -21,7 +21,7 @@ export const routes: RoutesType[] = [
 		element: <SignIn />
 	},
 	{
-		isAuth: true,
+		isAuth: false,
 		path: RoutePaths.MAIN,
 		element: <Landing />
 	},

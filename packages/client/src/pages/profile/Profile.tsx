@@ -5,15 +5,16 @@ import { ChangeData } from './components/ChangeData';
 import { ChangePassword } from './components/ChangePassword';
 import styles from './Profile.module.sass';
 
-// export const Profile: FC = observer(({ store }: Record<string, any>) => {
 export const Profile: FC = observer(() => {
 	const userData = stores.authorizationStore.user;
+
 	const [changeDataOrPassword, setChangeDataOrPassword] = useState('data' as 'data' | 'password');
 
 	const toggleDataOrPassword = () => {
 		if (changeDataOrPassword === 'data') {
 			setChangeDataOrPassword('password');
-		} else {
+		}
+		else {
 			setChangeDataOrPassword('data');
 		}
 	};
@@ -25,13 +26,13 @@ export const Profile: FC = observer(() => {
 	return (
 		<div className={styles.profile}>
 			{userData !== null && changeDataOrPassword === 'data' &&
-            <ChangeData
-            	userData={userData}
-            	handleChangePasswordButtonClick={toggleDataOrPassword}/>
+        <ChangeData
+        	userData={userData}
+        	handleChangePasswordButtonClick={toggleDataOrPassword}/>
 			}
 			{userData !== null && changeDataOrPassword === 'password' &&
-            <ChangePassword
-            	handleChangePasswordButtonClick={toggleDataOrPassword}/>
+        <ChangePassword
+        	handleChangePasswordButtonClick={toggleDataOrPassword}/>
 			}
 			{!userData && 'Загрузка...'}
 		</div>
