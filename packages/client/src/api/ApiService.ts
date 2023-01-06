@@ -1,25 +1,30 @@
-import Auth from './Auth'
-import { apiPath } from '../assets/config'
-import Users from './Users'
-import Chats from './Chats'
-import Leaderboard from './Leaderboard'
+import { apiPathChapaev, apiPathYandex } from '../assets/config';
+import { Auth } from './Auth';
+import { Chats } from './Chats';
+import { Leaderboard } from './Leaderboard';
+import { OAuth } from './OAuth';
+import { Users } from './Users';
 
 class ApiService {
-  public getAuthApi() {
-    return new Auth(apiPath)
-  }
+	public getAuthApi = () => {
+		return new Auth(apiPathYandex);
+	};
 
-  public getUsersApi() {
-    return new Users(apiPath)
-  }
+	public getOAuthAPI = () => {
+		return new OAuth(apiPathYandex);
+	};
 
-  public getChatsApi() {
-    return new Chats(apiPath)
-  }
+	public getUsersApi = () => {
+		return new Users(apiPathYandex);
+	};
 
-  public getLeaderboardApi() {
-    return new Leaderboard(apiPath)
-  }
+	public getChatsApi = () => {
+		return new Chats(apiPathChapaev);
+	};
+
+	public getLeaderboardApi = () => {
+		return new Leaderboard(apiPathYandex);
+	};
 }
 
-export const apiService = new ApiService()
+export const apiService = new ApiService();

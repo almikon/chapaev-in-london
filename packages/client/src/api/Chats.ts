@@ -1,149 +1,159 @@
-import Api from './Api'
-import { ApiResponse } from '../types/api'
-import { Options } from '../types/httpTransport'
-import { ChatsPaths } from '../types/apiPaths'
+import { ApiResponse } from '../types/api';
+import { ChatsPaths } from '../types/apiPaths';
 import {
-  AddDeleteUserChatDto,
-  Chat,
-  CreateChatDto,
-  DeleteChatDto,
-  GetChatDto,
-  GetChatUsersDto,
-  ResponseChatUsers,
-  ResponseDeleteChat,
-  ResponseTokenChat,
-} from '../types/dto/chats.dto'
+	AddDeleteUserChatDto,
+	Chat,
+	CreateChatDto,
+	DeleteChatDto,
+	GetChatDto,
+	GetChatUsersDto,
+	ResponseChatUsers,
+	ResponseDeleteChat,
+	ResponseTokenChat
+} from '../types/dto/chats.dto';
+import { Options } from '../types/httpTransport';
+import { Api } from './Api';
 
-class Chats extends Api {
-  private readonly chatsPath: string = ChatsPaths.CHATS
+export class Chats extends Api {
+	private readonly chatsPath: string = ChatsPaths.CHAT;
 
-  constructor(url: string) {
-    super(url)
-  }
+	constructor(url: string) {
+		super(url);
+	}
 
-  public async createChat(data: CreateChatDto): Promise<ApiResponse<string>> {
-    const url = this.getPathAuth('')
+	public getChats = async (): Promise<ApiResponse<Chat[]>> => {
+		const url = this.getPathAuth('');
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options
+		};
 
-    return this.requestProcessing<string>(url, options, 'post')
-  }
+		return await this.requestProcessing<Chat[]>(url, options, 'get');
+	};
 
-  public async deleteChat(
-    data: DeleteChatDto
-  ): Promise<ApiResponse<ResponseDeleteChat>> {
-    const url = this.getPathAuth('')
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+	public createChat = async (
+		data: CreateChatDto
+	): Promise<ApiResponse<string>> => {
+		const url = this.getPathAuth('');
 
-    return this.requestProcessing<ResponseDeleteChat>(url, options, 'delete')
-  }
+		const options: Options = {
+			...this.options,
+			data
+		};
 
-  public async getChat(
-    data: Partial<GetChatDto>
-  ): Promise<ApiResponse<Chat[]>> {
-    const query = this.getQuery<Partial<GetChatDto>>(data)
+		return this.requestProcessing<string>(url, options, 'post');
+	};
 
-    const url =
+	public deleteChat = async (
+		data: DeleteChatDto
+	): Promise<ApiResponse<ResponseDeleteChat>> => {
+		const url = this.getPathAuth('');
+		const options: Options = {
+			...this.options,
+			data
+		};
+
+		return this.requestProcessing<ResponseDeleteChat>(url, options, 'delete');
+	};
+
+	public getChat = async (
+		data: Partial<GetChatDto>
+	): Promise<ApiResponse<Chat[]>> => {
+		const query = this.getQuery<Partial<GetChatDto>>(data);
+
+		const url =
       query.length === 0
-        ? this.getPathAuth('')
-        : `${this.url}/${this.chatsPath}${query}`
+      	? this.getPathAuth('')
+      	: `${this.url}/${this.chatsPath}${query}`;
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options,
+			data
+		};
 
-    return this.requestProcessing<Chat[]>(url, options, 'get')
-  }
+		return this.requestProcessing<Chat[]>(url, options, 'get');
+	};
 
-  public async getChatUsers(
-    id: number,
-    data: Partial<GetChatUsersDto>
-  ): Promise<ApiResponse<ResponseChatUsers[]>> {
-    const query = this.getQuery<Partial<GetChatUsersDto>>(data)
-    let url = this.getPathAuth(`${id}/${ChatsPaths.USERS}`)
+	public getChatUsers = async (
+		id: number,
+		data: Partial<GetChatUsersDto>
+	): Promise<ApiResponse<ResponseChatUsers[]>> => {
+		const query = this.getQuery<Partial<GetChatUsersDto>>(data);
+		let url = this.getPathAuth(`${id}/${ChatsPaths.USERS}`);
 
-    if (query.length !== 0) {
-      url += query
-    }
+		if (query.length !== 0) {
+			url += query;
+		}
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options,
+			data
+		};
 
-    return this.requestProcessing<ResponseChatUsers[]>(url, options, 'get')
-  }
+		return this.requestProcessing<ResponseChatUsers[]>(url, options, 'get');
+	};
 
-  public async getToken(
-    chatId: string
-  ): Promise<ApiResponse<ResponseTokenChat>> {
-    const url = this.getPathAuth(`${ChatsPaths.TOKEN}/${chatId}`)
+	public getToken = async (
+		chatId: string
+	): Promise<ApiResponse<ResponseTokenChat>> => {
+		const url = this.getPathAuth(`${ChatsPaths.TOKEN}/${chatId}`);
 
-    const options: Options = {
-      ...this.options,
-    }
+		const options: Options = {
+			...this.options
+		};
 
-    return this.requestProcessing<ResponseTokenChat>(url, options, 'post')
-  }
+		return this.requestProcessing<ResponseTokenChat>(url, options, 'post');
+	};
 
-  public async addUserChat(
-    data: AddDeleteUserChatDto
-  ): Promise<ApiResponse<string>> {
-    const url = this.getPathAuth(ChatsPaths.USERS)
+	public addUserChat = async (
+		data: AddDeleteUserChatDto
+	): Promise<ApiResponse<string>> => {
+		const url = this.getPathAuth(ChatsPaths.USERS);
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options,
+			data
+		};
 
-    return this.requestProcessing<string>(url, options, 'put')
-  }
+		return this.requestProcessing<string>(url, options, 'put');
+	};
 
-  public async deleteUserChat(
-    data: AddDeleteUserChatDto
-  ): Promise<ApiResponse<string>> {
-    const url = this.getPathAuth(ChatsPaths.USERS)
+	public deleteUserChat = async (
+		data: AddDeleteUserChatDto
+	): Promise<ApiResponse<string>> => {
+		const url = this.getPathAuth(ChatsPaths.USERS);
 
-    const options: Options = {
-      ...this.options,
-      data,
-    }
+		const options: Options = {
+			...this.options,
+			data
+		};
 
-    return this.requestProcessing<string>(url, options, 'delete')
-  }
+		return this.requestProcessing<string>(url, options, 'delete');
+	};
 
-  private getPathAuth(endPath: string) {
-    return `${this.url}/${this.chatsPath}/${endPath}`
-  }
+	private getPathAuth = (endPath: string) => {
+		return `${this.url}/${this.chatsPath}/${endPath}`;
+	};
 
-  private getQuery<T>(data: T): string {
-    const startSymbolQuery = '?'
-    let query = ''
+	private getQuery = <T>(data: T): string => {
+		const startSymbolQuery = '?';
+		let query = '';
 
-    for (const dataKey in data) {
-      if (query.length === 0) {
-        query += startSymbolQuery
-      }
+		for (const dataKey in data) {
+			if (query.length === 0) {
+				query += startSymbolQuery;
+			}
 
-      if (query[length - 1] !== startSymbolQuery) {
-        query += '&'
-      }
+			if (query[length - 1] !== startSymbolQuery) {
+				query += '&';
+			}
 
-      const key = dataKey as keyof typeof data
-      const value = data[key]
+			const key = dataKey as keyof typeof data;
+			const value = data[key];
 
-      query += `${dataKey}=${value}`
-    }
+			query += `${dataKey}=${value}`;
+		}
 
-    return query
-  }
+		return query;
+	};
 }
-
-export default Chats

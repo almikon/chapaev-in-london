@@ -6,6 +6,11 @@ export enum AuthPaths {
   LOGOUT = 'logout',
 }
 
+export enum OAuthPaths {
+  OAUTH = 'oauth',
+  YANDEX = 'yandex'
+}
+
 export enum UsersPaths {
   USER = 'user',
   PROFILE = 'profile',
@@ -20,10 +25,14 @@ export enum LeaderBoardPaths {
 }
 
 export enum ChatsPaths {
-  CHATS = 'chats',
+  CHAT = 'chat',
   FILES = 'files',
   USERS = 'users',
   TOKEN = 'token',
   AVATAR = 'avatar',
   NEW = 'new',
+}
+
+export enum ForumPaths {
+
 }

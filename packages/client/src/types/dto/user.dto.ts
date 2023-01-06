@@ -1,33 +1,38 @@
-import { Avatar, Id } from './commom.dto'
+import { Avatar, Id } from './commom.dto';
 
 export type Login = {
-  login: string
-}
+  login: string;
+};
 
 export type Password = {
-  password: string
-}
+  password: string;
+};
 
 export type DisplayName = {
-  display_name: string
-}
+  display_name: string;
+};
 
-export type SigninDto = Login & Password
+export type SigninDto = Login & Password;
 
 export type UserDto = {
-  first_name: string
-  second_name: string
-  login: string
-  email: string
-  phone: string
-}
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  phone: string;
+};
 
 export type ChangePasswordsDto = {
-  oldPassword: string
-  newPassword: string
-}
+  oldPassword: string;
+  newPassword: string;
+};
 
-export type CreateUserDto = UserDto & Password
-export type UpdateUserDto = UserDto & DisplayName
+export type CreateUserDto = UserDto & Password;
+export type UpdateUserDto = UserDto & DisplayName;
 
-export type User = Id & UserDto & Avatar & DisplayName
+export type User = Id & UserDto & Avatar & DisplayName;
+
+export type OAuthDto = {
+  code: string;
+  redirect_uri: string;
+};

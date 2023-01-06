@@ -1,19 +1,19 @@
 export type Id = {
-  id: number
-}
+  id: number;
+};
 
 export type Avatar = {
-  avatar: string | null
-}
+  avatar: string | null;
+};
 
 export type Role = {
-  role: string
-}
+  role: string;
+};
 
 export type Limit = {
-  limit: number
-}
+  limit: number;
+};
 
 export type Cursor = {
-  cursor: number
-}
+  cursor: number;
+};
