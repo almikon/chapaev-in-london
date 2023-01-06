@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "remove_dist": "rimraf dist",
     "build": "rimraf dist && tsc --p ./tsconfig.prod.json",
+    "build:ssr": "tsc  --p ./tsconfig.prod.json ./index.ts",
     "preview:ssr": "node ./dist/index.js",
     "preview": "node ./dist/src/index.js --server",
     "dev1": "cross-env  NODE_ENV=development nodemon ./index.ts",

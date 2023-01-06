@@ -16,8 +16,12 @@ export const SignIn: FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 
-	const [loginError, setLoginError] = useState(false);
-	const [passwordError, setPasswordError] = useState(false);
+	const [loginError,
+		// setLoginError
+	] = useState(false);
+	const [passwordError,
+		// setPasswordError
+	] = useState(false);
 
 	const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
 		setLogin(e.currentTarget.value);
@@ -37,7 +41,7 @@ export const SignIn: FC = () => {
 
 		if (
 			!loginError &&
-      !passwordError
+				!passwordError
 		) {
 			stores.authorizationStore.signIn(data, navigate);
 		}
@@ -56,14 +60,14 @@ export const SignIn: FC = () => {
 				<LoginInput
 					value={login}
 					onChange={handleChangeLogin}
-					loginError={loginError}
-					setLoginError={setLoginError}
+					// loginError={loginError}
+					// setLoginError={setLoginError}
 				/>
 				<PasswordInput
 					value={password}
 					onChange={handleChangePassword}
-					passwordError={passwordError}
-					setPasswordError={setPasswordError}
+					// passwordError={passwordError}
+					// setPasswordError={setPasswordError}
 				/>
 
 				<Button

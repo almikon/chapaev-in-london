@@ -5,6 +5,8 @@ import { UserEntity } from '../modules/users/user.entity';
 
 const somethingIsNotDefined = [DB_DIALECT, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT].some((it) => it === undefined);
 
+console.log('DB_DIALECT, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT',
+	DB_DIALECT, DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT);
 if (somethingIsNotDefined) {
 	throw new Error('One or more ronmental variables are not defined');
 }
