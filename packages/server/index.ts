@@ -1,10 +1,8 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-
 import * as fs from 'fs';
 import * as path from 'path';
-
 import { ViteDevServer, createServer as createViteServer } from 'vite';
 
 dotenv.config();
@@ -13,15 +11,16 @@ const isDev = () => process.env.NODE_ENV === 'development';
 
 const startServer = async () => {
 	const app = express();
-	app.use(cors());
 	const port = Number(process.env.SERVER_PORT) || 3001;
+	app.use(cors());
 
-	let vite: ViteDevServer | undefined;
 	// можно просто указать напрямую откуда юрать
 	// path.resolve('../chapaevinlondon/dist/index.html')
 	const distPath = path.dirname(require.resolve('chapaevinlondon/dist/index.html'));
 	const srcPath = path.dirname(require.resolve('chapaevinlondon'));
 	const ssrClientPath = require.resolve('chapaevinlondon/ssr-dist/chapaevinlondon.cjs');
+
+	let vite: ViteDevServer | undefined;
 
 	if (isDev()) {
 		vite = await createViteServer({
@@ -33,14 +32,14 @@ const startServer = async () => {
 		app.use(vite.middlewares);
 	}
 
+	// щас не используется
 	app.get('/api', (_, res) => {
 		res.json('👋 Howdy from the server :)');
 	});
 
-	// app.use(express.static(distPath));
-	// if (!isDev()) {
-	app.use('/assets', express.static(path.resolve(distPath, 'assets')));
-	// }
+	if (!isDev()) {
+		app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+	}
 
 	app.use('*', async (req, res, next) => {
 		const url = req.originalUrl;
@@ -51,12 +50,12 @@ const startServer = async () => {
 			if (!isDev()) {
 				template = fs.readFileSync(
 					path.resolve(distPath, 'index.html'),
-					'utf-8'
+					'utf-8',
 				);
 			} else {
 				template = fs.readFileSync(
 					path.resolve(srcPath, 'index.html'),
-					'utf-8'
+					'utf-8',
 				);
 
 				template = await vite!.transformIndexHtml(url, template);
@@ -70,24 +69,19 @@ const startServer = async () => {
 				render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
 			}
 
-			// const store = createStore()
+			const appHtml = await render(url);
 
-			// const appHtml = await render(store); //arg = url use for route
-			const appHtml = await render(req.url); //arg = url use for route
-
-			// const state = store.getState()
-			// const stateMarkup =`<script>window.__REDUX_STATE__ = ${JSON.stringify(state)}</script>`
-
-			// const html = template.replace('<!--ssr-outlet-->',stateMarkup + appHtml);
 			const html = template.replace('<!--ssr-outlet-->', appHtml);
+
 			res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
 		} catch (e) {
-			if (!isDev()) {
+			if (isDev()) {
         vite!.ssrFixStacktrace(e as Error);
 			}
 			next(e);
 		}
 	});
+
 	app.listen(port, () => {
 		console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
 	});

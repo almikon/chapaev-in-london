@@ -13,17 +13,17 @@ export const routes: RoutesType[] = [
 	{
 		isAuth: false,
 		path: RoutePaths.SIGN_UP,
-		element: <SignUp />
+		element: <SignUp/>
 	},
 	{
 		isAuth: false,
 		path: RoutePaths.SIGN_IN,
-		element: <SignIn />
+		element: <SignIn/>
 	},
 	{
 		isAuth: false,
 		path: RoutePaths.MAIN,
-		element: <Landing />
+		element: <Landing/>
 	},
 	{
 		isAuth: true,
@@ -33,22 +33,22 @@ export const routes: RoutesType[] = [
 	{
 		isAuth: true,
 		path: RoutePaths.PROFILE,
-		element: <Profile />
+		element: <Profile/>
 	},
 	{
 		isAuth: true,
 		path: RoutePaths.FORUM,
-		element: <Forum />,
+		element: <Forum/>,
 		children: [
 			{
 				isAuth: true,
 				path: RoutePaths.FORUM_CREATE_CHAT,
-				element: <CreateChat />
+				element: <CreateChat/>
 			},
 			{
 				isAuth: true,
 				path: RoutePaths.FORUM_CHAT,
-				element: <Chat />
+				element: <Chat/>
 			},
 		]
 	},

@@ -1,16 +1,18 @@
-import { FC } from 'react';
+//@ts-ignore
+import React, { FC } from 'react';
 import { ErrorBoundary } from '../errorBoundary/ErrorBoundary';
 import { Nav } from '../nav/Nav';
-import { RoutesApp }  from '../routes/RoutesApp';
+import { RoutesApp } from '../routes/RoutesApp';
 import styles from './App.module.sass';
 
 export const App: FC = () => {
 	return (
 		<div className={styles.App}>
-			<Nav />
+			<Nav/>
 			<ErrorBoundary>
-				<RoutesApp />
+				<RoutesApp/>
 			</ErrorBoundary>
 		</div>
 	);
 };
+

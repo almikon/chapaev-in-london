@@ -1,4 +1,5 @@
-import { FC } from 'react';
+//@ts-ignore
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { RoutePaths } from '../../types/routes';
 import styles from './nav.module.sass';
