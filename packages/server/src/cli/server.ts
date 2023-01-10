@@ -4,6 +4,7 @@ import express from 'express';
 import { sequelize } from '../database/sequelize';
 import { ChatController } from '../modules/chat/chat.controller';
 import { ChatService } from '../modules/chat/chat.service';
+import { CommentsService } from '../modules/comments/comments.service';
 import { UserService } from '../modules/users/user.service';
 import { App } from './app';
 
@@ -16,7 +17,8 @@ export const server = {
 			controllers: [
 				new ChatController({
 					chatService: new ChatService(sequelize),
-					userService: new UserService(sequelize)
+					userService: new UserService(sequelize),
+					commentsService: new CommentsService(sequelize),
 				})
 			],
 			middleWares: [

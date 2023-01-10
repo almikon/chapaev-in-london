@@ -24,9 +24,9 @@ export type Message = {
   chat_id: number;
   time: string;
   type: string;
-  user: User;
   content: string;
   file?: FileMessage;
+  user: User | null;
 };
 
 export type Chat = {

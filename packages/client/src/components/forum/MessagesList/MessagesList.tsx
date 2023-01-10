@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 
+import { apiService } from '../../../api/ApiService';
 import { limitShowChatMessage } from '../../../assets/config';
 import { UsePagination } from '../../../hooks/usePagination';
 import { stores } from '../../../store';
-import { Message } from '../../../types/forumType';
+import { Message, User } from '../../../types/forumType';
 import { Avatar } from '../../UI-elements/Avatar/Avatar';
 import { ButtonSend } from '../../UI-elements/ButtonSend/ButtonSend';
 import stylesInput from '../../UI-elements/Input/Input.module.sass';
@@ -13,7 +14,7 @@ import styles from './MessagesList.module.sass';
 
 type MessagesListProps = {
   messages: Message[];
-  handleForm: ( message: string) => void;
+  handleForm: (message:string) => void;
 };
 
 export const MessagesList: FC<MessagesListProps> = observer(({ messages, handleForm }) => {
@@ -23,10 +24,20 @@ export const MessagesList: FC<MessagesListProps> = observer(({ messages, handleF
 	const { user } = stores.authorizationStore;
 
 	const handleSubmit = (e: SyntheticEvent) => {
+		const comTime = new Date().toLocaleString();
 		e.preventDefault();
-
-		if (message) {
+		if (message && user) {
 			handleForm(message);
+			const mes: Message = {
+				id: Math.random(),
+				chat_id: stores.forumStore.activeChat as number,
+				time: comTime,
+				type: 'test',
+				content: message,
+				user: stores.authorizationStore.user as User,
+			};
+			//setCurrentMessages([...activeMessages, mes]);
+			apiService.getCommentsApi().createComment(mes);
 			setMessage('');
 		}
 	};

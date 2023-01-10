@@ -23,5 +23,6 @@ export class CommentsEntity extends Model<CommentsEntity>{
 	[CommentsColumns.UserId]:number;
 
 	@ForeignKey(() => ChatEntity)
-	[CommentsColumns.Chat_id]: ChatEntity;
+	@Column
+	[CommentsColumns.Chat_id]: number;
 }

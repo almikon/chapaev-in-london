@@ -1,6 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
 import { apiService } from '../api/ApiService';
-import { mockForum } from '../assets/mockData/mockForum';
 import { User } from '../types/dto/user.dto';
 import { Chat, Message } from '../types/forumType';
 
@@ -11,6 +10,7 @@ export class ForumStore {
 	isLoading = false;
 
 	private api = apiService.getChatsApi();
+	private api_comments = apiService.getCommentsApi();
 
 	constructor() {
 		makeObservable(
@@ -48,10 +48,14 @@ export class ForumStore {
 
 	getMessages = (chatId: number) => {
 		this.isLoading = true;
+		this.api_comments.getComments(chatId)
+			.then((res) => {
+				if (res.data && res.data.length > 0) {
+					this.messages = [...res.data as unknown as Message[]];
+				} else {
+					this.messages = [];
+				}
 
-		mockForum.getMessagesByChatId(chatId)
-			.then(res => {
-				this.messages = [...res];
 				this.isLoading = false;
 			})
 			.catch(() => {
@@ -73,6 +77,27 @@ export class ForumStore {
 			.then(() => {
 				this.isLoading = false;
 				this.getChats();
+			})
+			.catch(() => {
+				this.isLoading = false;
+			});
+	};
+
+	createComment = (
+		content: string,
+		user: User,
+		chat_id: number
+	) => {
+		this.isLoading = true;
+
+		this.api_comments.createComment({
+			content,
+			user,
+			chat_id
+		})
+			.then(() => {
+				this.isLoading = false;
+				this.getMessages(chat_id);
 			})
 			.catch(() => {
 				this.isLoading = false;

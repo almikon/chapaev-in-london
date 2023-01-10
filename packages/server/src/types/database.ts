@@ -52,7 +52,7 @@ export type UserDto = {
 
 export type CommentsDto = {
   [CommentsColumns.Message]: string;
-  [CommentsColumns.Parent_comment_id]: number;
+  [CommentsColumns.Parent_comment_id]?: number;
   [CommentsColumns.User]: UserEntity;
   [CommentsColumns.UserId]: number;
 };
