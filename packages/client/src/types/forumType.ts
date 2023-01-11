@@ -20,10 +20,9 @@ export type FileMessage = {
 };
 
 export type Message = {
-  id: number;
   chat_id: number;
   time: string;
-  type: string;
+  type?: string;
   content: string;
   file?: FileMessage;
   user: User | null;

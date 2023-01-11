@@ -10,7 +10,7 @@ import type { CommentsServiceType } from '../../types/servicesTypes';
 import type { UserEntity } from '../users/user.entity';
 
 export class CommentsController implements ControllerBase {
-	private path = ControllersPath.Chat;
+	private path = ControllersPath.Comments;
 	public router: Express = Router();
 	private services: CommentsServiceType;
 

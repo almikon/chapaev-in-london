@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { stores } from '../../../store';
 import stylesCommon from '../../../styles/styles.module.sass';
 import { RoutePaths } from '../../../types/routes';
-import { omitProps } from '../../../utils/omitProps';
 import { MessagesList } from '../MessagesList/MessagesList';
 import styles from './ChatArea.module.sass';
 
@@ -29,9 +28,8 @@ export const ChatArea: FC = () => {
 
 		const user = stores.authorizationStore.user;
 		if(user){
-			const userWithoutId = omitProps(user, ['id']);
 
-			stores.forumStore.createComment(message, userWithoutId, activeChat as number);}
+			stores.forumStore.createComment(message, user, activeChat as number);}
 	};
 
 	return (

@@ -17,26 +17,21 @@ type MessagesListProps = {
   handleForm: (message:string) => void;
 };
 
-export const MessagesList: FC<MessagesListProps> = observer(({ messages, handleForm }) => {
+export const MessagesList: FC<MessagesListProps> = observer(({ messages }) => {
 	const [activeMessages, setCurrentMessages] = useState(messages);
 	const [message, setMessage] = useState('');
-
 	const { user } = stores.authorizationStore;
 
 	const handleSubmit = (e: SyntheticEvent) => {
-		const comTime = new Date().toLocaleString();
 		e.preventDefault();
 		if (message && user) {
-			handleForm(message);
 			const mes: Message = {
-				id: Math.random(),
 				chat_id: stores.forumStore.activeChat as number,
-				time: comTime,
-				type: 'test',
+				time: new Date().toLocaleString(),
 				content: message,
 				user: stores.authorizationStore.user as User,
 			};
-			//setCurrentMessages([...activeMessages, mes]);
+			setCurrentMessages([...activeMessages, mes]);
 			apiService.getCommentsApi().createComment(mes);
 			setMessage('');
 		}
@@ -49,9 +44,9 @@ export const MessagesList: FC<MessagesListProps> = observer(({ messages, handleF
 		<div className={styles.messagesList}>
 			<ul>
 				{
-					activeMessages.map(message => (
-						<ChatMessage
-							key={message.id + Date.now()}
+					activeMessages.map((message) => (
+						message.content && <ChatMessage
+							key={message.user?.display_name + message.time}
 							message={message}
 						/>
 					))

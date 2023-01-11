@@ -6,7 +6,7 @@ import { Options } from '../types/httpTransport';
 import { Api } from './Api';
 
 export class Comments extends Api {
-	private readonly commentsPath: string = ChatsPaths.CHAT;
+	private readonly commentsPath: string = ChatsPaths.FORUM_COMMENTS;
 
 	constructor(url: string) {
 		super(url);
@@ -35,6 +35,7 @@ export class Comments extends Api {
 	};
 
 	private getPathAuth = (endPath: string) => {
+		console.log(`url is : ${this.url}/${this.commentsPath}/${endPath}`);
 		return `${this.url}/${this.commentsPath}/${endPath}`;
 	};
 
