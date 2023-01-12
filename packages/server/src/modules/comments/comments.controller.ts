@@ -1,7 +1,6 @@
 import Router, { Express, Request as IRequest, Response as IResponse } from 'express';
 
 import { HttpCode } from '../../assets/constants';
-import { createChatValidator } from '../../midleware/validation/chat/createChat.validator';
 import { checkDataUserValidator } from '../../midleware/validation/user/checkDataUserValidator';
 import { ControllersPath } from '../../types/controllersPath';
 import { CommentsColumns, CommentsDto, UserColumns, UserDto } from '../../types/database';
@@ -21,7 +20,8 @@ export class CommentsController implements ControllerBase {
 
 	public initRoutes = () => {
 		this.router.get(this.path, this.findAll);
-		this.router.post(this.path, checkDataUserValidator, createChatValidator, this.create);
+		// console.log(this);
+		this.router.post(this.path, checkDataUserValidator, this.create);
 	};
 
 	private findAll = async (_req: IRequest, res: IResponse) => {

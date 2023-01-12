@@ -1,6 +1,5 @@
 import type { ModelCtor, Sequelize } from 'sequelize-typescript';
 import type { CommentsDto } from '../../types/database';
-import { CommentsColumns } from '../../types/database';
 import { CommentsEntity } from './comments.entity';
 
 export class CommentsService {
@@ -15,13 +14,6 @@ export class CommentsService {
 	};
 
 	public findAll = async () => {
-		return await this.repository.findAll({
-			attributes: {
-				exclude: [CommentsColumns.UserId]
-			},
-			include: {
-				model: CommentsEntity
-			}
-		});
+		return await this.repository.findAll();
 	};
 }

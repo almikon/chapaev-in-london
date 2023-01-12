@@ -1,10 +1,9 @@
-import { Message } from '../forumType';
 import { User } from './user.dto';
 
 export type CreateCommentDto = {
-    content: string;
-    user: User | null;
-    parrent_comment?: Message | null;
+    message: string;
+    user: Omit<User, 'id'>;
+    parrent_comment_id?: number | null;
     chat_id: number;
   };
 

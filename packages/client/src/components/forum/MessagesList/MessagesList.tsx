@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 
-import { apiService } from '../../../api/ApiService';
+// import { apiService } from '../../../api/ApiService';
 import { limitShowChatMessage } from '../../../assets/config';
 import { UsePagination } from '../../../hooks/usePagination';
 import { stores } from '../../../store';
@@ -32,7 +32,7 @@ export const MessagesList: FC<MessagesListProps> = observer(({ messages }) => {
 				user: stores.authorizationStore.user as User,
 			};
 			setCurrentMessages([...activeMessages, mes]);
-			apiService.getCommentsApi().createComment(mes);
+			stores.forumStore.createComment(mes.content, user, mes.chat_id);
 			setMessage('');
 		}
 	};

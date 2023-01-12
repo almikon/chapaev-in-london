@@ -5,7 +5,6 @@ import type { UserService } from '../modules/users/user.service';
 export type ChatServiceType = {
   chatService: ChatService;
   userService: UserService;
-  commentsService: CommentsService;
 };
 
 export type CommentsServiceType = {

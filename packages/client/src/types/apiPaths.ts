@@ -25,7 +25,7 @@ export enum LeaderBoardPaths {
 }
 
 export enum ChatsPaths {
-  FORUM_COMMENTS = 'forum/chat',
+  FORUM_COMMENTS = 'comment',
   CHAT = 'chat',
   FILES = 'files',
   USERS = 'users',

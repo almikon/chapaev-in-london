@@ -1,7 +1,9 @@
 import { action, makeObservable, observable } from 'mobx';
 import { apiService } from '../api/ApiService';
+import { GetCommentDto } from '../types/dto/comments.dto';
 import { User } from '../types/dto/user.dto';
 import { Chat, Message } from '../types/forumType';
+import { omitProps } from '../utils/omitProps';
 
 export class ForumStore {
 	chats: Chat[] = [];
@@ -22,7 +24,8 @@ export class ForumStore {
 				changeActiveChat: action,
 				getChats: action,
 				getMessages: action,
-				createChat: action
+				createChat: action,
+				createComment: action
 			},
 			{ deep: true }
 		);
@@ -46,9 +49,9 @@ export class ForumStore {
 			});
 	};
 
-	getMessages = (chatId: number) => {
+	getMessages = (data : Partial<GetCommentDto>) => {
 		this.isLoading = true;
-		this.api_comments.getComments(chatId)
+		this.api_comments.getComments(data)
 			.then((res) => {
 				if (res.data && res.data.length > 0) {
 					this.messages = [...res.data as unknown as Message[]];
@@ -84,20 +87,21 @@ export class ForumStore {
 	};
 
 	createComment = (
-		content: string,
-		user: User,
+		message: string,
+		userWithId: User,
 		chat_id: number
 	) => {
 		this.isLoading = true;
-
+		const user = omitProps(userWithId,['id']);
 		this.api_comments.createComment({
-			content,
+			message,
 			user,
+			parrent_comment_id : null,
 			chat_id
 		})
 			.then(() => {
 				this.isLoading = false;
-				this.getMessages(chat_id);
+				// this.getMessages(chat_id);
 			})
 			.catch(() => {
 				this.isLoading = false;

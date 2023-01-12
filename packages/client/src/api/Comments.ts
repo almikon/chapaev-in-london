@@ -1,6 +1,6 @@
 import { ApiResponse } from '../types/api';
 import { ChatsPaths } from '../types/apiPaths';
-import { CreateCommentDto } from '../types/dto/comments.dto';
+import { CreateCommentDto, GetCommentDto } from '../types/dto/comments.dto';
 import { Message } from '../types/forumType';
 import { Options } from '../types/httpTransport';
 import { Api } from './Api';
@@ -12,9 +12,12 @@ export class Comments extends Api {
 		super(url);
 	}
 
-	public getComments = async (chat_id : number): Promise<ApiResponse<Message[]>> => {
-		const url = this.getPathAuth('');
-		const data = chat_id;
+	public getComments = async (data : Partial<GetCommentDto>): Promise<ApiResponse<Message[]>> => {
+		const query = this.getQuery<Partial<GetCommentDto>>(data);
+		const url =
+      query.length === 0
+      	? this.getPathAuth('')
+      	: `${this.url}/${this.commentsPath}${query}`;
 		const options: Options = {
 			...this.options,
 			data
@@ -35,8 +38,28 @@ export class Comments extends Api {
 	};
 
 	private getPathAuth = (endPath: string) => {
-		console.log(`url is : ${this.url}/${this.commentsPath}/${endPath}`);
 		return `${this.url}/${this.commentsPath}/${endPath}`;
 	};
 
+	private getQuery = <T>(data: T): string => {
+		const startSymbolQuery = '?';
+		let query = '';
+
+		for (const dataKey in data) {
+			if (query.length === 0) {
+				query += startSymbolQuery;
+			}
+
+			if (query[length - 1] !== startSymbolQuery) {
+				query += '&';
+			}
+
+			const key = dataKey as keyof typeof data;
+			const value = data[key];
+
+			query += `${dataKey}=${value}`;
+		}
+
+		return query;
+	};
 }

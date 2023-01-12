@@ -12,7 +12,7 @@ export enum RoutePaths {
   CHAT = 'chat',
   FORUM_CREATE_CHAT = 'forum/create-chat',
   FORUM_CHAT = 'forum/chat',
-  FORUM_COMMENTS = 'forum/chat',
+  FORUM_COMMENTS = 'forum/chat/comments',
   LEADERBOARD = '/leaderboard',
   UNKNOWN = '*'
 }
