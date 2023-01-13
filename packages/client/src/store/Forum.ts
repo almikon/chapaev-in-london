@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { apiService } from '../api/ApiService';
-import { GetCommentDto } from '../types/dto/comments.dto';
+// import { GetCommentDto } from '../types/dto/comments.dto';
 import { User } from '../types/dto/user.dto';
 import { Chat, Message } from '../types/forumType';
 import { omitProps } from '../utils/omitProps';
@@ -49,9 +49,9 @@ export class ForumStore {
 			});
 	};
 
-	getMessages = (data : Partial<GetCommentDto>) => {
+	getMessages = () => {
 		this.isLoading = true;
-		this.api_comments.getComments(data)
+		this.api_comments.getComments()
 			.then((res) => {
 				if (res.data && res.data.length > 0) {
 					this.messages = [...res.data as unknown as Message[]];

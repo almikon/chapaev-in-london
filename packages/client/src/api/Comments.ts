@@ -1,6 +1,6 @@
 import { ApiResponse } from '../types/api';
 import { ChatsPaths } from '../types/apiPaths';
-import { CreateCommentDto, GetCommentDto } from '../types/dto/comments.dto';
+import { CreateCommentDto } from '../types/dto/comments.dto';
 import { Message } from '../types/forumType';
 import { Options } from '../types/httpTransport';
 import { Api } from './Api';
@@ -12,15 +12,10 @@ export class Comments extends Api {
 		super(url);
 	}
 
-	public getComments = async (data : Partial<GetCommentDto>): Promise<ApiResponse<Message[]>> => {
-		const query = this.getQuery<Partial<GetCommentDto>>(data);
-		const url =
-      query.length === 0
-      	? this.getPathAuth('')
-      	: `${this.url}/${this.commentsPath}${query}`;
+	public getComments = async (): Promise<ApiResponse<Message[]>> => {
+		const url = this.getPathAuth('');
 		const options: Options = {
 			...this.options,
-			data
 		};
 
 		return await this.requestProcessing<Message[]>(url, options, 'get');
@@ -41,25 +36,25 @@ export class Comments extends Api {
 		return `${this.url}/${this.commentsPath}/${endPath}`;
 	};
 
-	private getQuery = <T>(data: T): string => {
-		const startSymbolQuery = '?';
-		let query = '';
+	// private getQuery = <T>(data: T): string => {
+	// 	const startSymbolQuery = '?';
+	// 	let query = '';
 
-		for (const dataKey in data) {
-			if (query.length === 0) {
-				query += startSymbolQuery;
-			}
+	// 	for (const dataKey in data) {
+	// 		if (query.length === 0) {
+	// 			query += startSymbolQuery;
+	// 		}
 
-			if (query[length - 1] !== startSymbolQuery) {
-				query += '&';
-			}
+	// 		if (query[length - 1] !== startSymbolQuery) {
+	// 			query += '&';
+	// 		}
 
-			const key = dataKey as keyof typeof data;
-			const value = data[key];
+	// 		const key = dataKey as keyof typeof data;
+	// 		const value = data[key];
 
-			query += `${dataKey}=${value}`;
-		}
+	// 		query += `${dataKey}=${value}`;
+	// 	}
 
-		return query;
-	};
+	// 	return query;
+	// };
 }

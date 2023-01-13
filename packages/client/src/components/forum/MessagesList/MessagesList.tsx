@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
-
-// import { apiService } from '../../../api/ApiService';
 import { limitShowChatMessage } from '../../../assets/config';
 import { UsePagination } from '../../../hooks/usePagination';
 import { stores } from '../../../store';
@@ -12,31 +10,33 @@ import stylesInput from '../../UI-elements/Input/Input.module.sass';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import styles from './MessagesList.module.sass';
 
-type MessagesListProps = {
-  messages: Message[];
-  handleForm: (message:string) => void;
-};
+export const MessagesList: FC = observer(() => {
+	// const handlerSendMessage = (message: string) => {
 
-export const MessagesList: FC<MessagesListProps> = observer(({ messages }) => {
-	const [activeMessages, setCurrentMessages] = useState(messages);
-	const [message, setMessage] = useState('');
+	// 	const user = stores.authorizationStore.user;
+	// 	if(user){
+
+	// 		stores.forumStore.createComment(message, user, activeChat as number);}
+	// };
+	const { messages, activeChat } = stores.forumStore;
 	const { user } = stores.authorizationStore;
-
+	const [activeMessages, setCurrentMessages] = useState([] as Message[]);
+	const [message, setMessage] = useState('');
 	const handleSubmit = (e: SyntheticEvent) => {
 		e.preventDefault();
-		if (message && user) {
-			const mes: Message = {
-				chat_id: stores.forumStore.activeChat as number,
+		if (message && user && activeChat) {
+			const mes = {
+				chat_id: activeChat,
 				time: new Date().toLocaleString(),
 				content: message,
-				user: stores.authorizationStore.user as User,
+				user: user as User,
 			};
-			setCurrentMessages([...activeMessages, mes]);
 			stores.forumStore.createComment(mes.content, user, mes.chat_id);
 			setMessage('');
+			setCurrentMessages([...activeMessages, mes]);
 		}
 	};
-
+	console.log(messages);
 	const handleChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		setMessage(e.target.value);
 	};
@@ -44,10 +44,10 @@ export const MessagesList: FC<MessagesListProps> = observer(({ messages }) => {
 		<div className={styles.messagesList}>
 			<ul>
 				{
-					activeMessages.map((message) => (
-						message.content && <ChatMessage
-							key={message.user?.display_name + message.time}
-							message={message}
+					activeMessages.map(activeMessage => (
+						<ChatMessage
+							key={activeMessage.user?.display_name + activeMessage.time}
+							message={activeMessage}
 						/>
 					))
 				}
