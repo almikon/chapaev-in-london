@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ViteDevServer, createServer as createViteServer } from 'vite';
+import type { ViteDevServer } from 'vite';
+import { createServer as createViteServer } from 'vite';
 
 dotenv.config();
 
@@ -50,12 +51,12 @@ const startServer = async () => {
 			if (!isDev()) {
 				template = fs.readFileSync(
 					path.resolve(distPath, 'index.html'),
-					'utf-8',
+					'utf-8'
 				);
 			} else {
 				template = fs.readFileSync(
 					path.resolve(srcPath, 'index.html'),
-					'utf-8',
+					'utf-8'
 				);
 
 				template = await vite!.transformIndexHtml(url, template);

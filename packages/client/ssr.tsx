@@ -5,7 +5,7 @@ import { App } from './src/components/app/App';
 export const render = (url: string) => {
 	return renderToString(
 		<StaticRouter location={url}>
-			<App/>
+			<App />
 		</StaticRouter>
 	);
 };
