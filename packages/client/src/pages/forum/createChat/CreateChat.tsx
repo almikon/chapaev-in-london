@@ -30,7 +30,7 @@ export const CreateChat: FC = observer(() => {
 				<Link to={RoutePaths.FORUM}>&larr; Вернуться</Link>
 			</div>
 
-			<CreateChatForm handleForm={handleForm} />
+			<CreateChatForm handleForm={handleForm}/>
 		</div>
 	);
 });

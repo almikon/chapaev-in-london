@@ -1,13 +1,13 @@
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import * as path from 'path';
 
 dotenv.config();
 
 export default defineConfig({
   server: {
-    port: Number(process.env.CLIENT_PORT) || 3000,
+    port: Number(process.env.CLIENT_PORT) || 3001,
   },
   define: {
     'process.env': process.env,

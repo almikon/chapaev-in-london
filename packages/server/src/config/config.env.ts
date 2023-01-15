@@ -5,7 +5,6 @@ import { ARGV_INDEX } from '../assets/constants';
 export const ARGUMENTS = process.argv.slice(ARGV_INDEX);
 
 export const SERVER_PORT = Number(process.env.SERVER_PORT) || 3001;
-
 export const DB_DIALECT: Dialect = process.env.DB_DIALECT as Dialect || 'postgres';
 export const DB_NAME = process.env.DB_NAME;
 export const DB_USER = process.env.DB_USER;

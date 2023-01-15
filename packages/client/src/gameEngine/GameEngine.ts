@@ -19,16 +19,17 @@ export class GameEngine {
 	public static readonly FirstCheckerScore = 100;
 	public static readonly SubsequentCheckerScoreBonus = 100;
 
-	// private _onAfterRound: (gameStats: GameStats) => void;
-	public onAfterRound: ((gameStats: GameStats) => void) | undefined;
+	private _onAfterRound!: (gameStats: GameStats) => void;
 
-	// public get onAfterRound(): (gameStats: GameStats) => void {
-	// 	return this._onAfterRound;
-	// }
-	//
-	// public set onAfterRound(value: (gameStats: GameStats) => void) {
-	// 	this._onAfterRound = value;
-	// }
+	// public onAfterRound: ((gameStats: GameStats) => void) | undefined;
+
+	public get onAfterRound(): (gameStats: GameStats) => void {
+		return this._onAfterRound;
+	}
+
+	public set onAfterRound(value: (gameStats: GameStats) => void) {
+		this._onAfterRound = value;
+	}
 
 	private _checkers: Checker[] = [];
 
