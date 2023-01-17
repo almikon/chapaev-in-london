@@ -1,6 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
 import { apiService } from '../api/ApiService';
-// import { GetCommentDto } from '../types/dto/comments.dto';
 import { User } from '../types/dto/user.dto';
 import { Chat, Message } from '../types/forumType';
 import { omitProps } from '../utils/omitProps';
@@ -89,19 +88,25 @@ export class ForumStore {
 	createComment = (
 		message: string,
 		userWithId: User,
-		chat_id: number
+		chat_id: number,
+		parent_comment_id: number | null,
+		parentUser: string,
+		parentDate: string
 	) => {
 		this.isLoading = true;
+		const user_id = userWithId.id;
 		const user = omitProps(userWithId,['id']);
 		this.api_comments.createComment({
 			message,
 			user,
-			parrent_comment_id : null,
-			chat_id
+			user_id,
+			parent_comment_id,
+			chat_id,
+			parentUser,
+			parentDate
 		})
 			.then(() => {
 				this.isLoading = false;
-				// this.getMessages(chat_id);
 			})
 			.catch(() => {
 				this.isLoading = false;

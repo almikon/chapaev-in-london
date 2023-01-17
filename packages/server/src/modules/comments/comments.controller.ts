@@ -7,6 +7,7 @@ import { CommentsColumns, CommentsDto, UserColumns, UserDto } from '../../types/
 import type { ControllerBase } from '../../types/IControllerBase.interface';
 import type { CommentsServiceType } from '../../types/servicesTypes';
 import type { UserEntity } from '../users/user.entity';
+import type { CommentsEntity } from './comments.entity';
 
 export class CommentsController implements ControllerBase {
 	private path = ControllersPath.Comments;
@@ -20,7 +21,6 @@ export class CommentsController implements ControllerBase {
 
 	public initRoutes = () => {
 		this.router.get(this.path, this.findAll);
-		// console.log(this);
 		this.router.post(this.path, checkDataUserValidator, this.create);
 	};
 
@@ -32,14 +32,16 @@ export class CommentsController implements ControllerBase {
 
 	private create = async (req: IRequest, res: IResponse) => {
 		const user = req.body.user as UserDto;
-		// const chatId = req.body.chatId as number;
 		const message = req.body.message as string;
-		let userEntity: UserEntity;
-
+		const chatId = req.body.chat_id;
+		let userEntity : UserEntity;
 		userEntity = await this.services.userService.findOneByFilter({
 			[UserColumns.Login]: user.login
 		});
-
+		const commentsEntity:CommentsEntity = await this.services.commentsService.findOneByFilter({
+			[CommentsColumns.Id]:req.body.parent_comment_id
+		});
+		console.log(commentsEntity);
 		if (!userEntity) {
 			userEntity = await this.services.userService.create(user);
 		}
@@ -47,8 +49,11 @@ export class CommentsController implements ControllerBase {
 		const createCommentsDto: CommentsDto = {
 			[CommentsColumns.Message]: message,
 			[CommentsColumns.User]: userEntity,
+			[CommentsColumns.Chat_id]:chatId,
+			[CommentsColumns.Parent_comment_id]:req.body.parent_comment_id || null,
 			[CommentsColumns.UserId]:userEntity.id,
-			[CommentsColumns.Parent_comment_id]:1,
+			[CommentsColumns.ParentUser]:req.body.parentUser,
+			[CommentsColumns.ParentDate]:req.body.parentDate
 		};
 		return res.status(HttpCode.OK).send(await this.services.commentsService.create(createCommentsDto));
 	};

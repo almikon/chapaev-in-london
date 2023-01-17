@@ -20,12 +20,16 @@ export type FileMessage = {
 };
 
 export type Message = {
+  id?:number;
   chat_id: number;
-  time: string;
+  createdAt: string;
   type?: string;
-  content: string;
+  message: string;
   file?: FileMessage;
   user: User | null;
+  user_id: number;
+  parent_date: string;
+  parent_user: string;
 };
 
 export type Chat = {
@@ -36,4 +40,3 @@ export type Chat = {
   user: User;
   unread_count: number;
 };
-

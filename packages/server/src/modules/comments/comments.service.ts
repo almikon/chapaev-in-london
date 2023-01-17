@@ -1,9 +1,11 @@
-import type { ModelCtor, Sequelize } from 'sequelize-typescript';
+import type { WhereOptions } from 'sequelize';
+import type { Sequelize } from 'sequelize-typescript';
 import type { CommentsDto } from '../../types/database';
+import { UserEntity } from '../users/user.entity';
 import { CommentsEntity } from './comments.entity';
 
 export class CommentsService {
-	private readonly repository: ModelCtor;
+	private readonly repository: any;
 
 	constructor(sequelize: Sequelize) {
 		this.repository = sequelize.getRepository(CommentsEntity);
@@ -14,6 +16,16 @@ export class CommentsService {
 	};
 
 	public findAll = async () => {
-		return await this.repository.findAll();
+		return await this.repository.findAll({
+			include: {
+				model: UserEntity
+			}
+		});
+	};
+
+	public findOneByFilter = async (where: WhereOptions<CommentsEntity>) => {
+		return await this.repository.findOne({
+			where
+		});
 	};
 }

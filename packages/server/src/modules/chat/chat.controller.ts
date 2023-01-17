@@ -21,7 +21,6 @@ export class ChatController implements ControllerBase {
 
 	public initRoutes = () => {
 		this.router.get(this.path, this.findAll);
-		// console.log(this);
 		this.router.post(this.path, checkDataUserValidator, createChatValidator, this.create);
 	};
 

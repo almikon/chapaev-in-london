@@ -11,32 +11,42 @@ import { ChatMessage } from '../ChatMessage/ChatMessage';
 import styles from './MessagesList.module.sass';
 
 export const MessagesList: FC = observer(() => {
-	// const handlerSendMessage = (message: string) => {
-
-	// 	const user = stores.authorizationStore.user;
-	// 	if(user){
-
-	// 		stores.forumStore.createComment(message, user, activeChat as number);}
-	// };
+	const [answerToComment, setAnswerToComment] = useState('');
+	const [parentCommentId, setParentCommentId] = useState(0);
+	const [activeMessages, setCurrentMessages] = useState([] as Message[]);
+	const [parent_user, setParentUser] = useState('');
+	const [parent_date, setParentDate] = useState('');
+	const [message, setMessage] = useState('');
 	const { messages, activeChat } = stores.forumStore;
 	const { user } = stores.authorizationStore;
-	const [activeMessages, setCurrentMessages] = useState([] as Message[]);
-	const [message, setMessage] = useState('');
+
+	const getAnswerToComment = (userLogin:string, date:string, parentAnswerId: number) => {
+		setAnswerToComment(`В ответ на комментарий ${userLogin} от ${date}`);
+		setParentCommentId(parentAnswerId);
+		setParentUser(userLogin);
+		setParentDate(date);
+	};
+
 	const handleSubmit = (e: SyntheticEvent) => {
 		e.preventDefault();
 		if (message && user && activeChat) {
-			const mes = {
+			const mes:Message = {
 				chat_id: activeChat,
-				time: new Date().toLocaleString(),
-				content: message,
+				createdAt: new Date().toLocaleString(),
+				message: message,
 				user: user as User,
+				user_id: user.id,
+				parent_user: parent_user,
+				parent_date: parent_date
 			};
-			stores.forumStore.createComment(mes.content, user, mes.chat_id);
+			stores.forumStore.createComment(
+				mes.message, user, mes.chat_id, parentCommentId, parent_user, parent_date);
 			setMessage('');
 			setCurrentMessages([...activeMessages, mes]);
+			setAnswerToComment('');
 		}
 	};
-	console.log(messages);
+
 	const handleChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		setMessage(e.target.value);
 	};
@@ -45,9 +55,13 @@ export const MessagesList: FC = observer(() => {
 			<ul>
 				{
 					activeMessages.map(activeMessage => (
-						<ChatMessage
-							key={activeMessage.user?.display_name + activeMessage.time}
+						activeMessage.chat_id === activeChat && <ChatMessage
+							key={activeMessage.user?.display_name + activeMessage.createdAt}
 							message={activeMessage}
+							answerToComment={getAnswerToComment}
+							parentId={parentCommentId}
+							parent_user={activeMessage.parent_user}
+							parent_date={activeMessage.parent_date}
 						/>
 					))
 				}
@@ -61,6 +75,7 @@ export const MessagesList: FC = observer(() => {
 
 			<div className={styles.messagesList__sendMessage}>
 				<Avatar src={user?.avatar ?? ''} />
+				{answerToComment}
 				<form
 					className={styles.messagesList__form}
 					onSubmit={handleSubmit}>

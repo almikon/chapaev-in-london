@@ -1,5 +1,6 @@
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { CommentsColumns, NameDB } from '../../types/database';
+import { UserEntity } from '../users/user.entity';
 
 @Table({
 	tableName: NameDB.COMMENTS
@@ -13,9 +14,19 @@ export class CommentsEntity extends Model<CommentsEntity>{
 	@Column(DataType.STRING)
 	[CommentsColumns.Message]:string | null;
 
-	@Column(DataType.INTEGER)
-	[CommentsColumns.Parent_comment_id]:number | null;
+	@Column(DataType.STRING)
+	[CommentsColumns.ParentUser]:string | null;
+
+	@Column(DataType.STRING)
+	[CommentsColumns.ParentDate]:string | null;
 
 	@Column(DataType.INTEGER)
-	[CommentsColumns.Chat_id]: number | null;
+	[CommentsColumns.Chat_id]: number;
+
+	@ForeignKey(() => UserEntity)
+	@Column
+	[CommentsColumns.UserId]: number;
+
+	@BelongsTo(() => UserEntity)
+	[CommentsColumns.User]: UserEntity;
 }

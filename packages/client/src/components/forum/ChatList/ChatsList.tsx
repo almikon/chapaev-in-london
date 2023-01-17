@@ -21,6 +21,7 @@ export const ChatsList: FC = observer(() => {
 			<ul className={styles.chatList__list}>
 				{
 					currentChats.map(item => (
+
 						<ChatPreview
 							createAd={item.createAd}
 							title={item.title}
@@ -29,6 +30,7 @@ export const ChatsList: FC = observer(() => {
 							key={item.id + Date.now()}
 							countMessages={item.unread_count}
 						/>
+
 					))
 				}
 			</ul>
