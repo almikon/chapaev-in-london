@@ -1,8 +1,8 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { apiService } from '../../../api/ApiService';
-import { apiPathYandex } from '../../../assets/config';
 import { Avatar } from '../../../components/UI-elements/Avatar/Avatar';
 import { Button } from '../../../components/UI-elements/Button/Button';
+import { prepareAvatarLink } from '../../../utils/prepareAvatarLink';
 import styles from '../Profile.module.sass';
 
 type ChangeAvatarProps = {
@@ -15,10 +15,6 @@ export const ChangeAvatar: FC<ChangeAvatarProps> = (props) => {
 	const [isAvatarSaveBtnVisible, setIsAvatarSaveButtonVisible] = useState(false);
 	const [avatarFileName, setAvatarFileName] = useState('');
 	const avatarUploadInput = document.getElementById('avatarUpload') as HTMLInputElement;
-
-	const prepareAvatarLink = (url: string | null) => {
-		return `${apiPathYandex}/resources/${url}`;
-	};
 
 	useEffect(() => {
 		setAvatar(prepareAvatarLink(props.avatar));
