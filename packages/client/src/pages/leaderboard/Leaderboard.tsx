@@ -1,41 +1,46 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { apiService } from '../../api/ApiService';
 import { LeaderTable } from '../../components/leaderTable/leaderTable';
+import { ScoreCardProps } from '../../components/scoreCard/ScoreCard';
 import styles from './Leaderboard.module.sass';
 
 export const Leaderboard: FC = () => {
-	const cards = [
-		{ number: 1, name: 'Vasya Pupkin', score: 999 },
-		{ number: 2, name: 'John Doe', score: 976 },
-		{ number: 3, name: 'Bruce Wayne', score: 961 },
-		{ number: 4, name: 'Duke Nukem', score: 876 },
-		{ number: 5, name: 'Another Gamer', score: 676 },
-		{ number: 6, name: 'Another Gamer', score: 676 },
-		{ number: 7, name: 'Another Gamer', score: 676 },
-		{ number: 8, name: 'Another Gamer', score: 676 },
-		{ number: 9, name: 'Another Gamer', score: 676 },
-		{ number: 10, name: 'Another Gamer', score: 676 },
-		{ number: 11, name: 'Another Gamer', score: 676 },
-		{ number: 12, name: 'Another Gamer', score: 676 },
-		{ number: 13, name: 'Another Gamer', score: 676 },
-		{ number: 14, name: 'Another Gamer', score: 676 },
-		{ number: 15, name: 'Another Gamer', score: 676 },
-		{ number: 16, name: 'Another Gamer', score: 676 },
-		{ number: 17, name: 'Another Gamer', score: 676 },
-		{ number: 18, name: 'Another Gamer', score: 676 },
-		{ number: 19, name: 'Another Gamer', score: 676 },
-		{ number: 20, name: 'Another Gamer', score: 676 },
-		{ number: 21, name: 'Another Gamer', score: 676 },
-		{ number: 22, name: 'Another Gamer', score: 676 },
-		{ number: 23, name: 'Another Gamer', score: 676 },
-		{ number: 24, name: 'Another Gamer', score: 676 },
-		{ number: 25, name: 'Another Gamer', score: 676 },
-		{ number: 26, name: 'Another Gamer', score: 676 },
-		{ number: 27, name: 'Another Gamer', score: 676 },
-		{ number: 28, name: 'Another Gamer', score: 676 },
-	];
+
+	const [cards, setCards] = useState([] as ScoreCardProps[]);
+
+	useEffect(() => {
+		getLeaderboard();
+	}, []);
+
+	const getLeaderboard = async () => {
+		let cardsCount = 0;
+		const userApi = apiService.getUsersApi();
+		const leaderboardApi = apiService.getLeaderboardApi();
+		const leaderboardResponse = await leaderboardApi.getTeamLeaderboard();
+		const leaderboardRows = leaderboardResponse.data;
+		const cards: ScoreCardProps[] = [];
+		for (const leaderboardRowsKey in leaderboardRows) {
+			const leaderRow = leaderboardRows[leaderboardRowsKey].data;
+			const userId = leaderRow.userId;
+			const userResponse = await userApi.getUserById(userId);
+			const user = userResponse.data;
+			if (!user) {
+				continue;
+			}
+			const card: ScoreCardProps = {
+				number: ++cardsCount,
+				name: user.display_name || user.login,
+				avatar: user.avatar,
+				score: leaderRow.score
+			};
+			cards.push(card);
+		}
+		setCards(cards);
+	};
+
 	return (
 		<div className={styles.page}>
-			<LeaderTable cards={cards}/>
+			<LeaderTable cards={cards} />
 		</div>
 	);
 };
