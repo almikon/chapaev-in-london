@@ -12,12 +12,12 @@ export type ScoreCardProps = {
 
 export const ScoreCard: FC<ScoreCardProps> = (props) => {
 	const { number, name, score } = props;
-	const avatar = prepareAvatarLink(props.avatar);
+	const avatarUrl = prepareAvatarLink(props.avatar);
 	return (
 		<div className={styles.scoreCard}>
 			<div className={styles.number}>{number}</div>
 			<div className={styles.user}>
-				<Avatar src={avatar} size={'small'} />
+				<Avatar src={avatarUrl} size={'small'} />
 				<div className={styles.user__name}>{name}</div>
 			</div>
 			<div className={styles.score}>{score}</div>

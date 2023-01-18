@@ -19,8 +19,11 @@ export const Leaderboard: FC = () => {
 		const leaderboardResponse = await leaderboardApi.getTeamLeaderboard();
 		const leaderboardRows = leaderboardResponse.data;
 		const cards: ScoreCardProps[] = [];
-		for (const leaderboardRowsKey in leaderboardRows) {
-			const leaderRow = leaderboardRows[leaderboardRowsKey].data;
+		if (!leaderboardRows) {
+			return;
+		}
+		for (const leaderboardRow of leaderboardRows) {
+			const leaderRow = leaderboardRow.data;
 			const userId = leaderRow.userId;
 			const userResponse = await userApi.getUserById(userId);
 			const user = userResponse.data;

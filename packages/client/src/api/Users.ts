@@ -59,8 +59,8 @@ export class Users extends Api {
 		return this.requestProcessing<User>(url, options, 'put');
 	};
 
-	public getUserById = async (id: string): Promise<ApiResponse<User>> => {
-		const url = this.getPathAuth(id);
+	public getUserById = async (id: number): Promise<ApiResponse<User>> => {
+		const url = this.getPathAuth(id.toString());
 
 		const options: Options = {
 			...this.options,
