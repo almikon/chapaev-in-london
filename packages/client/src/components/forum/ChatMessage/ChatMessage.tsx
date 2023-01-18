@@ -7,20 +7,19 @@ import styles from './ChatMessage.module.sass';
 
 type ChatMessageProps = {
 	message: Message;
-	answerToComment: ((user:string, date:string, parentId:number, parent_user:string, parent_date:string ) => void);
-	parentId: number;
+	answerToComment: ((user:string, date:string, parent_comment_id:number, parent_user:string, parent_date:string ) => void);
+	parent_comment_id: number;
 	parent_user: string;
 	parent_date: string;
 };
 
 export const ChatMessage: FC<ChatMessageProps> = (
-	{ message, answerToComment, parentId, parent_user, parent_date }) => {
+	{ message, answerToComment, parent_comment_id, parent_user, parent_date }) => {
 	const date = new Date(message.createdAt).toLocaleString();
 	const handleAnswer = () => {
 		if(message.user?.login){
-			answerToComment(message.user?.login, date, parentId, parent_user, parent_date);}
+			answerToComment(message.user?.login, date, parent_comment_id, parent_user, parent_date);}
 	};
-	console.log();
 	return (
 		<li className={styles.chatMessage}>
 			<Avatar src={message.user?.avatar

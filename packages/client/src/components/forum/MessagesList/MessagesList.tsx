@@ -12,7 +12,7 @@ import styles from './MessagesList.module.sass';
 
 export const MessagesList: FC = observer(() => {
 	const [answerToComment, setAnswerToComment] = useState('');
-	const [parentCommentId, setParentCommentId] = useState(0);
+	const [parent_comment_id, setParentCommentId] = useState(0);
 	const [activeMessages, setCurrentMessages] = useState([] as Message[]);
 	const [parent_user, setParentUser] = useState('');
 	const [parent_date, setParentDate] = useState('');
@@ -20,9 +20,9 @@ export const MessagesList: FC = observer(() => {
 	const { messages, activeChat } = stores.forumStore;
 	const { user } = stores.authorizationStore;
 
-	const getAnswerToComment = (userLogin:string, date:string, parentAnswerId: number) => {
+	const getAnswerToComment = (userLogin:string, date:string, parent_comment_id: number) => {
 		setAnswerToComment(`В ответ на комментарий ${userLogin} от ${date}`);
-		setParentCommentId(parentAnswerId);
+		setParentCommentId(parent_comment_id);
 		setParentUser(userLogin);
 		setParentDate(date);
 	};
@@ -37,10 +37,11 @@ export const MessagesList: FC = observer(() => {
 				user: user as User,
 				user_id: user.id,
 				parent_user: parent_user,
-				parent_date: parent_date
+				parent_date: parent_date,
+				parent_comment_id: parent_comment_id
 			};
 			stores.forumStore.createComment(
-				mes.message, user, mes.chat_id, parentCommentId, parent_user, parent_date);
+				message, user, activeChat, parent_comment_id, parent_user, parent_date);
 			setMessage('');
 			setCurrentMessages([...activeMessages, mes]);
 			setAnswerToComment('');
@@ -54,12 +55,12 @@ export const MessagesList: FC = observer(() => {
 		<div className={styles.messagesList}>
 			<ul>
 				{
-					activeMessages.map(activeMessage => (
+					activeMessages.sort((a,b)=>a.id!-b.id!).map(activeMessage => (
 						activeMessage.chat_id === activeChat && <ChatMessage
 							key={activeMessage.user?.display_name + activeMessage.createdAt}
 							message={activeMessage}
 							answerToComment={getAnswerToComment}
-							parentId={parentCommentId}
+							parent_comment_id={parent_comment_id}
 							parent_user={activeMessage.parent_user}
 							parent_date={activeMessage.parent_date}
 						/>
@@ -75,18 +76,20 @@ export const MessagesList: FC = observer(() => {
 
 			<div className={styles.messagesList__sendMessage}>
 				<Avatar src={user?.avatar ?? ''} />
-				{answerToComment}
-				<form
-					className={styles.messagesList__form}
-					onSubmit={handleSubmit}>
-					<textarea
-						className={stylesInput.input + ' ' + stylesInput.input_primary + ' ' + styles.messagesList__textArea}
-						onChange={handleChangeMessage}
-						value={message}
-						placeholder={'Введите сообщение...'}
-					/>
-					<ButtonSend type={'submit'} />
-				</form>
+				<div className={styles.messagesList__sendMessageContent}>
+					{answerToComment}
+					<form
+						className={styles.messagesList__form}
+						onSubmit={handleSubmit}>
+						<textarea
+							className={stylesInput.input + ' ' + stylesInput.input_primary + ' ' + styles.messagesList__textArea}
+							onChange={handleChangeMessage}
+							value={message}
+							placeholder={'Введите сообщение...'}
+						/>
+						<ButtonSend type={'submit'} />
+					</form>
+				</div>
 			</div>
 		</div>
 	);

@@ -12,7 +12,7 @@ export class CommentsEntity extends Model<CommentsEntity>{
 	override id:number;
 
 	@Column(DataType.STRING)
-	[CommentsColumns.Message]:string | null;
+	[CommentsColumns.Message]:string;
 
 	@Column(DataType.STRING)
 	[CommentsColumns.ParentUser]:string | null;
@@ -29,4 +29,8 @@ export class CommentsEntity extends Model<CommentsEntity>{
 
 	@BelongsTo(() => UserEntity)
 	[CommentsColumns.User]: UserEntity;
+
+	@ForeignKey(()=>CommentsEntity)
+	@Column
+	[CommentsColumns.Parent_comment_id]: number;
 }

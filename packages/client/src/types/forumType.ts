@@ -30,6 +30,7 @@ export type Message = {
   user_id: number;
   parent_date: string;
   parent_user: string;
+  parent_comment_id: number | null;
 };
 
 export type Chat = {
