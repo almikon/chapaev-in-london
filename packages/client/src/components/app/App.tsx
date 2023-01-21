@@ -5,6 +5,7 @@ import { RoutesApp } from '../routes/RoutesApp';
 import styles from './App.module.sass';
 
 export const App: FC = () => {
+
 	return (
 		<div className={styles.App}>
 			<Nav />
