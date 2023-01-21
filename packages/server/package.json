@@ -5,8 +5,6 @@
   "scripts": {
     "remove_dist": "rimraf dist",
     "build": "rimraf dist && tsc --p ./tsconfig.prod.json",
-    "build:srr": "rimraf dist && tsc --p ./tsconfig.prod.json",
-    "preview:ssr": "node ./dist/index.js",
     "preview": "node ./dist/src/index.js --server",
     "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "lint": "eslint .",
