@@ -21,7 +21,7 @@ export class AuthorizationStore {
 				isLogin: action,
 				signUp: action,
 				signIn: action,
-				logout: action,
+				logout: action
 			},
 			{ deep: true }
 		);
@@ -49,7 +49,7 @@ export class AuthorizationStore {
 	};
 
 	getOAuthServiceId = () => {
-		return this.oauth
+		this.oauth
 			.getCode()
 			.then(res =>
 				window.location.replace(

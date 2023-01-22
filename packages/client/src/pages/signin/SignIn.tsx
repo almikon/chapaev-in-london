@@ -16,10 +16,10 @@ export const SignIn: FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 
-	const [loginError,
+	const [loginError
 		// setLoginError
 	] = useState(false);
-	const [passwordError,
+	const [passwordError
 		// setPasswordError
 	] = useState(false);
 
@@ -41,14 +41,14 @@ export const SignIn: FC = () => {
 
 		if (
 			!loginError &&
-				!passwordError
+			!passwordError
 		) {
 			stores.authorizationStore.signIn(data, navigate);
 		}
 	};
 
 	const handleYandexOAuth = () => {
-		return stores.authorizationStore.getOAuthServiceId();
+		stores.authorizationStore.getOAuthServiceId();
 	};
 
 	return (
@@ -71,7 +71,7 @@ export const SignIn: FC = () => {
 				/>
 
 				<Button
-					type={'button'}
+					type={'submit'}
 					variant={'primary'}
 					size={'medium'}
 					value={'SIGN IN'}
@@ -86,7 +86,6 @@ export const SignIn: FC = () => {
 					name={'button-oauth'}
 					onClick={handleYandexOAuth}
 				/>
-
 				<p>
 					<Link to={RoutePaths.SIGN_UP}>Create an account</Link>
 				</p>
