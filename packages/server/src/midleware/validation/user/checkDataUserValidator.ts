@@ -10,10 +10,15 @@ const schema = Joi.object().keys({
 	login: Joi.string().required().trim(),
 	email: Joi.string().email().required().trim(),
 	phone: Joi.string().required().trim(),
-	avatar: Joi.string().allow(null, '')
+	avatar: Joi.string().allow(null, ''),
+	theme: Joi.string().allow(null, 'light', 'dark'),
 });
 
-export const checkDataUserValidator = (req: Request, res: Response, next: NextFunction) => {
+export const checkDataUserValidator = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	const errorMessage = 'Invalid data user';
 	const data = req.body.user;
 

@@ -20,6 +20,12 @@ export type UserDto = {
   login: string;
   email: string;
   phone: string;
+  theme?: string;
+};
+
+export type CreateUserOnChapaevDto = {
+  user: Omit<User, 'id'>;
+  theme?: string | null;
 };
 
 export type ChangePasswordsDto = {
@@ -27,12 +33,12 @@ export type ChangePasswordsDto = {
   newPassword: string;
 };
 
+export type ChangeThemeOnChapaevDto = {
+  login: string;
+  theme: string | undefined;
+};
+
 export type CreateUserDto = UserDto & Password;
 export type UpdateUserDto = UserDto & DisplayName;
 
 export type User = Id & UserDto & Avatar & DisplayName;
-
-export type OAuthDto = {
-  code: string;
-  redirect_uri: string;
-};

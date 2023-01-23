@@ -18,11 +18,11 @@ export class ChatService {
 	public findAll = async () => {
 		return await this.repository.findAll({
 			attributes: {
-				exclude: [ChatColumns.UserId]
+				exclude: [ChatColumns.UserId],
 			},
 			include: {
-				model: UserEntity
-			}
+				model: UserEntity,
+			},
 		});
 	};
 }

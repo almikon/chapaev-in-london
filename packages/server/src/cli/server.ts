@@ -4,7 +4,9 @@ import express from 'express';
 import { sequelize } from '../database/sequelize';
 import { ChatController } from '../modules/chat/chat.controller';
 import { ChatService } from '../modules/chat/chat.service';
+import { UserController } from '../modules/users/user.controller';
 import { UserService } from '../modules/users/user.service';
+import { UserThemeController } from '../modules/users/userTheme.contoller';
 import { App } from './app';
 
 export const server = {
@@ -16,21 +18,27 @@ export const server = {
 			controllers: [
 				new ChatController({
 					chatService: new ChatService(sequelize),
-					userService: new UserService(sequelize)
-				})
+					userService: new UserService(sequelize),
+				}),
+				new UserController({
+					userService: new UserService(sequelize),
+				}),
+				new UserThemeController({
+					userService: new UserService(sequelize),
+				}),
 			],
 			middleWares: [
 				cors({
 					origin: true,
-					credentials: true
+					credentials: true,
 				}),
 				express.json({ limit: '2MB' }),
 				bodyParser.json(),
-				bodyParser.urlencoded({ extended: true })
+				bodyParser.urlencoded({ extended: true }),
 			],
-			port: serverPort
+			port: serverPort,
 		});
 
 		app.listen();
-	}
+	},
 };

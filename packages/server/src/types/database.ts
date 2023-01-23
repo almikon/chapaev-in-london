@@ -3,7 +3,7 @@ import type { UserEntity } from '../modules/users/user.entity';
 export enum NameDB {
   CHAT = 'chat',
   COMMENTS = 'comments',
-  USER = 'user'
+  USER = 'user',
 }
 
 export enum ChatColumns {
@@ -23,6 +23,7 @@ export enum UserColumns {
   Phone = 'phone',
   Avatar = 'avatar',
   Chat = 'chat',
+  Theme = 'theme',
 }
 
 export type ChatDto = {
@@ -40,4 +41,5 @@ export type UserDto = {
   [UserColumns.Email]: string;
   [UserColumns.Phone]: string;
   [UserColumns.Avatar]: string;
+  [UserColumns.Theme]: string;
 };

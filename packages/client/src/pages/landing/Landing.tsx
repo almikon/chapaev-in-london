@@ -7,7 +7,6 @@ import { RoutePaths } from '../../types/routes';
 import styles from './Landing.module.sass';
 
 export const Landing: FC = () => {
-
 	const sendServiceId = (code: string) => {
 		const data: string = JSON.stringify(
 			{
@@ -21,7 +20,6 @@ export const Landing: FC = () => {
 	useEffect(() => {
 		const params = new URLSearchParams(location.search);
 		const code: string | null = params.get('code');
-
 		if (code) {
 			sendServiceId(code);
 		}

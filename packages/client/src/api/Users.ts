@@ -2,6 +2,8 @@ import { ApiResponse } from '../types/api';
 import { UsersPaths } from '../types/apiPaths';
 import {
 	ChangePasswordsDto,
+	ChangeThemeOnChapaevDto,
+	CreateUserOnChapaevDto,
 	Login,
 	UpdateUserDto,
 	User,
@@ -78,6 +80,32 @@ export class Users extends Api {
 		};
 
 		return this.requestProcessing<User[]>(url, options, 'post');
+	};
+
+	public createUserOnChapaev = async (
+		data: CreateUserOnChapaevDto
+	): Promise<ApiResponse<User>> => {
+		const url = this.getPathAuth('');
+
+		const options: Options = {
+			...this.options,
+			data,
+		};
+
+		return this.requestProcessing<User>(url, options, 'post');
+	};
+
+	public changeThemeOnChapaev = async (
+		data: ChangeThemeOnChapaevDto
+	): Promise<ApiResponse<any>> => {
+		const url = this.getPathAuth(UsersPaths.THEME);
+
+		const options: Options = {
+			...this.options,
+			data,
+		};
+
+		return this.requestProcessing<User>(url, options, 'put');
 	};
 
 	private getPathAuth = (endPath: string) => {

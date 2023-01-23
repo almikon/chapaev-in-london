@@ -16,7 +16,12 @@ export class UserService {
 
 	public findOneByFilter = async (where: WhereOptions<UserEntity>) => {
 		return await this.repository.findOne({
-			where
+			where,
 		});
+	};
+
+	public changeTheme = async (user: UserEntity, userTheme: string) => {
+		await user.update({ theme: userTheme });
+		return { theme: user.theme };
 	};
 }

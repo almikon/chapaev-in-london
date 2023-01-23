@@ -5,3 +5,7 @@ export type ChatServiceType = {
   chatService: ChatService;
   userService: UserService;
 };
+
+export type UserServiceType = {
+  userService: UserService;
+};
