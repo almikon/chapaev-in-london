@@ -6,7 +6,6 @@ import { ChatController } from '../modules/chat/chat.controller';
 import { ChatService } from '../modules/chat/chat.service';
 import { UserController } from '../modules/users/user.controller';
 import { UserService } from '../modules/users/user.service';
-import { UserThemeController } from '../modules/users/userTheme.contoller';
 import { App } from './app';
 
 export const server = {
@@ -21,9 +20,6 @@ export const server = {
 					userService: new UserService(sequelize),
 				}),
 				new UserController({
-					userService: new UserService(sequelize),
-				}),
-				new UserThemeController({
 					userService: new UserService(sequelize),
 				}),
 			],

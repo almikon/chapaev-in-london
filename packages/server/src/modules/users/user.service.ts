@@ -20,8 +20,14 @@ export class UserService {
 		});
 	};
 
-	public changeTheme = async (user: UserEntity, userTheme: string) => {
-		await user.update({ theme: userTheme });
-		return { theme: user.theme };
+	public changeTheme = async (userTheme: string, where: WhereOptions<UserEntity>,) => {
+		return await this.repository.update(
+			{
+				theme:userTheme,
+			},
+			{
+				where
+			},
+		);
 	};
 }

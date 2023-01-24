@@ -10,6 +10,15 @@ import {
 import { ChatEntity } from '../modules/chat/chat.entity';
 import { UserEntity } from '../modules/users/user.entity';
 
+console.log(
+	DB_DIALECT,
+	DB_HOST,
+	DB_NAME,
+	DB_PASSWORD,
+	DB_PORT,
+	DB_USER,
+);
+
 const somethingIsNotDefined = [
 	DB_DIALECT,
 	DB_NAME,
