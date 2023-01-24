@@ -1,9 +1,13 @@
+import { config } from 'dotenv';
 import type { Dialect } from 'sequelize/types/sequelize';
 import { ARGV_INDEX } from '../assets/constants';
 
+config({
+	path: '../../.env'
+});
+
 // команда запуска сервиса
 export const ARGUMENTS = process.argv.slice(ARGV_INDEX);
-
 export const SERVER_PORT = Number(process.env.SERVER_PORT) || 3001;
 
 export const DB_DIALECT: Dialect =

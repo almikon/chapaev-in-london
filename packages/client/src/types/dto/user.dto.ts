@@ -28,6 +28,12 @@ export type CreateUserOnChapaevDto = {
   theme?: string | null;
 };
 
+export type UpdateUserOnChapaevDto = {
+  user: User & {
+    theme?: string | null;
+  };
+};
+
 export type ChangePasswordsDto = {
   oldPassword: string;
   newPassword: string;

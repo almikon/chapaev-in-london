@@ -15,6 +15,7 @@ export enum ChatColumns {
 }
 
 export enum UserColumns {
+  ID = 'id',
   FirstName = 'first_name',
   SecondName = 'second_name',
   DisplayName = 'display_name',
@@ -35,6 +36,7 @@ export type ChatDto = {
 
 export type UserDto = {
   [UserColumns.FirstName]: string;
+  [UserColumns.FirstName]: string;
   [UserColumns.SecondName]: string;
   [UserColumns.DisplayName]: string;
   [UserColumns.Login]: string;
@@ -42,4 +44,8 @@ export type UserDto = {
   [UserColumns.Phone]: string;
   [UserColumns.Avatar]: string;
   [UserColumns.Theme]: string;
+};
+
+export type UserUpdateDto = UserDto & {
+  id: number;
 };

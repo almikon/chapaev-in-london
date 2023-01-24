@@ -4,6 +4,7 @@ import type { UserDto } from '../../../types/database';
 import { checkErrorOrNext } from '../index';
 
 const schema = Joi.object().keys({
+	id: Joi.number().optional(),
 	first_name: Joi.string().required().trim(),
 	second_name: Joi.string().required().trim(),
 	display_name: Joi.string().allow(null, ''),
@@ -11,7 +12,7 @@ const schema = Joi.object().keys({
 	email: Joi.string().email().required().trim(),
 	phone: Joi.string().required().trim(),
 	avatar: Joi.string().allow(null, ''),
-	theme: Joi.string().allow(null, 'light', 'dark'),
+	theme: Joi.string().allow(null, 'light', 'dark')
 });
 
 export const checkDataUserValidator = (

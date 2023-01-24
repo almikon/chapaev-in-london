@@ -26,6 +26,7 @@
     "lerna": "^5.4.3"
   },
   "dependencies": {
+    "eslint": "8.22.0",
     "react-router-dom": "^6.4.3"
   }
 }

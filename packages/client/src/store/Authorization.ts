@@ -19,23 +19,24 @@ export class AuthorizationStore {
 		makeObservable(
 			this,
 			{
-				user:observable,
-				errorText:observable,
-				theme:observable,
-				isLogin:action,
-				signUp:action,
-				signIn:action,
-				logout:action,
-				toggleTheme:action,
+				user: observable,
+				errorText: observable,
+				theme: observable,
+				isLogin: action,
+				signUp: action,
+				signIn: action,
+				logout: action,
+				toggleTheme: action
 			},
-			{ deep:true }
+			{ deep: true }
 		);
 	}
 
 	toggleTheme = () => {
-		this.theme = this.theme === 'light' ? 'dark' : 'light';
+		const theme = this.theme === 'light' ? 'dark' : 'light';
 		if (this.user) {
-			this.userOnChapaev.changeThemeOnChapaev({ login:this.user!.login, theme:this.theme });
+			this.userOnChapaev.changeThemeOnChapaev({ user: { ...this.user, theme } })
+				.then(() => this.theme = theme);
 		}
 	};
 
@@ -54,7 +55,7 @@ export class AuthorizationStore {
 
 					const userWithoutId: any = omitProps(this.user, ['id']);
 
-					this.userOnChapaev.createUserOnChapaev({ ...userWithoutId, theme:this.theme })
+					this.userOnChapaev.createUserOnChapaev({ ...userWithoutId, theme: this.theme })
 						.then(({ data }) => {
 							this.theme = data!.theme;
 						});
@@ -72,7 +73,7 @@ export class AuthorizationStore {
 			.getCode()
 			.then(res =>
 				window.location.replace(
-					`${ oAuthYandex }/authorize?response_type=code&client_id=${ res?.data?.service_id }&redirect_uri=${ redirectUri }`
+					`${oAuthYandex}/authorize?response_type=code&client_id=${res?.data?.service_id}&redirect_uri=${redirectUri}`
 				)
 			)
 			.catch((e: Error) => this.errorResponse(e.message));
@@ -91,7 +92,7 @@ export class AuthorizationStore {
 			.signin(signInDto)
 			.then(({ data, message }) => {
 				if (data) {
-					navigate(RoutePaths.PROFILE, { replace:true });
+					navigate(RoutePaths.PROFILE, { replace: true });
 				}
 
 				if (message) {
@@ -108,7 +109,7 @@ export class AuthorizationStore {
 			.signup(signUpDto)
 			.then(({ data, message }) => {
 				if (data?.id) {
-					navigate(RoutePaths.PROFILE, { replace:true });
+					navigate(RoutePaths.PROFILE, { replace: true });
 				}
 
 				if (message) {
@@ -129,7 +130,7 @@ export class AuthorizationStore {
 		this.errorText = errorText;
 
 		if (navigate) {
-			navigate(RoutePaths.SIGN_IN, { replace:true });
+			navigate(RoutePaths.SIGN_IN, { replace: true });
 		}
 	};
 }

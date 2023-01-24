@@ -2,11 +2,11 @@ import { ApiResponse } from '../types/api';
 import { UsersPaths } from '../types/apiPaths';
 import {
 	ChangePasswordsDto,
-	ChangeThemeOnChapaevDto,
 	CreateUserOnChapaevDto,
 	Login,
 	UpdateUserDto,
-	User,
+	UpdateUserOnChapaevDto,
+	User
 } from '../types/dto/user.dto';
 import { Options } from '../types/httpTransport';
 import { Api } from './Api';
@@ -25,7 +25,7 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');
@@ -40,9 +40,9 @@ export class Users extends Api {
 		const options: Options = {
 			...this.options,
 			headers: {
-				' Content-Type': 'multipart/form-data',
+				' Content-Type': 'multipart/form-data'
 			},
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');
@@ -55,7 +55,7 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');
@@ -65,7 +65,7 @@ export class Users extends Api {
 		const url = this.getPathAuth(id);
 
 		const options: Options = {
-			...this.options,
+			...this.options
 		};
 
 		return this.requestProcessing<User>(url, options, 'get');
@@ -76,7 +76,7 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User[]>(url, options, 'post');
@@ -89,20 +89,19 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'post');
 	};
 
 	public changeThemeOnChapaev = async (
-		data: ChangeThemeOnChapaevDto
+		data: UpdateUserOnChapaevDto
 	): Promise<ApiResponse<any>> => {
 		const url = this.getPathAuth(UsersPaths.THEME);
-
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');

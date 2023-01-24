@@ -10,7 +10,7 @@ export const checkErrorOrNext = <T>(
 	message: string
 ) => {
 	const errorMessage = {
-		message,
+		message
 	};
 
 	if (!data) {
@@ -18,7 +18,6 @@ export const checkErrorOrNext = <T>(
 	}
 
 	const { error } = schema.validate(data);
-
 	if (error) {
 		errorMessage.message = error.details[0].message;
 		return res.status(HttpCode.BAD_REQUEST).send(errorMessage);

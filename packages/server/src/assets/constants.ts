@@ -3,12 +3,12 @@ export const ARGV_INDEX = 2;
 
 export const ExitCode = {
 	error: 1,
-	success: 0,
+	success: 0
 };
 
 export const Env = {
 	DEVELOPMENT: 'development',
-	PRODUCTION: 'production',
+	PRODUCTION: 'production'
 };
 
 export const HttpCode = {
@@ -20,5 +20,5 @@ export const HttpCode = {
 	FORBIDDEN: 403,
 	NOT_FOUND: 404,
 	NOT_ACCEPTABLE: 406,
-	INTERNAL_SERVER_ERROR: 500,
+	INTERNAL_SERVER_ERROR: 500
 };
