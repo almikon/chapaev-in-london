@@ -53,7 +53,7 @@ export class UserController implements ControllerBase {
 					[UserColumns.Login]:user.login
 				},
 			);
-			return res.status(HttpCode.OK).send(!!changeTheme);
+			return res.status(HttpCode.OK).send(changeTheme);
 		}
 		else {
 			return res.status(HttpCode.NOT_FOUND).send(false);
