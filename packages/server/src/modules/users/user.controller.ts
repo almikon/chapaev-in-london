@@ -20,7 +20,7 @@ export class UserController implements ControllerBase {
 	public initRoutes = () => {
 		this.router.post(this.pathUser, this.findUser);
 		this.router.put(this.pathUserChange, checkDataUserValidator, this.changeUser);
-		this.router.get(this.pathUser, this.findUsers.bind(this));
+		this.router.post(this.pathUser, this.findUsers);
 	};
 
 	private findUsers = async (_req: IRequest, res: IResponse) => {

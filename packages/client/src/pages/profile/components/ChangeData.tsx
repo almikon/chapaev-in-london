@@ -15,8 +15,8 @@ import styles from '../Profile.module.sass';
 import { ChangeAvatar } from './ChangeAvatar';
 
 type ChangeDataProps = {
-  userData: User;
-  handleChangePasswordButtonClick: () => void;
+	userData: User;
+	handleChangePasswordButtonClick: () => void;
 };
 
 export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClick, userData }) => {
@@ -84,7 +84,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 			display_name: displayName,
 			second_name: secondName,
 			email,
-			phone,
+			phone
 		};
 		await apiService.getUsersApi().changeProfile(data)
 			.then((res) => {
@@ -111,7 +111,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 			onSubmit={handleSubmitProfileData}
 			errorText={errorText}>
 
-			<ChangeAvatar avatar={userData.avatar} login={login}/>
+			<ChangeAvatar avatar={userData.avatar} login={login} />
 
 			<EmailInput
 				onChange={handleChangeEmail}
@@ -145,7 +145,7 @@ export const ChangeData: FC<ChangeDataProps> = ({ handleChangePasswordButtonClic
 
 			{saveButtonState ?
 				<Button
-					type={'button'}
+					type={'submit'}
 					variant={'primary'}
 					size={'medium'}
 					value={'Save'}
