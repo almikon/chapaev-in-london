@@ -1,6 +1,7 @@
 import type { WhereOptions } from 'sequelize';
 import type { Sequelize } from 'sequelize-typescript';
-import type { UserDto } from '../../types/database';
+import type { UserDto, UserUpdateDto } from '../../types/database';
+import { UserColumns } from '../../types/database';
 import type { UserEntity } from './user.entity';
 
 export class UserService {
@@ -17,6 +18,14 @@ export class UserService {
 	public findOneByFilter = async (where: WhereOptions<UserEntity>) => {
 		return await this.repository.findOne({
 			where
+		});
+	};
+
+	public update = async (id: number, userUpdateDto: UserUpdateDto) => {
+		return await this.repository.update({ ...userUpdateDto, id }, {
+			where: {
+				[UserColumns.ID]: id
+			}
 		});
 	};
 }

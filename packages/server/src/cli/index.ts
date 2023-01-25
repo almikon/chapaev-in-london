@@ -1,5 +1,5 @@
 import { server } from './server';
 
 export const Cli = {
-	[server.name]: server
+	[server.name]: server,
 };

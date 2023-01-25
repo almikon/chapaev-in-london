@@ -17,6 +17,7 @@ export enum UsersPaths {
   PROFILE_AVATAR = 'profile/avatar',
   PASSWORD = 'password',
   SEARCH = 'search',
+  THEME = 'theme',
 }
 
 export enum LeaderBoardPaths {

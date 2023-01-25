@@ -24,13 +24,15 @@ export const CreateChat: FC = observer(() => {
 	};
 
 	return (
-		<div className={stylesCommon.ui + ' ' + styles.createChat}>
-			<h2>Создать новую тему</h2>
-			<div className={styles.createChat__linkBack}>
-				<Link to={RoutePaths.FORUM}>&larr; Вернуться</Link>
-			</div>
+		<div className={ styles.createChat__window }>
+			<div className={ stylesCommon.ui + ' ' + styles.createChat }>
+				<h2>Создать новую тему</h2>
+				<div className={ styles.createChat__linkBack }>
+					<Link to={ RoutePaths.FORUM }>&larr; Вернуться</Link>
+				</div>
 
-			<CreateChatForm handleForm={handleForm}/>
+				<CreateChatForm handleForm={ handleForm }/>
+			</div>
 		</div>
 	);
 });

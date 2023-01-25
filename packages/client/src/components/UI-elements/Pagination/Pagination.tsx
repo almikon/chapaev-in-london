@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import styles from './Pagination.module.sass';
 
@@ -10,7 +11,8 @@ type PaginationProps = {
   prevPage: () => void;
 };
 
-export const Pagination: FC<PaginationProps> = ({ limit, totalPages, paginate, nextPage, prevPage, currentPage }) => {
+export const Pagination: FC<PaginationProps> = observer(({ limit, totalPages, paginate, nextPage, prevPage, currentPage }) => {
+
 	const pageNumbers = [];
 
 	for (let i = 1; i <= (Math.ceil(totalPages / limit)); i++) {
@@ -55,4 +57,4 @@ export const Pagination: FC<PaginationProps> = ({ limit, totalPages, paginate, n
 			</ul>
 		</div>
 	);
-};
+});

@@ -23,6 +23,10 @@ class ApiService {
 		return new Chats(apiPathChapaev);
 	};
 
+	public getUserOnChapaevAPI = () => {
+		return new Users(apiPathChapaev);
+	};
+
 	public getLeaderboardApi = () => {
 		return new Leaderboard(apiPathYandex);
 	};

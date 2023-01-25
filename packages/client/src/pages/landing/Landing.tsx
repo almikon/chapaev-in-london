@@ -22,7 +22,6 @@ export const Landing: FC = () => {
 	useEffect(() => {
 		const params = new URLSearchParams(location.search);
 		const code: string | null = params.get('code');
-
 		if (code) {
 			sendServiceId(code);
 		}

@@ -3,26 +3,38 @@
 @use '../../styles/variables/colors'
 
 .nav
-  width: 100vw
-  display: flex
-  justify-content: space-evenly
-  background-color: colors.$light-grey
+    max-width: 1100px
+    width: 100%
+    display: flex
+    align-self: center
+    justify-content: space-between
 
 .nav__side
-  display: flex
-  align-items: center
+    display: flex
+    align-items: center
+    max-width: 300px
 
 .nav__el
-  font-family: 'Montserrat'
-  font-size: font-sizes.$nav_el
-  margin: 19px
+    font-size: font-sizes.$nav_el
+    margin: 0 20px 0 20px
+    text-decoration: none
+    transition: 0.2s ease-in-out
+
+.nav__el_light
   color: colors.$dark
-  text-decoration: none
-  transition: 0.2s ease-in-out
+
+.nav__el_dark
+  color: colors.$light-grey
 
 .nav__el:hover
   opacity: 0.7
   transition: 0.2s ease-in-out
+
+.nav_light
+   background: colors.$light-grey
+
+.nav_dark
+    background: colors.$dark
 
 
 .title
@@ -30,3 +42,13 @@
   font-size: font-sizes.$midTitle
   color: colors.$accent
   text-align: center
+
+.theme
+  width: 30px
+  padding: 0 15px 0 15px
+  transition: 0.2s ease-in-out
+
+.theme:hover
+  cursor: pointer
+  opacity: 0.7
+  transition: 0.2s ease-in-out

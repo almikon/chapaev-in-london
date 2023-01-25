@@ -6,6 +6,7 @@ import { ChatController } from '../modules/chat/chat.controller';
 import { ChatService } from '../modules/chat/chat.service';
 import { CommentsController } from '../modules/comments/comments.controller';
 import { CommentsService } from '../modules/comments/comments.service';
+import { UserController } from '../modules/users/user.controller';
 import { UserService } from '../modules/users/user.service';
 import { App } from './app';
 
@@ -87,12 +88,15 @@ export const server = {
 			controllers: [
 				new ChatController({
 					chatService: new ChatService(sequelize),
-					userService: new UserService(sequelize)
+					userService: new UserService(sequelize),
+				}),
+				new UserController({
+					userService: new UserService(sequelize),
 				}),
 				new CommentsController({
 					commentsService: new CommentsService(sequelize),
 					userService: new UserService(sequelize)
-				})
+				}),
 			],
 			middleWares: [cors({
 				origin: true,
@@ -105,5 +109,5 @@ export const server = {
 		});
 
 		app.listen();
-	}
+	},
 };

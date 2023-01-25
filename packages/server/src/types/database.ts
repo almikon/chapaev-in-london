@@ -3,7 +3,7 @@ import type { UserEntity } from '../modules/users/user.entity';
 export enum NameDB {
   CHAT = 'chat',
   COMMENTS = 'comments',
-  USER = 'user'
+  USER = 'user',
 }
 
 export enum ChatColumns {
@@ -15,6 +15,7 @@ export enum ChatColumns {
 }
 
 export enum UserColumns {
+  ID = 'id',
   FirstName = 'first_name',
   SecondName = 'second_name',
   DisplayName = 'display_name',
@@ -24,6 +25,7 @@ export enum UserColumns {
   Avatar = 'avatar',
   Chat = 'chat',
   Comments = 'comments',
+  Theme = 'theme',
 }
 
 export enum CommentsColumns {
@@ -46,12 +48,14 @@ export type ChatDto = {
 
 export type UserDto = {
   [UserColumns.FirstName]: string;
+  [UserColumns.FirstName]: string;
   [UserColumns.SecondName]: string;
   [UserColumns.DisplayName]: string;
   [UserColumns.Login]: string;
   [UserColumns.Email]: string;
   [UserColumns.Phone]: string;
   [UserColumns.Avatar]: string;
+  [UserColumns.Theme]: string;
 };
 
 export type CommentsDto = {
@@ -62,4 +66,8 @@ export type CommentsDto = {
   [CommentsColumns.UserId]:number;
   [CommentsColumns.ParentUser]: string;
   [CommentsColumns.ParentDate]: string;
+};
+
+export type UserUpdateDto = UserDto & {
+  id: number;
 };

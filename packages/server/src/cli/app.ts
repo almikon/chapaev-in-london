@@ -11,7 +11,11 @@ export class App {
 	public app: Application;
 	public port: number;
 
-	constructor(appInit: { port: number, middleWares: ExpressMiddleware[], controllers: ControllerBase[] }) {
+	constructor(appInit: {
+    port: number;
+    middleWares: ExpressMiddleware[];
+    controllers: ControllerBase[];
+  }) {
 		this.app = express();
 		this.port = appInit.port;
 
@@ -45,7 +49,7 @@ export class App {
 	};
 
 	private routes = (controllers: ControllerBase[]) => {
-		controllers.forEach((controller) => {
+		controllers.forEach(controller => {
 			this.app.use('/', controller.router);
 		});
 	};
