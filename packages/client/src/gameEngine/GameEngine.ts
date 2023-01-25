@@ -19,7 +19,9 @@ export class GameEngine {
 	public static readonly FirstCheckerScore = 100;
 	public static readonly SubsequentCheckerScoreBonus = 100;
 
-	private _onAfterRound: (gameStats: GameStats) => void;
+	private _onAfterRound!: (gameStats: GameStats) => void;
+
+	// public onAfterRound: ((gameStats: GameStats) => void) | undefined;
 
 	public get onAfterRound(): (gameStats: GameStats) => void {
 		return this._onAfterRound;
@@ -45,9 +47,11 @@ export class GameEngine {
 	public get userMoveInProgress(): boolean {
 		return this._userMoveInProgress;
 	}
+
 	public set userMoveInProgress(value: boolean) {
 		this._userMoveInProgress = value;
 	}
+
 	private _delayInProgress = false;
 	private _delaySec = 0;
 	private _elapsedSec = 0;
@@ -58,17 +62,17 @@ export class GameEngine {
 		for (let i = 0; i < GameEngine.CheckerCount; i++) {
 			const posBottom = new Vector(
 				(i * GameEngine.EffectiveDimension) / GameEngine.CheckerCount +
-          GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 +
-          GameEngine.Margin,
+        GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 +
+        GameEngine.Margin,
 				GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2 +
-          GameEngine.Margin
+        GameEngine.Margin
 			);
 
 			const posTop = posBottom.add(
 				new Vector(
 					0,
 					GameEngine.EffectiveDimension -
-            (GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2) * 2
+          (GameEngine.EffectiveDimension / GameEngine.CheckerCount / 2) * 2
 				)
 			);
 

@@ -16,7 +16,7 @@ export class OAuth extends Api {
 
 		const options: Options = {
 			...this.options,
-			withCredentials: true,
+			withCredentials: true
 		};
 
 		return this.requestProcessing<Record<string, string>>(url, options, 'get');
@@ -28,7 +28,7 @@ export class OAuth extends Api {
 		const options: Options = {
 			...this.options,
 			withCredentials: true,
-			data,
+			data
 		};
 
 		return this.requestProcessing<string>(url, options, 'post');

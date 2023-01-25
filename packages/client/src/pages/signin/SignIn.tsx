@@ -36,7 +36,7 @@ export const SignIn: FC = () => {
 	};
 
 	const handleYandexOAuth = () => {
-		return stores.authorizationStore.getOAuthServiceId();
+		stores.authorizationStore.getOAuthServiceId();
 	};
 
 	return (
@@ -55,7 +55,7 @@ export const SignIn: FC = () => {
 				/>
 
 				<Button
-					type={'button'}
+					type={'submit'}
 					variant={'primary'}
 					size={'medium'}
 					value={'SIGN IN'}
@@ -70,7 +70,6 @@ export const SignIn: FC = () => {
 					name={'button-oauth'}
 					onClick={handleYandexOAuth}
 				/>
-
 				<p>
 					<Link to={RoutePaths.SIGN_UP}>Create an account</Link>
 				</p>
