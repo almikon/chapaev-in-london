@@ -1,0 +1,23 @@
+@use '../../../styles/fonts/fonts'
+@use '../../../styles/variables/colors'
+@use '../../../styles/variables/font-sizes'
+
+.input
+  font-family: "Montserrat", Arial, sans-serif
+  font-size: font-sizes.$input
+  max-width: 266px
+  min-width: 200px
+  width: 100%
+  height: 38px
+
+.input_primary
+  border: 1px solid colors.$dark
+  border-radius: 12px
+  padding: 0 0 0 12px
+  margin-bottom: 8px
+  color: colors.$dark
+  background-color: transparent
+
+.input::placeholder
+  color: colors.$light-grey
+  font-size: font-sizes.$input

@@ -1,0 +1,55 @@
+@use '../../../styles/fonts/fonts'
+@use '../../../styles/variables/colors'
+@use '../../../styles/variables/font-sizes'
+
+.button
+  margin-top: 24px
+  font-family: "Montserrat", Arial, sans-serif
+  font-size: font-sizes.$button
+  border: none
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1)
+  border-radius: 12px
+  transition: 0.2s ease-in-out
+
+.button:hover
+  cursor: pointer
+  opacity: 0.9
+  transition: 0.2s ease-in-out
+
+.button_primary
+  background-color: colors.$secondary
+  color: colors.$light-grey
+
+.button_secondary
+  background-color: colors.$primary
+  color: colors.$accent
+  font-weight: 600
+
+.button_inactive
+  background-color: colors.$light-grey
+  color: colors.$grey
+
+.button_small
+  width: 160px
+  height: 40px
+
+.button_medium
+  width: 280px
+  height: 40px
+
+.button_large
+  width: 540px
+  height: 80px
+
+.button_hidden
+  display: none
+
+.button_marginDown
+  margin-top: 10px
+  margin-bottom: 20px
+
+.button_adaptive
+  font-size: 1em
+  width: auto
+  height: auto
+  padding: 1em 1em

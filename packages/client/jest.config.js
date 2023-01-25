@@ -2,10 +2,18 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  testMatch: ['<rootDir>/src/**/?(*.)test.{ts,tsx}'],
-  globals: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+    "^.+\\.(js|jsx)$": "babel-jest"
   },
+  testEnvironment: 'jsdom',
+    testMatch: [
+    "<rootDir>/src/**/*.(test).{js,jsx,ts,tsx}"
+  ],
+  moduleNameMapper: {
+    '\\.(css|sass)$' : 'identity-obj-proxy'
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!variables/.*)"
+  ]
 }

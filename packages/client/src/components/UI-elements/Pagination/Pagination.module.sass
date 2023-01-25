@@ -1,0 +1,30 @@
+@use '../../../styles/variables/common'
+@use '../../../styles/variables/colors'
+
+.pagination
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 24px
+
+  .pagination__pagesNumber
+    display: flex
+    justify-content: space-between
+
+    margin: 0
+    padding: 0
+
+    li
+      margin: 0 15px
+      padding: 0
+
+      p
+        padding: 0
+        margin: 0
+
+    li:hover
+      background: common.$hoverBackground
+      cursor: pointer
+
+  .hidden
+    display: none

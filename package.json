@@ -4,13 +4,20 @@
   "scripts": {
     "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
     "build": "lerna run build",
-    "dev:client": "lerna run dev  --scope=client",
-    "dev:server": "lerna run dev --scope=server",
+    "build:server": "lerna run build --scope=server",
+    "build:client": "lerna run build --scope=chapaevinlondon",
+    "dev:client": "lerna run dev --scope=chapaevinlondon",
+    "dev:server": "lerna run dev --scope=server -- server ",
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
+    "fix": "lerna run fix",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "preview:server": "lerna run preview --scope=server  -- server",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:stop": "docker-compose stop"
   },
   "license": "MIT",
   "workspaces": [
@@ -21,6 +28,12 @@
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.1.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "identity-obj-proxy": "3.0.0",
     "lerna": "^5.4.3"
+  },
+  "dependencies": {
+    "eslint": "8.22.0",
+    "react-router-dom": "^6.4.3"
   }
 }

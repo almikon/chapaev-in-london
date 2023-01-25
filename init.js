@@ -1,5 +1,5 @@
-const fs = require('fs')
-
-fs.copyFileSync('.env.sample', '.env')
-
-fs.mkdirSync('tmp/pgdata', { recursive: true })
+// import { copyFileSync, mkdirSync } from 'fs';
+//
+// copyFileSync('.env.sample', '.env');
+//
+// mkdirSync('tmp/pgdata', { recursive: true });
