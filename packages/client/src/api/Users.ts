@@ -2,9 +2,11 @@ import { ApiResponse } from '../types/api';
 import { UsersPaths } from '../types/apiPaths';
 import {
 	ChangePasswordsDto,
+	CreateUserOnChapaevDto,
 	Login,
 	UpdateUserDto,
-	User,
+	UpdateUserOnChapaevDto,
+	User
 } from '../types/dto/user.dto';
 import { Options } from '../types/httpTransport';
 import { Api } from './Api';
@@ -23,7 +25,7 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');
@@ -38,9 +40,9 @@ export class Users extends Api {
 		const options: Options = {
 			...this.options,
 			headers: {
-				' Content-Type': 'multipart/form-data',
+				' Content-Type': 'multipart/form-data'
 			},
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');
@@ -53,7 +55,7 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User>(url, options, 'put');
@@ -63,7 +65,7 @@ export class Users extends Api {
 		const url = this.getPathAuth(id.toString());
 
 		const options: Options = {
-			...this.options,
+			...this.options
 		};
 
 		return this.requestProcessing<User>(url, options, 'get');
@@ -74,10 +76,35 @@ export class Users extends Api {
 
 		const options: Options = {
 			...this.options,
-			data,
+			data
 		};
 
 		return this.requestProcessing<User[]>(url, options, 'post');
+	};
+
+	public createUserOnChapaev = async (
+		data: CreateUserOnChapaevDto
+	): Promise<ApiResponse<User>> => {
+		const url = this.getPathAuth('');
+
+		const options: Options = {
+			...this.options,
+			data
+		};
+
+		return this.requestProcessing<User>(url, options, 'post');
+	};
+
+	public changeThemeOnChapaev = async (
+		data: UpdateUserOnChapaevDto
+	): Promise<ApiResponse<any>> => {
+		const url = this.getPathAuth(UsersPaths.THEME);
+		const options: Options = {
+			...this.options,
+			data
+		};
+
+		return this.requestProcessing<User>(url, options, 'put');
 	};
 
 	private getPathAuth = (endPath: string) => {

@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { limitShowChatPreview } from '../../../assets/config';
 import { UsePagination } from '../../../hooks/usePagination';
 import { stores } from '../../../store';
@@ -13,7 +12,6 @@ import styles from './ChatsList.module.sass';
 export const ChatsList: FC = observer(() => {
 	const { chats } = stores.forumStore;
 	const [currentChats, setCurrentChats] = useState([] as Chat[]);
-
 	return (
 		<div className={styles.chatList}>
 			<div className={styles.chatList__title}>
@@ -23,6 +21,7 @@ export const ChatsList: FC = observer(() => {
 			<ul className={styles.chatList__list}>
 				{
 					currentChats.map(item => (
+
 						<ChatPreview
 							createAd={item.createAd}
 							title={item.title}
@@ -31,6 +30,7 @@ export const ChatsList: FC = observer(() => {
 							key={item.id + Date.now()}
 							countMessages={item.unread_count}
 						/>
+
 					))
 				}
 			</ul>

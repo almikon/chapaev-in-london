@@ -1,3 +1,7 @@
 export enum ControllersPath {
-  Chat = '/chat'
+  Api = '/api',
+  Chat = '/chat',
+  Comments = '/comment',
+  User = '/user',
+  UserTheme = '/user/theme',
 }

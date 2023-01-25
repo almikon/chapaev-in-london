@@ -1,9 +1,18 @@
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import {
+	AutoIncrement,
+	BelongsTo,
+	Column,
+	DataType,
+	ForeignKey,
+	Model,
+	PrimaryKey,
+	Table,
+} from 'sequelize-typescript';
 import { ChatColumns, NameDB } from '../../types/database';
 import { UserEntity } from '../users/user.entity';
 
 @Table({
-	tableName: NameDB.CHAT
+	tableName: NameDB.CHAT,
 	})
 export class ChatEntity extends Model<ChatEntity> {
 	@AutoIncrement
@@ -27,4 +36,3 @@ export class ChatEntity extends Model<ChatEntity> {
 	@BelongsTo(() => UserEntity)
 	[ChatColumns.User]: UserEntity;
 }
-

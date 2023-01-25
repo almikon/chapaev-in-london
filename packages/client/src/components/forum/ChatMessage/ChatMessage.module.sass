@@ -1,4 +1,5 @@
 @use '../../../styles/variables/common'
+@use '../../../styles/variables/colors'
 
 .chatMessage
   border-top: common.$forumBorderColor
@@ -23,3 +24,9 @@
 
     .login
       font-weight: bold
+    
+    .chatMessage__parentComment
+      background-color: colors.$grey
+      border-radius: 5px
+      padding: 3px
+      width: fit-content

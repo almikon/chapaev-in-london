@@ -4,14 +4,17 @@
   "scripts": {
     "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
     "build": "lerna run build",
+    "build:server": "lerna run build --scope=server",
+    "build:client": "lerna run build --scope=chapaevinlondon",
     "dev:client": "lerna run dev --scope=chapaevinlondon",
-    "dev:server": "lerna run dev --scope=server",
+    "dev:server": "lerna run dev --scope=server -- server",
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "fix": "lerna run fix",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "preview:server": "lerna run preview --scope=server"
   },
   "license": "MIT",
   "workspaces": [
@@ -27,6 +30,7 @@
     "lerna": "^5.4.3"
   },
   "dependencies": {
+    "eslint": "8.22.0",
     "react-router-dom": "^6.4.3"
   }
 }

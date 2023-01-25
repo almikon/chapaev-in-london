@@ -1,8 +1,8 @@
 import { action, makeObservable, observable } from 'mobx';
 import { apiService } from '../api/ApiService';
-import { mockForum } from '../assets/mockData/mockForum';
 import { User } from '../types/dto/user.dto';
 import { Chat, Message } from '../types/forumType';
+import { omitProps } from '../utils/omitProps';
 
 export class ForumStore {
 	chats: Chat[] = [];
@@ -11,6 +11,7 @@ export class ForumStore {
 	isLoading = false;
 
 	private api = apiService.getChatsApi();
+	private api_comments = apiService.getCommentsApi();
 
 	constructor() {
 		makeObservable(
@@ -22,7 +23,8 @@ export class ForumStore {
 				changeActiveChat: action,
 				getChats: action,
 				getMessages: action,
-				createChat: action
+				createChat: action,
+				createComment: action
 			},
 			{ deep: true }
 		);
@@ -46,12 +48,16 @@ export class ForumStore {
 			});
 	};
 
-	getMessages = (chatId: number) => {
+	getMessages = () => {
 		this.isLoading = true;
+		this.api_comments.getComments()
+			.then((res) => {
+				if (res.data && res.data.length > 0) {
+					this.messages = [...res.data as unknown as Message[]];
+				} else {
+					this.messages = [];
+				}
 
-		mockForum.getMessagesByChatId(chatId)
-			.then(res => {
-				this.messages = [...res];
 				this.isLoading = false;
 			})
 			.catch(() => {
@@ -73,6 +79,34 @@ export class ForumStore {
 			.then(() => {
 				this.isLoading = false;
 				this.getChats();
+			})
+			.catch(() => {
+				this.isLoading = false;
+			});
+	};
+
+	createComment = (
+		message: string,
+		userWithId: User,
+		chat_id: number,
+		parent_comment_id: number | null,
+		parentUser: string,
+		parentDate: string
+	) => {
+		this.isLoading = true;
+		const user_id = userWithId.id;
+		const user = omitProps(userWithId,['id']);
+		this.api_comments.createComment({
+			message,
+			user,
+			user_id,
+			parent_comment_id,
+			chat_id,
+			parentUser,
+			parentDate
+		})
+			.then(() => {
+				this.isLoading = false;
 			})
 			.catch(() => {
 				this.isLoading = false;

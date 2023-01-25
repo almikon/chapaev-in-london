@@ -4,13 +4,16 @@ import { apiService } from '../api/ApiService';
 import { oAuthYandex, redirectUri } from '../assets/config';
 import { CreateUserDto, SigninDto, User } from '../types/dto/user.dto';
 import { RoutePaths } from '../types/routes';
+import { omitProps } from '../utils/omitProps';
 
 export class AuthorizationStore {
 	user: User | null = null;
+	theme: string | undefined = 'light';
 	errorText = '';
 
 	private api = apiService.getAuthApi();
 	private oauth = apiService.getOAuthAPI();
+	private userOnChapaev = apiService.getUserOnChapaevAPI();
 
 	constructor() {
 		makeObservable(
@@ -18,14 +21,24 @@ export class AuthorizationStore {
 			{
 				user: observable,
 				errorText: observable,
+				theme: observable,
 				isLogin: action,
 				signUp: action,
 				signIn: action,
 				logout: action,
+				toggleTheme: action
 			},
 			{ deep: true }
 		);
 	}
+
+	toggleTheme = () => {
+		const theme = this.theme === 'light' ? 'dark' : 'light';
+		if (this.user) {
+			this.userOnChapaev.changeThemeOnChapaev({ user: { ...this.user, theme } })
+				.then(() => this.theme = theme);
+		}
+	};
 
 	isLogin = (navigate: NavigateFunction) => {
 		this.errorText = '';
@@ -39,6 +52,13 @@ export class AuthorizationStore {
 			.then(({ data, message }) => {
 				if (data) {
 					this.user = data;
+
+					const userWithoutId: any = omitProps(this.user, ['id']);
+
+					this.userOnChapaev.createUserOnChapaev({ ...userWithoutId, theme: this.theme })
+						.then(({ data }) => {
+							this.theme = data!.theme;
+						});
 				}
 
 				if (message) {
@@ -49,7 +69,7 @@ export class AuthorizationStore {
 	};
 
 	getOAuthServiceId = () => {
-		return this.oauth
+		this.oauth
 			.getCode()
 			.then(res =>
 				window.location.replace(

@@ -1,4 +1,5 @@
-import { Component, ComponentType, ErrorInfo, Fragment, ReactNode } from 'react';
+//@ts-ignore
+import React, { Component, ComponentType, ErrorInfo, Fragment, ReactNode } from 'react';
 
 type ErrorHandler = (error: Error, info: ErrorInfo) => void;
 type ErrorHandlingComponent<Props> = (props: Props, error?: Error) => ReactNode;
@@ -28,7 +29,7 @@ export const Catch = <Props extends object>(
 		};
 
 		render = () => {
-			return <Inner error={this.state.error} props={this.props} />;
+			return <Inner error={this.state.error} props={this.props}/>;
 		};
 	};
 };

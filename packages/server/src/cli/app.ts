@@ -1,13 +1,21 @@
+// import * as dotenv from 'dotenv';
 import express, { Application } from 'express';
 import * as http from 'http';
 import type { ExpressMiddleware } from '../types/express';
 import type { ControllerBase } from '../types/IControllerBase.interface';
+import { ssr } from './ssr';
+
+// dotenv.config();
 
 export class App {
 	public app: Application;
 	public port: number;
 
-	constructor(appInit: { port: number, middleWares: ExpressMiddleware[], controllers: ControllerBase[] }) {
+	constructor(appInit: {
+    port: number;
+    middleWares: ExpressMiddleware[];
+    controllers: ControllerBase[];
+  }) {
 		this.app = express();
 		this.port = appInit.port;
 
@@ -33,10 +41,15 @@ export class App {
 		middleWares.forEach((middleWare: ExpressMiddleware) => {
 			this.app.use(middleWare);
 		});
+
+		setTimeout(async () => {
+			await ssr(this.app);
+		}, 0);
+
 	};
 
 	private routes = (controllers: ControllerBase[]) => {
-		controllers.forEach((controller) => {
+		controllers.forEach(controller => {
 			this.app.use('/', controller.router);
 		});
 	};

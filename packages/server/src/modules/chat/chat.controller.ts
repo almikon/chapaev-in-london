@@ -1,16 +1,25 @@
-import Router, { Express, Request as IRequest, Response as IResponse } from 'express';
+import Router, {
+	Express,
+	Request as IRequest,
+	Response as IResponse,
+} from 'express';
 
 import { HttpCode } from '../../assets/constants';
 import { createChatValidator } from '../../midleware/validation/chat/createChat.validator';
 import { checkDataUserValidator } from '../../midleware/validation/user/checkDataUserValidator';
 import { ControllersPath } from '../../types/controllersPath';
-import { ChatColumns, ChatDto, UserColumns, UserDto } from '../../types/database';
+import {
+	ChatColumns,
+	ChatDto,
+	UserColumns,
+	UserDto,
+} from '../../types/database';
 import type { ControllerBase } from '../../types/IControllerBase.interface';
 import type { ChatServiceType } from '../../types/servicesTypes';
 import type { UserEntity } from '../users/user.entity';
 
 export class ChatController implements ControllerBase {
-	private path = ControllersPath.Chat;
+	private path = ControllersPath.Api + ControllersPath.Chat;
 	public router: Express = Router();
 	private services: ChatServiceType;
 
@@ -21,13 +30,18 @@ export class ChatController implements ControllerBase {
 
 	public initRoutes = () => {
 		this.router.get(this.path, this.findAll);
-		this.router.post(this.path, checkDataUserValidator, createChatValidator, this.create);
+		this.router.post(
+			this.path,
+			checkDataUserValidator,
+			createChatValidator,
+			this.create
+		);
 	};
 
 	private findAll = async (_req: IRequest, res: IResponse) => {
-		return res.status(HttpCode.OK).send(
-			await this.services.chatService.findAll()
-		);
+		return res
+			.status(HttpCode.OK)
+			.send(await this.services.chatService.findAll());
 	};
 
 	private create = async (req: IRequest, res: IResponse) => {
@@ -36,7 +50,7 @@ export class ChatController implements ControllerBase {
 		let userEntity: UserEntity;
 
 		userEntity = await this.services.userService.findOneByFilter({
-			[UserColumns.Login]: user.login
+			[UserColumns.Login]: user.login,
 		});
 
 		if (!userEntity) {
@@ -47,9 +61,10 @@ export class ChatController implements ControllerBase {
 			[ChatColumns.Title]: title,
 			[ChatColumns.User]: userEntity,
 			[ChatColumns.UserId]: userEntity.id,
-			[ChatColumns.LastMessageId]: null
+			[ChatColumns.LastMessageId]: null,
 		};
-		return res.status(HttpCode.OK).send(await this.services.chatService.create(createChatDto));
+		return res
+			.status(HttpCode.OK)
+			.send(await this.services.chatService.create(createChatDto));
 	};
 }
-

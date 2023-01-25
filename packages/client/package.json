@@ -7,7 +7,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run build:ssr && npm run build:spa",
+    "build:spa": "tsc && vite build --config vite.config.ts",
+    "build:ssr": "tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "fix": "eslint . --fix",
@@ -22,6 +24,7 @@
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-preset-env": "^1.7.0",
     "dotenv": "16.0.2",
+    "eslint": "8.22.0",
     "mobx": "<=6.6.2",
     "mobx-react-lite": "<=3.4.0",
     "nanoid": "4.0.0",
@@ -31,7 +34,8 @@
     "react-router-dom": "<=6.4.3",
     "react-test-renderer": "^18.2.0",
     "sass": "1.55.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "vite": "3.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

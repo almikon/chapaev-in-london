@@ -7,12 +7,15 @@ export class Api extends HTTPTransport {
 	protected readonly url: string;
 
 	private headers: Headers = {
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json',
+		'Access-Control-Allow-Origin': '*',
+
 	};
 
 	protected options: OptionsWithoutMethod = {
 		headers: this.headers,
-		withCredentials: true
+		withCredentials: true,
+		crossDomain: true,
 	};
 
 	constructor(url: string) {

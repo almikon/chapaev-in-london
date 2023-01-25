@@ -14,6 +14,7 @@ export type Options = {
   data?: any;
   headers: Headers;
   withCredentials?: boolean;
+  crossDomain?: true;
 };
 
 export type RequestOptions = {
