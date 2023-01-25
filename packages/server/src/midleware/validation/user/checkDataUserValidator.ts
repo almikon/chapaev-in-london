@@ -22,6 +22,5 @@ export const checkDataUserValidator = (
 ) => {
 	const errorMessage = 'Invalid data user';
 	const data = req.body.user;
-
 	return checkErrorOrNext<UserDto>(res, next, schema, data, errorMessage);
 };

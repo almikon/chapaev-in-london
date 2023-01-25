@@ -15,7 +15,6 @@ export const CreateChatForm: FC<CreateChatFormProps> = ({ handleForm }) => {
 
 	const handleSubmit = (e: SyntheticEvent) => {
 		e.preventDefault();
-
 		if (title) {
 			handleForm(title);
 		}

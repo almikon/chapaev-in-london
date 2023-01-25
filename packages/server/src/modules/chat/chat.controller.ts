@@ -19,7 +19,7 @@ import type { ChatServiceType } from '../../types/servicesTypes';
 import type { UserEntity } from '../users/user.entity';
 
 export class ChatController implements ControllerBase {
-	private path = ControllersPath.Chat;
+	private path = ControllersPath.Api + ControllersPath.Chat;
 	public router: Express = Router();
 	private services: ChatServiceType;
 

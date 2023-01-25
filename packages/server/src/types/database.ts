@@ -24,7 +24,19 @@ export enum UserColumns {
   Phone = 'phone',
   Avatar = 'avatar',
   Chat = 'chat',
+  Comments = 'comments',
   Theme = 'theme',
+}
+
+export enum CommentsColumns {
+  Id = 'id',
+  Message = 'message',
+  Parent_comment_id = 'parent_comment_id',
+  UserId = 'user_id',
+  User = 'user',
+  Chat_id = 'chat_id',
+  ParentUser = 'parent_user',
+  ParentDate = 'parent_date'
 }
 
 export type ChatDto = {
@@ -44,6 +56,16 @@ export type UserDto = {
   [UserColumns.Phone]: string;
   [UserColumns.Avatar]: string;
   [UserColumns.Theme]: string;
+};
+
+export type CommentsDto = {
+  [CommentsColumns.Message]: string;
+  [CommentsColumns.User]:UserEntity;
+  [CommentsColumns.Parent_comment_id]: number | null;
+  [CommentsColumns.Chat_id]: number;
+  [CommentsColumns.UserId]:number;
+  [CommentsColumns.ParentUser]: string;
+  [CommentsColumns.ParentDate]: string;
 };
 
 export type UserUpdateDto = UserDto & {

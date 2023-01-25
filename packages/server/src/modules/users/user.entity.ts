@@ -10,6 +10,7 @@ import {
 } from 'sequelize-typescript';
 import { NameDB, UserColumns } from '../../types/database';
 import { ChatEntity } from '../chat/chat.entity';
+import { CommentsEntity } from '../comments/comments.entity';
 
 @Table({
 	tableName: NameDB.USER,
@@ -47,4 +48,7 @@ export class UserEntity extends Model<UserEntity> {
 
 	@HasMany(() => ChatEntity)
 	[UserColumns.Chat]: ChatEntity[];
+
+	@HasMany(() => CommentsEntity)
+	[UserColumns.Comments]: CommentsEntity[];
 }

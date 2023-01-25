@@ -8,6 +8,7 @@ import {
 	DB_USER,
 } from '../config/config.env';
 import { ChatEntity } from '../modules/chat/chat.entity';
+import { CommentsEntity } from '../modules/comments/comments.entity';
 import { UserEntity } from '../modules/users/user.entity';
 
 console.log(
@@ -29,7 +30,7 @@ const somethingIsNotDefined = [
 ].some(it => it === undefined);
 
 if (somethingIsNotDefined) {
-	throw new Error('One or more ronmental variables are not defined');
+	throw new Error('One or more environmental variables are not defined');
 }
 
 const sequelizeOptions: SequelizeOptions = {
@@ -39,7 +40,7 @@ const sequelizeOptions: SequelizeOptions = {
 	password: DB_PASSWORD,
 	database: DB_NAME,
 	dialect: DB_DIALECT,
-	models: [ChatEntity, UserEntity],
+	models: [ChatEntity, UserEntity, CommentsEntity]
 };
 
 const sequelize = new Sequelize(sequelizeOptions);

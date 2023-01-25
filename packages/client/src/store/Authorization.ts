@@ -69,7 +69,7 @@ export class AuthorizationStore {
 	};
 
 	getOAuthServiceId = () => {
-		return this.oauth
+		this.oauth
 			.getCode()
 			.then(res =>
 				window.location.replace(

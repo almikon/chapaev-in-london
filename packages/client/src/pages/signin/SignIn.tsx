@@ -16,9 +16,6 @@ export const SignIn: FC = () => {
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
 
-	const [loginError, setLoginError] = useState(false);
-	const [passwordError, setPasswordError] = useState(false);
-
 	const handleChangeLogin = async (e: ChangeEvent<HTMLInputElement>) => {
 		setLogin(e.currentTarget.value);
 	};
@@ -35,16 +32,11 @@ export const SignIn: FC = () => {
 			password
 		};
 
-		if (
-			!loginError &&
-      !passwordError
-		) {
-			stores.authorizationStore.signIn(data, navigate);
-		}
+		stores.authorizationStore.signIn(data, navigate);
 	};
 
 	const handleYandexOAuth = () => {
-		return stores.authorizationStore.getOAuthServiceId();
+		stores.authorizationStore.getOAuthServiceId();
 	};
 
 	return (
@@ -56,18 +48,14 @@ export const SignIn: FC = () => {
 				<LoginInput
 					value={login}
 					onChange={handleChangeLogin}
-					loginError={loginError}
-					setLoginError={setLoginError}
 				/>
 				<PasswordInput
 					value={password}
 					onChange={handleChangePassword}
-					passwordError={passwordError}
-					setPasswordError={setPasswordError}
 				/>
 
 				<Button
-					type={'button'}
+					type={'submit'}
 					variant={'primary'}
 					size={'medium'}
 					value={'SIGN IN'}
@@ -82,7 +70,6 @@ export const SignIn: FC = () => {
 					name={'button-oauth'}
 					onClick={handleYandexOAuth}
 				/>
-
 				<p>
 					<Link to={RoutePaths.SIGN_UP}>Create an account</Link>
 				</p>
