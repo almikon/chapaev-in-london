@@ -34,6 +34,7 @@ export const SecondNameInput: FC<SecondNameProps> = ({ value, onChange }) => {
 				maxLength={maxLength}
 				required={isRequired}
 				onChange={onChange}
+				pattern={Validation.NAME}
 			/>
 			{error
 				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>

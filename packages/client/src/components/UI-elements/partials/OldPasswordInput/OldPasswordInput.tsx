@@ -36,6 +36,7 @@ export const OldPasswordInput: FC<OldPasswordProps> = ({ value, onChange }) => {
 				maxLength={maxLength}
 				required={isRequired}
 				onChange={onChange}
+				pattern={Validation.PASSWORD}
 			/>
 			{error
 				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
