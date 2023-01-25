@@ -10,7 +10,7 @@ const schema = Joi.object().keys({
 	display_name: Joi.string().allow(null, ''),
 	login: Joi.string().required().trim(),
 	email: Joi.string().email().required().trim(),
-	phone: Joi.string().required().trim(),
+	phone: Joi.string().required().trim().allow(null, ''),
 	avatar: Joi.string().allow(null, ''),
 	theme: Joi.string().allow(null, 'light', 'dark')
 });

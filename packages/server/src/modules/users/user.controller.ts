@@ -8,8 +8,8 @@ import type { UserServiceType } from '../../types/servicesTypes';
 
 export class UserController implements ControllerBase {
 	public router: Express = Router();
-	private pathUser = ControllersPath.User;
-	private pathUserTheme = ControllersPath.UserTheme;
+	private pathUser = ControllersPath.Api + ControllersPath.User;
+	private pathUserChange = ControllersPath.Api + ControllersPath.UserChange;
 	private services: UserServiceType;
 
 	constructor(services: UserServiceType) {
@@ -19,24 +19,27 @@ export class UserController implements ControllerBase {
 
 	public initRoutes = () => {
 		this.router.post(this.pathUser, this.findUser);
-		this.router.put(this.pathUserTheme, checkDataUserValidator, this.changeUser);
+		this.router.put(this.pathUserChange, checkDataUserValidator, this.changeUser);
+		this.router.get(this.pathUser, this.findUsers.bind(this));
 	};
 
-	private findOrCreateUserEntity = async (user: UserDto) => {
-		let userEntity = await this.services.userService.findOneByFilter({
-			[UserColumns.Login]: user.login
-		});
-		if (!userEntity) {
-			userEntity = await this.services.userService.create(user);
-		}
-		return userEntity;
+	private findUsers = async (_req: IRequest, res: IResponse) => {
+		const users = await this.services.userService.findAll();
+		return res.status(HttpCode.OK).send(users);
 	};
 
 	private findUser = async (req: IRequest, res: IResponse) => {
 		const user = req.body as UserDto;
-		const userEntity = await this.findOrCreateUserEntity(user);
 
-		return res.status(HttpCode.OK).send(await userEntity);
+		const findUser = await this.services.userService.findOneByFilter({
+			[UserColumns.Login]: user[UserColumns.Login]
+		});
+
+		if (findUser) {
+			return res.status(HttpCode.OK).send(findUser);
+		}
+
+		return res.status(HttpCode.OK).send(await this.services.userService.create(user));
 	};
 
 	private changeUser = async (req: IRequest, res: IResponse) => {

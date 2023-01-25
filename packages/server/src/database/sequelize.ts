@@ -1,24 +1,8 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import {
-	DB_DIALECT,
-	DB_HOST,
-	DB_NAME,
-	DB_PASSWORD,
-	DB_PORT,
-	DB_USER,
-} from '../config/config.env';
+import { DB_DIALECT, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from '../config/config.env';
 import { ChatEntity } from '../modules/chat/chat.entity';
 import { CommentsEntity } from '../modules/comments/comments.entity';
 import { UserEntity } from '../modules/users/user.entity';
-
-console.log(
-	DB_DIALECT,
-	DB_HOST,
-	DB_NAME,
-	DB_PASSWORD,
-	DB_PORT,
-	DB_USER,
-);
 
 const somethingIsNotDefined = [
 	DB_DIALECT,
@@ -26,7 +10,7 @@ const somethingIsNotDefined = [
 	DB_USER,
 	DB_PASSWORD,
 	DB_HOST,
-	DB_PORT,
+	DB_PORT
 ].some(it => it === undefined);
 
 if (somethingIsNotDefined) {

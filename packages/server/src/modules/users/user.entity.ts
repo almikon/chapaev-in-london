@@ -1,19 +1,10 @@
-import {
-	AutoIncrement,
-	Column,
-	DataType,
-	HasMany,
-	Index,
-	Model,
-	PrimaryKey,
-	Table,
-} from 'sequelize-typescript';
+import { AutoIncrement, Column, DataType, HasMany, Index, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { NameDB, UserColumns } from '../../types/database';
 import { ChatEntity } from '../chat/chat.entity';
 import { CommentsEntity } from '../comments/comments.entity';
 
 @Table({
-	tableName: NameDB.USER,
+	tableName: NameDB.USER
 	})
 export class UserEntity extends Model<UserEntity> {
 	@AutoIncrement

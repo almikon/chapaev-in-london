@@ -1,19 +1,10 @@
-import Router, {
-	Express,
-	Request as IRequest,
-	Response as IResponse,
-} from 'express';
+import Router, { Express, Request as IRequest, Response as IResponse } from 'express';
 
 import { HttpCode } from '../../assets/constants';
 import { createChatValidator } from '../../midleware/validation/chat/createChat.validator';
 import { checkDataUserValidator } from '../../midleware/validation/user/checkDataUserValidator';
 import { ControllersPath } from '../../types/controllersPath';
-import {
-	ChatColumns,
-	ChatDto,
-	UserColumns,
-	UserDto,
-} from '../../types/database';
+import { ChatColumns, ChatDto, UserColumns, UserDto } from '../../types/database';
 import type { ControllerBase } from '../../types/IControllerBase.interface';
 import type { ChatServiceType } from '../../types/servicesTypes';
 import type { UserEntity } from '../users/user.entity';
@@ -50,7 +41,7 @@ export class ChatController implements ControllerBase {
 		let userEntity: UserEntity;
 
 		userEntity = await this.services.userService.findOneByFilter({
-			[UserColumns.Login]: user.login,
+			[UserColumns.Login]: user.login
 		});
 
 		if (!userEntity) {
@@ -61,7 +52,7 @@ export class ChatController implements ControllerBase {
 			[ChatColumns.Title]: title,
 			[ChatColumns.User]: userEntity,
 			[ChatColumns.UserId]: userEntity.id,
-			[ChatColumns.LastMessageId]: null,
+			[ChatColumns.LastMessageId]: null
 		};
 		return res
 			.status(HttpCode.OK)
