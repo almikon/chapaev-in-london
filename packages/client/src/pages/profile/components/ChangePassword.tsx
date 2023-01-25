@@ -10,7 +10,7 @@ import { ChangePasswordsDto } from '../../../types/dto/user.dto';
 import styles from '../Profile.module.sass';
 
 type ChangePasswordProps = {
-  handleChangePasswordButtonClick: () => void;
+	handleChangePasswordButtonClick: () => void;
 };
 
 export const ChangePassword: FC<ChangePasswordProps> = ({ handleChangePasswordButtonClick }) => {
@@ -40,7 +40,7 @@ export const ChangePassword: FC<ChangePasswordProps> = ({ handleChangePasswordBu
 		e.preventDefault();
 		const data: ChangePasswordsDto = {
 			oldPassword: oldPassword,
-			newPassword: newPassword,
+			newPassword: newPassword
 		};
 		await apiService.getUsersApi().changePasswords(data)
 			.then((res) => {
@@ -80,7 +80,7 @@ export const ChangePassword: FC<ChangePasswordProps> = ({ handleChangePasswordBu
 
 			{saveButtonState && newPassword && newPassword === checkNewPassword ?
 				<Button
-					type={'button'}
+					type={'submit'}
 					variant={'primary'}
 					size={'medium'}
 					value={'Save'}

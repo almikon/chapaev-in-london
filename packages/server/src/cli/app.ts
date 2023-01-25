@@ -50,6 +50,7 @@ export class App {
 
 	private routes = (controllers: ControllerBase[]) => {
 		controllers.forEach(controller => {
+
 			this.app.use('/', controller.router);
 		});
 	};

@@ -5,6 +5,8 @@ import { UserColumns } from '../../types/database';
 import type { UserEntity } from './user.entity';
 
 export class UserService {
+	static instance: UserService;
+
 	private readonly repository: any;
 
 	constructor(sequelize: Sequelize) {
@@ -15,8 +17,12 @@ export class UserService {
 		return await this.repository.create(createUserDto);
 	};
 
+	public findAll = async () => {
+		return this.repository.findAll();
+	};
+
 	public findOneByFilter = async (where: WhereOptions<UserEntity>) => {
-		return await this.repository.findOne({
+		return this.repository.findOne({
 			where
 		});
 	};

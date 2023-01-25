@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { apiService  } from '../../api/ApiService';
 import { Button } from '../../components/UI-elements/Button/Button';
 import { GameEngine } from '../../gameEngine/GameEngine';
 import { GameStats } from '../../gameEngine/GameStats';
@@ -79,6 +80,9 @@ export const Game = () => {
 		const gameViz = new GameVizualiser(game, containerRef.current);
 		gameViz.onGameEnd = playerId => {
 			setWinnerId(playerId);
+			if (playerId === 1 && gameStats?.player1Score) {
+				apiService.getLeaderboardApi().setCurrentUserScore(gameStats?.player1Score);
+			}
 			setGameState('OVER');
 		};
 		const gameType = new GameTypeAi(game);
@@ -159,11 +163,11 @@ export const Game = () => {
 					}}></div>
 				<div ref={statsContainerRef} className={styles.stats}>
 					<div className={styles['stats__stat-container']}>
-						<div className={styles.stats__caption}>Игрок 1: </div>
+						<div className={styles.stats__caption}>Player 1: </div>
 						<div className={styles.stats__value}>{gameStats?.player1Score ?? 0}</div>
 					</div>
 					<div className={styles['stats__stat-container']}>
-						<div className={styles.stats__caption}>Игрок 2: </div>
+						<div className={styles.stats__caption}>Player 2: </div>
 						<div className={styles.stats__value}>{gameStats?.player2Score ?? 0}</div>
 					</div>
 					<div className={styles['stats__fullscreen-container']}>
@@ -172,7 +176,7 @@ export const Game = () => {
 							type="button"
 							variant="secondary"
 							customModifier="button_adaptive"
-							value={isFullscreen ? 'Свернуть' : 'На весь экран'}
+							value={isFullscreen ? 'Minimize' : 'Go fullscreen'}
 							onClick={() => toggleFullscreen()}
 						/>
 					</div>

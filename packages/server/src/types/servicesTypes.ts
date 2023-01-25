@@ -11,3 +11,7 @@ export type CommentsServiceType = {
   commentsService: CommentsService;
   userService: UserService;
 };
+
+export type UserServiceType = {
+  userService: UserService;
+};

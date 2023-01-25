@@ -11,10 +11,10 @@ export const Profile: FC = observer(() => {
 	const [changeDataOrPassword, setChangeDataOrPassword] = useState('data' as 'data' | 'password');
 
 	const toggleDataOrPassword = () => {
+		console.log('toggleDataOrPassword');
 		if (changeDataOrPassword === 'data') {
 			setChangeDataOrPassword('password');
-		}
-		else {
+		} else {
 			setChangeDataOrPassword('data');
 		}
 	};
@@ -26,13 +26,13 @@ export const Profile: FC = observer(() => {
 	return (
 		<div className={styles.profile}>
 			{userData !== null && changeDataOrPassword === 'data' &&
-        <ChangeData
-        	userData={userData}
-        	handleChangePasswordButtonClick={toggleDataOrPassword}/>
+				<ChangeData
+					userData={userData}
+					handleChangePasswordButtonClick={toggleDataOrPassword} />
 			}
 			{userData !== null && changeDataOrPassword === 'password' &&
-        <ChangePassword
-        	handleChangePasswordButtonClick={toggleDataOrPassword}/>
+				<ChangePassword
+					handleChangePasswordButtonClick={toggleDataOrPassword} />
 			}
 			{!userData && 'Загрузка...'}
 		</div>

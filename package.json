@@ -7,14 +7,17 @@
     "build:server": "lerna run build --scope=server",
     "build:client": "lerna run build --scope=chapaevinlondon",
     "dev:client": "lerna run dev --scope=chapaevinlondon",
-    "dev:server": "lerna run dev --scope=server -- server",
+    "dev:server": "lerna run dev --scope=server -- server ",
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "fix": "lerna run fix",
     "format": "lerna run format",
     "preview": "lerna run preview",
-    "preview:server": "lerna run preview --scope=server"
+    "preview:server": "lerna run preview --scope=server  -- server",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:stop": "docker-compose stop"
   },
   "license": "MIT",
   "workspaces": [
