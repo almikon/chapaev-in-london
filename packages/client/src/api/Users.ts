@@ -98,7 +98,7 @@ export class Users extends Api {
 	public changeThemeOnChapaev = async (
 		data: UpdateUserOnChapaevDto
 	): Promise<ApiResponse<any>> => {
-		const url = this.getPathAuth(UsersPaths.THEME);
+		const url = this.getPathAuth(UsersPaths.Change);
 		const options: Options = {
 			...this.options,
 			data
