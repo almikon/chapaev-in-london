@@ -35,6 +35,7 @@ export const CheckPasswordInput: FC<CheckPasswordProps> = ({ value, password, on
 				maxLength={maxLength}
 				required={isRequired}
 				onChange={onChange}
+				pattern={password}
 			/>
 			{error
 				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>

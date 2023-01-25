@@ -34,6 +34,7 @@ export const DisplayNameInput: FC<DisplayNameProps> = ({ value, onChange }) => {
 				maxLength={maxLength}
 				required={isRequired}
 				onChange={onChange}
+				pattern={Validation.DISPLAY_NAME}
 			/>
 			{error
 				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>

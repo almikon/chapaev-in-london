@@ -1,9 +1,9 @@
 import { Cursor, Limit } from './commom.dto';
-import { User } from './user.dto';
 
 export type DataLeaderBoard = {
-  data: Partial<User> & {
-    [key: string]: string | number;
+  data: {
+    userId: number;
+    score: number;
   };
 };
 
