@@ -35,6 +35,7 @@ export const PhoneInput: FC<PhoneProps> = ({ value, onChange }) => {
 				maxLength={maxLength}
 				required={isRequired}
 				onChange={onChange}
+				pattern={Validation.PHONE}
 			/>
 			{error
 				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>

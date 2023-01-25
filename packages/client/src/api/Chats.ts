@@ -27,7 +27,6 @@ export class Chats extends Api {
 		const options: Options = {
 			...this.options
 		};
-
 		return await this.requestProcessing<Chat[]>(url, options, 'get');
 	};
 

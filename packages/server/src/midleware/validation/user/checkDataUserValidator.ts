@@ -16,6 +16,5 @@ const schema = Joi.object().keys({
 export const checkDataUserValidator = (req: Request, res: Response, next: NextFunction) => {
 	const errorMessage = 'Invalid data user';
 	const data = req.body.user;
-
 	return checkErrorOrNext<UserDto>(res, next, schema, data, errorMessage);
 };

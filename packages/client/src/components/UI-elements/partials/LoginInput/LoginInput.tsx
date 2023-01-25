@@ -33,6 +33,7 @@ export const LoginInput: FC<LoginProps> = ({ value, onChange }) => {
 				maxLength={maxLength}
 				required={isRequired}
 				onChange={onChange}
+				pattern={Validation.LOGIN}
 			/>
 			{error
 				? <p className={`${styles.wrapper__errorMessage}`}>{error}</p>
