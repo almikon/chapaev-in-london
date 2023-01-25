@@ -4,9 +4,9 @@ import express from 'express';
 import { sequelize } from '../database/sequelize';
 import { ChatController } from '../modules/chat/chat.controller';
 import { ChatService } from '../modules/chat/chat.service';
-import { UserController } from '../modules/users/user.controller';
 import { CommentsController } from '../modules/comments/comments.controller';
 import { CommentsService } from '../modules/comments/comments.service';
+import { UserController } from '../modules/users/user.controller';
 import { UserService } from '../modules/users/user.service';
 import { App } from './app';
 
