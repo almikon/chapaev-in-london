@@ -116,6 +116,11 @@ module.exports = {
 				'classPropertiesAllowed': true
 			}
 		],
-		'prefer-const': 'error'
+		'prefer-const': 'error',
+    "react/jsx-closing-bracket-location": [1, "after-props"],
+    "react/jsx-max-props-per-line": [1, { "when": "multiline" }],
+    "react/jsx-indent-props": [1, 'tab'],
+    "react/display-name": "off",
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never", "propElementValues": "always" }]
 	}
 };
